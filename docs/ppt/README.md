@@ -8,9 +8,11 @@
 | 文件 | 说明 |
 | --- | --- |
 | `深入理解AI-Agent-全书总览与实践路线.pptx` | 成品演示文稿（13 页，含逐页讲稿备注，可直接用 PowerPoint/WPS 打开） |
+| `深入理解AI-Agent-核心内容一页通.pptx` | 单页版成品（1 页高密度一图流：公式带 + 三列 bento + 收边横带，含讲稿备注） |
 | `slides/slide_01.html ~ slide_13.html` | 逐页源稿（1280×720 独立 HTML，TailwindCSS + global.css） |
 | `slides/global.css` | 全套设计系统（调色板、字号 token、卡片/胶囊/幽灵数字等组件） |
 | `slides/slides_brief.json` | 结构清单（13 页的标题/版式/内容简报，单一事实源） |
+| `onepage/slide_01.html + global.css + slides_brief.json` | 单页版源稿（设计系统与 13 页套系同源） |
 
 ## 十三页结构
 

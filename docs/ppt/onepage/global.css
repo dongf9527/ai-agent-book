@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* ── 深空科技蓝 palette ─────────────────────────── */
+  --bg: #0B1220;
+  --bg-soft: #111A2E;
+  --bg-softer: #16223A;
+  --primary: #F5F1E8;
+  --secondary: rgba(245, 241, 232, 0.70);
+  --muted: rgba(245, 241, 232, 0.45);
+  --faint: rgba(245, 241, 232, 0.28);
+  --accent: #22D3EE;
+  --accent-strong: #67E8F9;
+  --accent-soft: rgba(34, 211, 238, 0.13);
+  --accent-line: rgba(34, 211, 238, 0.35);
+  --line: rgba(148, 163, 184, 0.16);
+  --warm: #FBBF24;
+
+  /* ── typography tokens (family + size only) ────── */
+  --font-heading: 'Noto Serif SC', serif;
+  --font-body: 'Noto Serif SC', serif;
+  --font-cn: 'Noto Serif SC', serif;
+  --font-num: 'JetBrains Mono', monospace;
+
+  --fs-display: 54px;
+  --fs-h1: 38px;
+  --fs-h2: 26px;
+  --fs-h3: 19px;
+  --fs-body: 15px;
+  --fs-small: 12.5px;
+  --fs-micro: 10.5px;
+}
+
+/* ── slide canvas ─────────────────────────────────── */
+.slide {
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg);
+  color: var(--primary);
+  font-family: var(--font-body);
+  box-sizing: border-box;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 460px at 82% -12%, rgba(34, 211, 238, 0.10), transparent 62%),
+    radial-gradient(700px 420px at -8% 108%, rgba(34, 211, 238, 0.06), transparent 58%);
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+/* ── surfaces ─────────────────────────────────────── */
+.card {
+  background: linear-gradient(180deg, var(--bg-softer), var(--bg-soft));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.card-accent {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.12), rgba(34, 211, 238, 0.04));
+  border: 1px solid var(--accent-line);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.card-line-l { border-left: 3px solid var(--accent); }
+
+/* ── small primitives (no font bundling) ──────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  white-space: nowrap;
+}
+
+.chip-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--secondary);
+  white-space: nowrap;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.rule { height: 1px; background: var(--line); }
+.rule-accent { height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
+
+.ghost-num {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(34, 211, 238, 0.30);
+  font-family: var(--font-num);
+  line-height: 1;
+}
+
+.text-accent { color: var(--accent-strong); }
+.text-secondary { color: var(--secondary); }
+.text-muted { color: var(--muted); }
+.text-faint { color: var(--faint); }
+.num { font-family: var(--font-num); }
+
+.glow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px 2px rgba(34, 211, 238, 0.55);
+}
+
+/* speaker notes carrier — never rendered */
+aside[data-notes] { display: none !important; }

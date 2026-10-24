@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>深入理解 AI Agent · 核心内容一页通</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+  html, body { margin:0; padding:0; width:1280px; height:720px; overflow:hidden; background:var(--bg); }
+  /* formula tile */
+  .fx-tile { display:inline-flex; align-items:baseline; white-space:nowrap; padding:5px 13px;
+    border:1px solid var(--line); border-radius:9px;
+    background:linear-gradient(180deg, var(--bg-softer), var(--bg-soft));
+    font-family:var(--font-num); color:var(--primary); }
+  .fx-op  { color:var(--accent-strong); font-weight:700; }
+  .fx-cjk { font-family:var(--font-cn); font-size:.92em; }
+  /* chapter row dividers */
+  .ch-row + .ch-row { border-top:1px solid var(--line); }
+  /* mini flow chip (科学方法) */
+  .mo-chip { display:inline-flex; align-items:center; justify-content:center; padding:2px 9px;
+    border:1px solid var(--accent-line); border-radius:7px; background:var(--accent-soft);
+    color:var(--accent-strong); font-weight:600; white-space:nowrap; }
+  .card-head { display:flex; align-items:center; gap:7px; flex:none; }
+  .card-head .material-icons { font-size:14px; color:var(--accent); }
+  .card-head .hd-t { font-size:12.5px; font-weight:700; letter-spacing:.08em; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="relative flex flex-col" style="width:100%; height:100%; padding:44px 48px;">
+
+    <!-- ═══════════ 头部横带 ═══════════ -->
+    <header class="shrink-0">
+      <div class="flex items-start justify-between" style="gap:24px;">
+        <div style="min-width:0;">
+          <div class="kicker" style="font-size:10.5px; text-transform:none; letter-spacing:.22em;">
+            <span class="glow-dot" data-decor aria-hidden="true" style="width:7px; height:7px;"></span>
+            <span class="num" style="letter-spacing:.3em;">BOOK ONE-PAGER</span>
+            <span style="color:var(--secondary); letter-spacing:.18em;">· 李博杰《深入理解 AI Agent》</span>
+          </div>
+          <h1 style="margin:8px 0 0; font-family:var(--font-heading); font-size:var(--fs-h1); line-height:1.12; font-weight:900; letter-spacing:.015em;">深入理解 AI Agent <span style="color:var(--accent);">·</span> 核心内容一页通</h1>
+        </div>
+        <div class="flex flex-col items-end shrink-0" style="gap:7px; padding-top:5px;">
+          <div class="fx-tile" style="font-size:14px;">Agent <span class="fx-op">=</span> LLM <span class="fx-op">+</span> <span class="fx-cjk">上下文</span> <span class="fx-op">+</span> <span class="fx-cjk">工具</span></div>
+          <div class="fx-tile" style="font-size:14px;"><span class="fx-cjk">生产形态</span> Agent <span class="fx-op">=</span> Model <span class="fx-op">+</span> Harness</div>
+        </div>
+      </div>
+      <div class="rule" style="margin:11px 0 9px;"></div>
+      <!-- meta chips row（头部底缘） -->
+      <div class="flex items-center" style="gap:8px;">
+        <span class="chip-ghost num" style="font-size:10.5px; padding:3px 11px;">Apache-2.0</span>
+        <span class="chip-ghost num" style="font-size:10.5px; padding:3px 11px;">55.7k stars</span>
+        <span class="chip-ghost" style="font-size:10.5px; padding:3px 11px; gap:4px;"><span class="num">10</span><span>章</span><span class="num">7300</span><span>行</span></span>
+        <span class="chip-ghost" style="font-size:10.5px; padding:3px 11px; gap:4px;"><span class="num">109</span><span>实验</span></span>
+        <span class="chip-ghost" style="font-size:10.5px; padding:3px 11px;">三层资产：正文·实验·台账</span>
+        <div class="rule" style="flex:1 1 0;" data-decor aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <!-- ═══════════ 主体三列 bento ═══════════ -->
+    <main class="flex min-h-0" style="flex:1 1 0; margin-top:12px; gap:12px;">
+
+      <!-- ── 左列 31% ── -->
+      <section class="flex flex-col min-h-0" style="flex:31 1 0%; min-width:0; gap:12px;">
+
+        <!-- ① 三要素 -->
+        <div class="card" style="flex:1 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column;">
+          <div class="card-head">
+            <i class="material-icons">hub</i><span class="hd-t">三要素</span>
+          </div>
+          <div class="flex flex-col" style="flex:1 1 0; min-height:0; justify-content:space-evenly;">
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">psychology</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">LLM·大脑</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——理解与决策（Policy）</span>
+            </div>
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">visibility</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">上下文·眼睛</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——决策的信息输入（Observation）</span>
+            </div>
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">construction</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">工具·手脚</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——对世界的改动（Action）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ② Harness 五要素 -->
+        <div class="card" style="flex:1.4 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column;">
+          <div class="card-head">
+            <i class="material-icons">tune</i><span class="hd-t">Harness 五要素</span>
+          </div>
+          <div class="flex flex-col" style="flex:1 1 0; min-height:0; justify-content:space-evenly; margin-top:2px;">
+            <div class="flex items-center" style="gap:9px;">
+              <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">01</span>
+              <span style="font-size:12px; font-weight:600;">上下文管理</span>
+            </div>
+            <div class="flex items-center" style="gap:9px;">
+              <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">02</span>
+              <span style="font-size:12px; font-weight:600;">工具接口</span>
+            </div>
+            <div class="flex items-center" style="gap:9px;">
+              <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">03</span>
+              <span style="font-size:12px; font-weight:600;">约束</span>
+            </div>
+            <div class="flex items-center" style="gap:9px;">
+              <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">04</span>
+              <span style="font-size:12px; font-weight:600;">验证</span>
+            </div>
+            <div class="flex items-center" style="gap:9px;">
+              <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">05</span>
+              <span style="font-size:12px; font-weight:600;">纠正</span>
+            </div>
+          </div>
+          <div class="flex items-center shrink-0" style="gap:6px; border-top:1px solid var(--line); padding-top:7px; margin-top:5px;">
+            <i class="material-icons" style="font-size:12px; color:var(--accent);">bolt</i>
+            <span style="font-size:10.5px; color:var(--secondary); white-space:nowrap;">生产系统大部分代码在做约束·验证·纠正</span>
+          </div>
+        </div>
+
+        <!-- ③ 金句卡 -->
+        <div class="card-accent" style="flex:1 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column; justify-content:space-evenly;">
+          <div class="flex items-start" style="gap:7px;">
+            <i class="material-icons" style="font-size:15px; color:var(--accent); margin-top:2px;">format_quote</i>
+            <div style="font-size:13px; font-weight:700; line-height:1.45;">『Demo 和产品的差距在 <span style="color:var(--accent-strong);">Harness</span>，不在模型』</div>
+          </div>
+          <div style="border-top:1px solid var(--accent-line); padding-top:7px;">
+            <div style="font-size:10.5px; color:var(--secondary);">只改 Harness 不换模型</div>
+            <div class="num" style="margin-top:2px; font-size:19px; font-weight:700; line-height:1.2; white-space:nowrap;">
+              <span style="color:var(--secondary);">52.8%</span>
+              <span style="color:var(--accent); font-size:14px;"> → </span>
+              <span style="color:var(--accent-strong);">66.5%</span>
+              <span style="font-size:10.5px; color:var(--secondary); font-weight:400;">（Anthropic）</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 中列 38%：十章速览 ── -->
+      <section class="card" style="flex:38 1 0%; min-width:0; min-height:0; padding:12px 16px; display:flex; flex-direction:column;">
+        <div class="flex items-baseline justify-between shrink-0" style="gap:10px;">
+          <div class="flex items-center" style="gap:7px;">
+            <i class="material-icons" style="font-size:15px; color:var(--accent);">menu_book</i>
+            <span style="font-size:15px; font-weight:700; letter-spacing:.06em;">十章速览</span>
+          </div>
+          <div style="font-size:10.5px; color:var(--secondary); white-space:nowrap;"><span class="fx-cjk">构建</span> <span class="num" style="color:var(--primary);">ch1–6</span> <span class="num" style="color:var(--accent);">→</span> <span class="fx-cjk">提升</span> <span class="num" style="color:var(--primary);">ch7–10</span></div>
+        </div>
+        <div class="flex flex-col" style="flex:1 1 0; min-height:0; margin-top:5px;">
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">01</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">入门</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——三要素·ReAct·Harness 总纲</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">02</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">上下文工程</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——KV Cache 友好·Skills·压缩<span style="color:var(--warm);">（全书最关键）</span></span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">03</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">记忆与知识库</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——跨会话记忆·RAG·Agentic 检索</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">04</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">工具</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——五分类·MCP·感知控量·执行控险</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">05</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">Coding Agent</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——代码是创造工具的工具（<span class="num">16</span> 实验）</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">06</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">交互扩展</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——异步·语音·Computer Use·机器人</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">07</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">评估</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——<span class="num">Pass@k / Pass^k</span>·失败归因·LLM-as-a-Judge</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">08</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">后训练</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——SFT 记忆·RL 泛化·蒸馏（需 GPU）</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">09</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">持续进化</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——经验沉淀为知识/指令/程序/参数</span>
+          </div>
+          <div class="ch-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="num" style="width:18px; flex:none; font-size:10.5px; font-weight:700; color:var(--accent);">10</span>
+            <span style="width:90px; flex:none; font-size:12.5px; font-weight:700; white-space:nowrap;">多 Agent 协作</span>
+            <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——新信息判据·六种失败模式</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 右列 31% ── -->
+      <section class="flex flex-col min-h-0" style="flex:31 1 0%; min-width:0; gap:12px;">
+
+        <!-- ① 五个设计模式 -->
+        <div class="card" style="flex:1.35 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column;">
+          <div class="card-head">
+            <i class="material-icons">auto_awesome</i><span class="hd-t">五个设计模式</span>
+          </div>
+          <div class="flex flex-col" style="flex:1 1 0; min-height:0; justify-content:space-evenly;">
+            <div class="flex items-baseline">
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">提议者—审核者</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">·产出与评判分离</span>
+            </div>
+            <div class="flex items-baseline">
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">渐进式披露</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">·目录先行按需加载</span>
+            </div>
+            <div class="flex items-baseline">
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">只增不改</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">·追加演进可审计</span>
+            </div>
+            <div class="flex items-baseline">
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">边界集+保留集</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">·改动与回归同测</span>
+            </div>
+            <div class="flex items-baseline">
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">最小 diff+可回滚</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">·小步带源可撤销</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ② 科学方法 -->
+        <div class="card" style="flex:1.1 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column;">
+          <div class="card-head">
+            <i class="material-icons">science</i><span class="hd-t">科学方法</span>
+          </div>
+          <div class="flex flex-col" style="flex:1 1 0; min-height:0; justify-content:space-evenly; margin-top:2px;">
+            <div class="flex items-center" style="gap:6px;">
+              <span class="mo-chip" style="font-size:11px;">观察</span>
+              <i class="material-icons" style="font-size:12px; color:var(--accent);">east</i>
+              <span class="mo-chip" style="font-size:11px;">假设</span>
+              <i class="material-icons" style="font-size:12px; color:var(--accent);">east</i>
+              <span class="mo-chip" style="font-size:11px;">实验</span>
+              <i class="material-icons" style="font-size:12px; color:var(--accent);">east</i>
+              <span class="mo-chip" style="font-size:11px;">验证</span>
+            </div>
+            <div style="border-top:1px solid var(--line); padding-top:7px;">
+              <div class="flex items-center" style="gap:6px;">
+                <i class="material-icons" style="font-size:12px; color:var(--accent);">update</i>
+                <span style="font-size:11.5px; font-weight:700; letter-spacing:.05em;">三条更新路径</span>
+              </div>
+              <div style="margin-top:4px; font-size:10.5px; color:var(--secondary); white-space:nowrap;">上下文内适应·周级 ｜ 外部产物沉淀·月级 ｜ 参数更新·季度级</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 演化与安全 -->
+        <div class="card" style="flex:1.05 1 0; min-height:0; padding:11px 14px; display:flex; flex-direction:column;">
+          <div class="card-head">
+            <i class="material-icons">verified_user</i><span class="hd-t">演化与安全</span>
+          </div>
+          <div class="flex flex-col" style="flex:1 1 0; min-height:0; justify-content:space-evenly;">
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">autorenew</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">飞轮</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——模型逐层吃掉 Harness，但没有吃完的一天</span>
+            </div>
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">cloud</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">两朵乌云</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——流式实时交互 · 持续经验积累</span>
+            </div>
+            <div class="flex items-center" style="gap:8px;">
+              <i class="material-icons" style="font-size:13px; color:var(--accent);">layers</i>
+              <span style="font-size:12px; font-weight:700; white-space:nowrap;">三层护栏</span>
+              <span style="font-size:10.8px; color:var(--secondary); white-space:nowrap;">——上下文层·执行层·数据层</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════ 底部收边横带 ═══════════ -->
+    <footer class="shrink-0 flex items-center justify-between" style="margin-top:12px; border-top:1px solid var(--line); padding-top:10px; gap:16px;">
+      <div class="flex items-center" style="gap:9px;">
+        <i class="material-icons" style="font-size:17px; color:var(--accent);">format_quote</i>
+        <span style="font-family:var(--font-heading); font-size:15px; font-weight:700; color:var(--accent-strong); letter-spacing:.04em;">『没有评估，就没有进步。』</span>
+      </div>
+      <div class="num" style="font-size:10.8px; color:var(--secondary); white-space:nowrap;"><span class="fx-cjk">学习仓库</span> github.com/dongf9527/ai-agent-book <span>·</span> <span class="fx-cjk">笔记与</span> PPT <span class="fx-cjk">全部入库</span> docs/ <span>·</span> 2026-10-24</div>
+    </footer>
+
+  </div>
+</div>
+
+<aside data-notes class="hidden">本页是全书一图流。先看公式：能用三个槽位拆解任意 Agent 产品——模型、上下文、工具；生产形态下重心移到 Harness 五要素：上下文管理、工具接口、约束、验证、纠正。模型商品化后，工程价值集中在 Harness，52.8% 到 66.5% 就是注脚。再沿十章管道从构建走到提升：上下文工程是全书最关键一章，评估（ch7）是提升篇的共同前提——先有可信信号才谈得上提升；没有评估就没有进步。随后是五个可复用设计模式与科学方法循环：观察→假设→实验→验证；三条更新路径按可回滚程度从高到低：上下文内适应、外部产物沉淀、参数更新。最后是演化飞轮——模型逐层吃掉 Harness 但没有吃完的一天、两朵乌云与三层安全护栏。</aside>
+</body>
+</html>
