@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>演化主线：飞轮、两朵乌云与安全观</title>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  .s9-step{background:rgba(245,241,232,0.04);border:1px solid var(--line);border-radius:10px;padding:10px 13px;display:flex;flex-direction:column;justify-content:center;gap:6px;}
+  .s9-step p{font-size:var(--fs-small);line-height:1.6;color:var(--secondary);}
+  .s9-step .num{font-size:var(--fs-micro);color:var(--accent-strong);font-weight:700;letter-spacing:0.1em;}
+  .s9-arrow{color:var(--accent);font-size:20px;}
+  .s9-sec{font-size:var(--fs-h3);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="h-full flex flex-col" style="padding:50px 64px 44px;">
+
+    <!-- header -->
+    <header class="flex items-end justify-between">
+      <div>
+        <div class="kicker" style="font-size:var(--fs-small);"><span data-decor style="display:inline-block;width:26px;height:2px;background:var(--accent);"></span>主线五 · 演化主线</div>
+        <h1 style="font-family:var(--font-heading);font-size:var(--fs-h1);font-weight:900;line-height:1.3;margin-top:12px;">模型吃掉 <span class="num">Harness</span>，<span class="text-accent">飞轮向前</span></h1>
+      </div>
+      <div class="text-muted" style="font-size:var(--fs-small);padding-bottom:8px;letter-spacing:0.08em;">飞轮 · 两朵乌云 · 安全观</div>
+    </header>
+    <div class="rule-accent" data-decor style="width:132px;margin-top:16px;"></div>
+
+    <!-- body -->
+    <div class="flex-1 flex" style="gap:22px;margin-top:22px;">
+
+      <!-- flywheel -->
+      <div class="card flex flex-col" style="width:46%;padding:20px 22px;">
+        <div class="flex items-center" style="gap:9px;">
+          <i class="material-icons text-accent" style="font-size:20px;">autorenew</i>
+          <span class="s9-sec">能力飞轮</span>
+        </div>
+        <div class="flex-1 grid" style="grid-template-columns:1fr 92px 1fr;grid-template-rows:1fr 86px 1fr;margin-top:12px;">
+          <div class="s9-step" style="grid-area:1/1;"><span class="num">01</span><p><span class="num">Harness</span> 补上模型暂时做不稳的事</p></div>
+          <div class="flex items-center justify-center" aria-hidden="true" data-decor style="grid-area:1/2;"><i class="material-icons s9-arrow">east</i></div>
+          <div class="s9-step" style="grid-area:1/3;"><span class="num">02</span><p>补救沉淀为下一轮训练信号</p></div>
+          <div class="flex items-center justify-center" aria-hidden="true" data-decor style="grid-area:2/3;"><i class="material-icons s9-arrow">south</i></div>
+          <div class="s9-step" style="grid-area:3/3;"><span class="num">03</span><p>模型内化后对应 <span class="num">Harness</span> 层被删掉</p></div>
+          <div class="flex items-center justify-center" aria-hidden="true" data-decor style="grid-area:3/2;"><i class="material-icons s9-arrow">west</i></div>
+          <div class="s9-step" style="grid-area:3/1;"><span class="num">04</span><p><span class="num">Harness</span> 向新的能力前沿迁移</p></div>
+          <div class="flex items-center justify-center" aria-hidden="true" data-decor style="grid-area:2/1;"><i class="material-icons s9-arrow">north</i></div>
+          <div class="flex items-center justify-center" style="grid-area:2/2;">
+            <div data-decor style="width:80px;height:80px;border-radius:999px;border:1.5px dashed var(--accent-line);background:var(--bg-soft);display:flex;align-items:center;justify-content:center;">
+              <i class="material-icons text-accent" style="font-size:26px;">sync</i>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center" style="gap:9px;margin-top:12px;">
+          <span class="num text-muted" style="font-size:var(--fs-small);">Anthropic</span>
+          <span class="num text-accent" style="font-size:var(--fs-h3);font-weight:700;">52.8% → 66.5%</span>
+        </div>
+      </div>
+
+      <!-- right column -->
+      <div class="flex-1 flex flex-col" style="gap:16px;">
+
+        <div class="card flex flex-col" style="padding:18px 20px;gap:11px;flex:1.2;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">cloud</i>
+            <span class="s9-sec">两朵乌云</span>
+          </div>
+          <div class="flex" style="gap:11px;">
+            <span class="chip-ghost" style="font-size:var(--fs-micro);flex:none;height:fit-content;margin-top:2px;">乌云一</span>
+            <div>
+              <p style="font-size:var(--fs-body);font-weight:600;line-height:1.5;">Agent 如何流式、实时地与环境交互</p>
+              <p class="text-muted" style="font-size:var(--fs-small);margin-top:3px;">快慢分离 / 推理提速两条路</p>
+            </div>
+          </div>
+          <div class="flex" style="gap:11px;">
+            <span class="chip-ghost" style="font-size:var(--fs-micro);flex:none;height:fit-content;margin-top:2px;">乌云二</span>
+            <div>
+              <p style="font-size:var(--fs-body);font-weight:600;line-height:1.5;">如何从交互成败中持续积累经验</p>
+              <p class="text-muted" style="font-size:var(--fs-small);margin-top:3px;line-height:1.6;">小世界 <span class="num">vs</span> 大世界假设之争——<span class="num" style="color:var(--accent-strong);">ch3</span> 记忆与 <span class="num" style="color:var(--accent-strong);">ch9</span> 进化正是对第二朵乌云的回应</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col" style="padding:18px 20px;gap:9px;flex:1;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">security</i>
+            <span class="s9-sec">三层安全护栏</span>
+          </div>
+          <div class="flex items-baseline" style="gap:10px;"><span class="num" style="font-size:var(--fs-micro);color:var(--accent-strong);font-weight:700;">01</span><p style="font-size:var(--fs-small);"><span style="font-weight:700;">上下文层</span><span class="text-muted"> —— 提示注入防御</span></p></div>
+          <div class="flex items-baseline" style="gap:10px;"><span class="num" style="font-size:var(--fs-micro);color:var(--accent-strong);font-weight:700;">02</span><p style="font-size:var(--fs-small);"><span style="font-weight:700;">执行层</span><span class="text-muted"> —— 参数校验、审批、沙箱</span></p></div>
+          <div class="flex items-baseline" style="gap:10px;"><span class="num" style="font-size:var(--fs-micro);color:var(--accent-strong);font-weight:700;">03</span><p style="font-size:var(--fs-small);"><span style="font-weight:700;">数据层</span><span class="text-muted"> —— 脱敏与权限</span></p></div>
+          <div class="flex items-center" style="gap:8px;margin-top:auto;">
+            <i class="material-icons" style="font-size:16px;color:var(--warm);">warning</i>
+            <span style="font-size:var(--fs-small);color:var(--warm);">——从第一行代码就要考虑</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<aside data-notes class="hidden">演化主线讲三件事。第一，能力飞轮：Harness 补上模型暂时做不稳的事，补救沉淀为下一轮训练信号，模型内化后对应 Harness 层被删掉，Harness 再向新的能力前沿迁移——Anthropic 从 52.8% 到 66.5% 就是这条飞轮的实证。工程含义：不要在 Harness 里重复造模型即将内化的轮子，但也不要干等模型。第二，两朵乌云：一是如何流式、实时地与环境交互，走快慢分离与推理提速两条路；二是如何从交互成败中持续积累经验，ch3 记忆与 ch9 进化正是对第二朵乌云的回应。第三，安全观：安全是架构问题不是补丁，上下文、执行、数据三层护栏，从第一行代码就要考虑。</aside>
+</body>
+</html>

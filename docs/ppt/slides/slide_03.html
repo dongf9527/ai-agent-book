@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>03 · 生产形态 — Agent = Model + Harness</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:var(--bg); }
+  body { width:1280px; height:720px; overflow:hidden; }
+  .ha-row {
+    display:flex; align-items:center; gap:12px;
+    padding:10px 12px; border-radius:10px;
+  }
+  .ha-row-hot {
+    background:var(--accent-soft);
+    border-left:3px solid var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="relative h-full flex flex-col" style="padding:48px 64px 42px;">
+      <!-- header -->
+      <header>
+        <div class="flex items-center" style="gap:10px;">
+          <span class="glow-dot"></span>
+          <span class="kicker" style="font-size:var(--fs-small);">主线一 · 公式主线的生产形态</span>
+        </div>
+        <div class="flex items-center" style="gap:26px; margin-top:12px;">
+          <h1 class="num" style="margin:0; font-size:var(--fs-h1); font-weight:700; color:var(--primary); white-space:nowrap;">Agent <span style="color:var(--secondary); font-weight:500;">=</span> Model <span style="color:var(--accent-strong);">+</span> <span class="text-accent" style="text-shadow:0 0 22px rgba(34,211,238,0.35);">Harness</span></h1>
+          <div class="rule" style="flex:1;"></div>
+        </div>
+      </header>
+
+      <!-- split main -->
+      <main class="grid flex-1" style="grid-template-columns:478px 1fr; gap:18px; margin-top:22px; min-height:0;">
+        <!-- left: harness composition -->
+        <article class="card flex flex-col" style="padding:22px 24px 18px;">
+          <span class="kicker" style="font-size:var(--fs-micro);">Harness 的构成</span>
+          <div class="flex flex-col flex-1 justify-between" style="margin-top:14px;">
+            <div class="ha-row">
+              <span class="num" style="font-size:var(--fs-small); font-weight:700; color:var(--accent-strong);">01</span>
+              <i class="material-icons" style="font-size:20px; color:var(--secondary);">layers</i>
+              <span style="font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">上下文管理</span>
+            </div>
+            <div class="ha-row">
+              <span class="num" style="font-size:var(--fs-small); font-weight:700; color:var(--accent-strong);">02</span>
+              <i class="material-icons" style="font-size:20px; color:var(--secondary);">handyman</i>
+              <span style="font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">工具接口</span>
+            </div>
+            <div class="ha-row ha-row-hot">
+              <span class="num" style="font-size:var(--fs-small); font-weight:700; color:var(--accent-strong);">03</span>
+              <i class="material-icons" style="font-size:20px; color:var(--secondary);">rule</i>
+              <span style="font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">约束</span>
+            </div>
+            <div class="ha-row ha-row-hot">
+              <span class="num" style="font-size:var(--fs-small); font-weight:700; color:var(--accent-strong);">04</span>
+              <i class="material-icons" style="font-size:20px; color:var(--secondary);">fact_check</i>
+              <span style="font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">验证</span>
+            </div>
+            <div class="ha-row ha-row-hot">
+              <span class="num" style="font-size:var(--fs-small); font-weight:700; color:var(--accent-strong);">05</span>
+              <i class="material-icons" style="font-size:20px; color:var(--secondary);">autorenew</i>
+              <span style="font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">纠正</span>
+            </div>
+          </div>
+          <div style="margin-top:14px; border-top:1px solid var(--line); padding-top:12px;">
+            <p style="margin:0; font-size:var(--fs-small); line-height:1.7; color:var(--secondary);">Harness 绝大部分代码都在做<strong style="color:var(--accent-strong); font-weight:700;">约束、验证与纠正</strong></p>
+          </div>
+        </article>
+
+        <!-- right: quote + evidence -->
+        <div class="flex flex-col" style="gap:16px; min-height:0;">
+          <article class="card-accent" style="padding:22px 26px;">
+            <i class="material-icons" style="font-size:30px; color:var(--accent);">format_quote</i>
+            <p style="margin:8px 0 0; font-family:var(--font-heading); font-size:var(--fs-h2); font-weight:700; line-height:1.55; color:var(--primary);">『Demo 和产品的差距在 <span class="num text-accent">Harness</span>，不在模型』</p>
+          </article>
+
+          <article class="card flex-1 flex flex-col" style="padding:22px 26px; min-height:0;">
+            <div><span class="chip-ghost num" style="font-size:var(--fs-micro); letter-spacing:0.18em;">ANTHROPIC 实验证据</span></div>
+            <p style="margin:12px 0 0; font-size:var(--fs-small); line-height:1.7; color:var(--secondary);">不换模型只改 Harness</p>
+            <div class="flex items-baseline" style="gap:14px; margin-top:auto; margin-bottom:auto; padding-top:10px;">
+              <span style="font-size:var(--fs-small); color:var(--secondary);">准确率</span>
+              <span class="num" style="font-size:46px; font-weight:700; line-height:1.1; color:var(--primary);">52.8%</span>
+              <i class="material-icons" style="font-size:34px; color:var(--accent); align-self:center;">east</i>
+              <span class="num text-accent" style="font-size:46px; font-weight:700; line-height:1.1; text-shadow:0 0 22px rgba(34,211,238,0.35);">66.5%</span>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <!-- bottom line -->
+      <footer style="margin-top:20px;">
+        <div class="rule" style="margin-bottom:12px;"></div>
+        <div class="flex items-center" style="gap:10px;">
+          <i class="material-icons" style="font-size:18px; color:var(--accent);">autorenew</i>
+          <p style="margin:0; font-size:var(--fs-small); line-height:1.6; color:var(--secondary);">模型会一层一层吃掉 Harness，但没有吃完的那一天（引后记飞轮）</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <aside data-notes class="hidden">进入生产形态，公式变成 Agent = Model + Harness。Harness 是模型外围的工程系统，由五部分组成：上下文管理、工具接口、约束、验证、纠正——可以看到，它绝大部分代码都在做约束、验证与纠正这些工程活。为什么说 Harness 是竞争力所在？因为在模型商品化的背景下，大家能用的模型越来越趋同，工程价值正加速向 Harness 转移，Demo 和产品的差距恰恰在 Harness，不在模型。Anthropic 的实验是最直接的证据：不换模型，只改 Harness，准确率就从 52.8% 提升到 66.5%——这组数字是全书演化主线最直接的注脚。当然，模型会一层一层吃掉 Harness，但工程上总有模型暂时做不稳的事，这正是后面要讲的飞轮，没有吃完的那一天。</aside>
+</body>
+</html>

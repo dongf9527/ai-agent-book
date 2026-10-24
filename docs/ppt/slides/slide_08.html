@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>设计模式主线：五个模式贯穿十章</title>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  .s8-pname{font-size:18px;font-weight:700;color:var(--primary);}
+  .s8-desc{font-size:var(--fs-small);line-height:1.7;color:var(--secondary);}
+  .s8-refs{font-size:var(--fs-micro);line-height:1.8;color:var(--muted);}
+  .s8-refs .num{color:var(--accent-strong);}
+  .s8-icon{font-size:20px;color:var(--accent);opacity:0.85;}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="h-full flex flex-col" style="padding:50px 64px 42px;">
+
+    <!-- header -->
+    <header>
+      <div class="kicker" style="font-size:var(--fs-small);"><span data-decor style="display:inline-block;width:26px;height:2px;background:var(--accent);"></span>主线四 · 设计模式主线</div>
+      <h1 style="font-family:var(--font-heading);font-size:var(--fs-h1);font-weight:900;line-height:1.3;margin-top:12px;">五个模式，<span class="text-accent">全书复用层</span></h1>
+    </header>
+    <div class="rule-accent" data-decor style="width:132px;margin-top:16px;"></div>
+
+    <!-- bento 2 + 3 -->
+    <div class="flex-1 flex flex-col" style="gap:18px;margin-top:22px;">
+
+      <div class="grid grid-cols-2 flex-1" style="gap:18px;">
+        <div class="card flex flex-col" style="padding:18px 22px;gap:8px;">
+          <div class="flex items-center justify-between">
+            <span class="ghost-num" style="font-size:26px;">01</span>
+            <i class="material-icons s8-icon" aria-hidden="true">fact_check</i>
+          </div>
+          <div class="s8-pname">提议者—审核者</div>
+          <p class="s8-desc">产出与评判由不共享上下文的两个角色分别承担——<span class="text-accent" style="font-weight:700;">自审不可靠</span>。</p>
+          <div class="s8-refs" style="margin-top:auto;"><span class="text-faint">首次大放异彩 ·</span> <span class="num">ch4</span> 工具审批/验证、<span class="num">ch5</span> 产物审查、<span class="num">ch9</span> 更新提案</div>
+        </div>
+        <div class="card flex flex-col" style="padding:18px 22px;gap:8px;">
+          <div class="flex items-center justify-between">
+            <span class="ghost-num" style="font-size:26px;">02</span>
+            <i class="material-icons s8-icon" aria-hidden="true">toc</i>
+          </div>
+          <div class="s8-pname">渐进式披露</div>
+          <p class="s8-desc">先给可检索的目录，再按需加载细节。</p>
+          <div class="s8-refs" style="margin-top:auto;"><span class="text-faint">首次大放异彩 ·</span> <span class="num">ch2</span> Agent Skills、<span class="num">ch4</span> 工具发现、<span class="num">ch10</span> Agent 发现</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 flex-1" style="gap:18px;">
+        <div class="card flex flex-col" style="padding:18px 20px;gap:8px;">
+          <div class="flex items-center justify-between">
+            <span class="ghost-num" style="font-size:26px;">03</span>
+            <i class="material-icons s8-icon" aria-hidden="true">post_add</i>
+          </div>
+          <div class="s8-pname">只增不改</div>
+          <p class="s8-desc">状态以追加方式演进，写下不再回头改——可缓存、可重放、可审计。</p>
+          <div class="s8-refs" style="margin-top:auto;"><span class="text-faint">首次大放异彩 ·</span> <span class="num">ch2</span> KV Cache 前缀稳定、<span class="num">ch3</span> 事件式记忆</div>
+        </div>
+        <div class="card flex flex-col" style="padding:18px 20px;gap:8px;">
+          <div class="flex items-center justify-between">
+            <span class="ghost-num" style="font-size:26px;">04</span>
+            <i class="material-icons s8-icon" aria-hidden="true">compare_arrows</i>
+          </div>
+          <div class="s8-pname">边界集 + 保留集</div>
+          <p class="s8-desc">每次修改同时在『应改变的样本』与『不应影响的样本』上验证。</p>
+          <div class="s8-refs" style="margin-top:auto;"><span class="text-faint">首次大放异彩 ·</span> <span class="num">ch7</span> 回归、<span class="num">ch8</span> 训练/评估隔离</div>
+        </div>
+        <div class="card flex flex-col" style="padding:18px 20px;gap:8px;">
+          <div class="flex items-center justify-between">
+            <span class="ghost-num" style="font-size:26px;">05</span>
+            <i class="material-icons s8-icon" aria-hidden="true">undo</i>
+          </div>
+          <div class="s8-pname">最小 <span class="num">diff</span> + 可回滚</div>
+          <p class="s8-desc">修改尽量小、带来源、可单独回滚。</p>
+          <div class="s8-refs" style="margin-top:auto;"><span class="text-faint">首次大放异彩 ·</span> <span class="num">ch3</span> 知识更新、<span class="num">ch5</span> 代码补丁、<span class="num">ch9</span> 更新发布</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- bottom line -->
+    <div class="flex items-center justify-center" style="gap:18px;margin-top:18px;">
+      <div class="rule" style="flex:1;max-width:190px;"></div>
+      <p class="text-muted" style="font-size:var(--fs-small);">第 <span class="num text-accent">1</span> 章一次性命名，第 <span class="num text-accent">2–10</span> 章逐章复用。</p>
+      <div class="rule" style="flex:1;max-width:190px;"></div>
+    </div>
+
+  </div>
+</div>
+<aside data-notes class="hidden">设计模式是全书的复用层：第 1 章一次性命名，第 2–10 章逐章复用。请特别强调：提议者—审核者的成立前提是“自审不可靠”——产出与评判必须由不共享上下文的两个角色分别承担，所以 ch4 做工具审批、ch5 做产物审查、ch9 做更新提案。渐进式披露先给可检索的目录，再按需加载细节；只增不改让状态可缓存、可重放、可审计；边界集加保留集确保改动只落在应改变的样本上；最小 diff 加可回滚控制每次修改的爆炸半径。建议大家把五个模式当作检查清单，用在每次实验复盘里：这次改动触发了哪几个模式，漏掉了哪几个。</aside>
+</body>
+</html>

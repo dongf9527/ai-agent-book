@@ -1,0 +1,93 @@
+{
+  "design": {
+    "title": "深入理解 AI Agent——全书总览与实践路线",
+    "style_name": "深空科技蓝",
+    "palette": { "background": "#0B1220", "primary": "#F5F1E8", "accent": "#22D3EE" },
+    "typography": { "heading": "Noto Serif SC", "body": "Noto Serif SC", "numeric": "JetBrains Mono" },
+    "reference": "深空暗色 keynote：发光青色点缀、衬线中文标题、等宽数字、无照片纯排版"
+  },
+  "global_css_path": "/home/z/my-project/download/slides/global.css",
+  "slides_dir": "/home/z/my-project/download/slides",
+  "language": "zh",
+  "speaker_notes": "full",
+  "slides": [
+    {
+      "title": "封面",
+      "layout": "cover",
+      "output_path": "/home/z/my-project/download/slides/slide_01.html",
+      "task_brief": "封面页，居中偏左构图。kicker：基于开源书的系统学习路线。主标题（--fs-display，衬线 900）：深入理解 AI Agent。副标题（--fs-h2）：全书总览与实践路线。三个 chip：李博杰《深入理解 AI Agent》开源书 ｜ Apache-2.0 ｜ 55.7k stars。底部一行 meta 数据（num 字体，muted）：10 章正文 · 7300 行 Markdown · 109 个可运行实验 · 3 层学习资产。右下角小字：学习仓库 github.com/dongf9527/ai-agent-book ｜ 2026-10-24。装饰：一条 rule-accent 横线 + 右上大面积青色光晕（用 CSS radial-gradient，不用图片）。Speaker notes: 开场白——这套幻灯片讲什么：一本书的全貌（公式、结构、五条主线）+ 一份可执行的十周实践路线；强调这是给开发者/系统学习者的导读，不是书的内容复刻；notes_must_include：109 个实验均配有 EXPERIMENT_LEDGER 证据链、本书 Apache-2.0 可自由二次开发。"
+    },
+    {
+      "title": "公式主线：Agent = LLM + 上下文 + 工具",
+      "layout": "key message / formula split",
+      "output_path": "/home/z/my-project/download/slides/slide_02.html",
+      "task_brief": "页首 kicker：主线一 · 公式主线。大标题：一个公式，两种形态。中央醒目公式（num 字体放大）：Agent = LLM + 上下文 + 工具。下方三张并列卡片：① LLM——大脑：提供理解与决策（学术层对应 Policy）；② 上下文——眼睛：决定每次决策的信息输入（Observation Space）；③ 工具——手脚：决定能对世界做什么改动（Action Space）。底部三个关键判断（每条一行，glow-dot 引导）：眼睛是决定性因素——消融实验表明去掉工具定义或执行结果会直接夺走行动与闭环能力；扩展眼睛和手脚是最主要的能力杠杆——模型固定时重定义观察/动作空间能把不可解任务变为可解；大脑之外仍有竞争力空间——模型能力在商品化。Speaker notes: 讲解三槽位类比与学术术语的对应；强调这是全书第一性原理，后面每章都在改公式的某个部件；notes_must_include：能把任意一个 Agent 产品拆进三个槽位是阶段一的验收标准。"
+    },
+    {
+      "title": "生产形态：Agent = Model + Harness",
+      "layout": "split formula + harness five elements",
+      "output_path": "/home/z/my-project/download/slides/slide_03.html",
+      "task_brief": "页首 kicker：主线一 · 公式主线的生产形态。大标题：Agent = Model + Harness。左侧卡片写 Harness 的构成（竖排五行，每行 num 编号 01-05）：上下文管理 / 工具接口 / 约束 / 验证 / 纠正——说明 Harness 绝大部分代码都在做约束、验证与纠正。右侧两张强调卡：① 金句卡（card-accent）：『Demo 和产品的差距在 Harness，不在模型』；② 数据卡：Anthropic 实验证据——不换模型只改 Harness，准确率 52.8% → 66.5%（num 字体，箭头用 CSS 三角或 material icon east）。底部一行 muted：模型会一层一层吃掉 Harness，但没有吃完的那一天（引后记飞轮）。Speaker notes: 解释为什么 Harness 是竞争力所在、模型商品化背景下工程价值向 Harness 转移；notes_must_include：52.8%→66.5% 是演化主线最直接的注脚。"
+    },
+    {
+      "title": "三层学习资产：怎么用这本书",
+      "layout": "stats bento",
+      "output_path": "/home/z/my-project/download/slides/slide_04.html",
+      "task_brief": "页首 kicker：项目结构。大标题：三层资产，三种用法。三张横向大卡片（各带 num 编号与 material icon）：① 正文 book/——10 章 7300 行 Markdown，pandoc/xelatex 可编译 PDF；用法：通读建立框架。② 实验 chapter1-10/——109 个可运行实验，uv 依赖管理（extras：ch1~ch10 / all / vllm / unsloth）；用法：动手验证概念。③ 台账 EXPERIMENT_LEDGER.md——每个实验留下证据链（假设、数据、结论）；用法：学习科研式做实验的范式。底部一行统计条（num 字体四个大数字 + 标签）：55.7k stars ｜ 10 章 ｜ 109 实验 ｜ Apache-2.0。Speaker notes: 讲三层资产怎么配合使用——读一章正文、跑对应 Starter 实验、把结果记进自己的台账；notes_must_include：本仓库 fork（dongf9527/ai-agent-book）已同步上游全历史，学习笔记提交到 docs/ 目录。"
+    },
+    {
+      "title": "十章地图：难度与实验分布",
+      "layout": "chapter grid map",
+      "output_path": "/home/z/my-project/download/slides/slide_05.html",
+      "task_brief": "页首 kicker：结构总览。大标题：十章地图。两行五列网格（10 张小卡，每卡含章号 num、章名、难度色点、实验数）：ch1 AI Agent 入门·入门级·4 实验；ch2 上下文工程·进阶·10 实验（全书最关键）；ch3 用户记忆和知识库·进阶·12 实验；ch4 工具·进阶·5 实验；ch5 Coding Agent 与通用 Agent·高级·16 实验（实验最多）；ch6 交互：观察与动作空间扩展·高级·14 实验；ch7 Agent 的评估·工程级·14 实验；ch8 模型后训练·专家级·19 实验（唯一需 ML 基础与 GPU）；ch9 Agent 的持续进化·应用级·9 实验；ch10 多 Agent 协作·应用级·6 实验。难度用色点区分：入门/进阶=accent 青色、高级=primary 象牙、工程级=warm 黄、专家级/应用级=暖橙红（#F87171）。底部一行：构建篇 ch1–6 → 提升篇 ch7–10。Speaker notes: 给出阅读顺序建议（1→2→3→4 优先，ch5 实验最多、ch8 需 GPU 与 Python 3.12+）；notes_must_include：官方 Starter 实验清单每章一个：context、context-compression、user-memory、execution-tools、coding-agent、live-audio、tau2-bench-eval、cot-distillation、trajectory-verifier、parallel-web-research。"
+    },
+    {
+      "title": "结构主线：两大问题，三个提升层面",
+      "layout": "split comparison (two stacked flows)",
+      "output_path": "/home/z/my-project/download/slides/slide_06.html",
+      "task_brief": "页首 kicker：主线二 · 结构主线。大标题：先能用，再好用；先闭环，再放大。上半区块『如何构建 Agent』（card，横向六节点流程，chip-ghost 节点 + material icon east 分隔）：ch1 概念 → ch2 上下文 → ch3 记忆 → ch4 工具 → ch5 代码元能力 → ch6 交互扩展。下半区块『如何提升 Agent 能力』（card-accent，四节点）：ch7 评估（三层面的共同前提，标『地基』徽章）→ ch8 模型参数 → ch9 单体系统 → ch10 群体系统。中部一句连接语（secondary）：各章不是书架式并列，而是管道式衔接——评估产生的环境与数据成为后训练的输入与更新提案的依据。Speaker notes: 解释『管道式衔接』举例：ch2 管任务内上下文、ch3 延伸到跨会话、ch7 的评估环境喂给 ch8/ch9；notes_must_include：评估是提升篇的共同前提——先有可信信号，才谈得上提升。"
+    },
+    {
+      "title": "方法论主线：从炼金术到科学工程",
+      "layout": "loop timeline + three update paths",
+      "output_path": "/home/z/my-project/download/slides/slide_07.html",
+      "task_brief": "页首 kicker：主线三 · 方法论主线。大标题：把 Agent 开发从炼金术变成科学工程。上半：科学循环四步横向节点（num 01-04 + 虚线回环表达迭代，纯 CSS border 虚线，不用 SVG）：观察 → 假设 → 实验 → 验证（尾端小字：→ 新认识 → 新假设，回到观察）。下半：三条更新路径三张卡（按可回滚程度从高到低）：① 上下文内适应·任务内·周级——改提示与上下文，即时生效即时撤销；② 外部产物更新·跨任务·月级——记忆/知识/技能沉淀，最小 diff + 提案审核；③ 参数更新·训练周期·季度级——SFT 记忆、RL 泛化，需 GPU（ch8）。底部一行：109 个实验与 EXPERIMENT_LEDGER 台账文化——『没有评估，就没有进步』。Speaker notes: 强调三条路径按可回滚程度排序、风险与回滚能力要匹配；notes_must_include：ch3 承担提案段、ch7 承担证据段、ch9 合成完整闭环。"
+    },
+    {
+      "title": "设计模式主线：五个模式贯穿十章",
+      "layout": "bento grid 2+3",
+      "output_path": "/home/z/my-project/download/slides/slide_08.html",
+      "task_brief": "页首 kicker：主线四 · 设计模式主线。大标题：五个模式，全书复用层。2+3 bento 网格五张卡（每卡：模式名 h3 + 一句话释义 body + 首次大放异彩位置 small muted）：① 提议者—审核者：产出与评判由不共享上下文的两个角色分别承担——自审不可靠（ch4 工具审批/验证、ch5 产物审查、ch9 更新提案）；② 渐进式披露：先给可检索的目录，再按需加载细节（ch2 Agent Skills、ch4 工具发现、ch10 Agent 发现）；③ 只增不改：状态以追加方式演进，写下不再回头改——可缓存、可重放、可审计（ch2 KV Cache 前缀稳定、ch3 事件式记忆）；④ 边界集 + 保留集：每次修改同时在『应改变的样本』与『不应影响的样本』上验证（ch7 回归、ch8 训练/评估隔离）；⑤ 最小 diff + 可回滚：修改尽量小、带来源、可单独回滚（ch3 知识更新、ch5 代码补丁、ch9 更新发布）。底部 muted 一行：第 1 章一次性命名，第 2–10 章逐章复用。Speaker notes: 建议把五模式当作检查清单用在每次实验复盘；notes_must_include：提议者—审核者的成立前提是『自审不可靠』。"
+    },
+    {
+      "title": "演化主线：飞轮、两朵乌云与安全观",
+      "layout": "quadrant grid",
+      "output_path": "/home/z/my-project/download/slides/slide_09.html",
+      "task_brief": "页首 kicker：主线五 · 演化主线。大标题：模型吃掉 Harness，飞轮向前。左侧主卡『能力飞轮』（四步环形文字流，纯 CSS，不用 SVG）：Harness 补上模型暂时做不稳的事 → 补救沉淀为下一轮训练信号 → 模型内化后对应 Harness 层被删掉 → Harness 向新的能力前沿迁移；配注：Anthropic 52.8% → 66.5%。右侧两张竖排卡：① 两朵乌云：乌云一——Agent 如何流式、实时地与环境交互（快慢分离/推理提速两条路）；乌云二——如何从交互成败中持续积累经验（小世界 vs 大世界假设之争，ch3 记忆与 ch9 进化正是对第二朵乌云的回应）；② 三层安全护栏：上下文层（提示注入防御）/ 执行层（参数校验、审批、沙箱）/ 数据层（脱敏与权限）——从第一行代码就要考虑。Speaker notes: 讲飞轮的工程含义：不要在 Harness 里重复造模型即将内化的轮子，但也不要等模型；notes_must_include：安全是架构问题不是补丁。"
+    },
+    {
+      "title": "三条更新路径 × 章节",
+      "layout": "three-column comparison",
+      "output_path": "/home/z/my-project/download/slides/slide_10.html",
+      "task_brief": "页首 kicker：方法论 · 更新路径细化。大标题：经验写到哪里，就去哪一章。三列对比卡（等宽，card-line-l，各含：路径名 h2、速度主标签 chip、手段列表、对应章节行 num）：① 上下文内适应（周级）：上下文压缩、提示优化、Agent Skills、KV Cache 友好设计——对应 ch2；可回滚程度最高。② 外部产物沉淀（月级）：用户记忆、知识库 RAG、技能包、工具与代码自演化——对应 ch3/ch4/ch9 的提案段；最小 diff、带来源、可回滚。③ 参数更新（季度级）：SFT 记忆、RL 泛化、在轨蒸馏——对应 ch8；可回滚程度最低，需本地 GPU 与 Python 3.12+（--extra vllm/unsloth）。三列底部各一个 verdict 小字：改前问一句：这个改动，撤销的代价是多少？Speaker notes: 强调按可回滚程度选择路径是工程判断而非技术偏好；notes_must_include：SFT 记忆、RL 泛化；数据与环境比算法更重要。"
+    },
+    {
+      "title": "六阶段实践计划：构建期 W1–W4",
+      "layout": "horizontal timeline",
+      "output_path": "/home/z/my-project/download/slides/slide_11.html",
+      "task_brief": "页首 kicker：实践路线 · 上半场。大标题：构建期：第 1–4 周。三阶段横向时间线（ghost-num 01-03 节点 + 周数 chip + 每阶段 card 内含『内容 / 实验 / 产出』三段，实验名用 num 小药丸）：① 阶段一·W1·立框架：精读第 1 章与引言；实验 chapter1/context（用代码指出 Harness 五要素对应哪些行）；产出《第 1 章精读笔记：公式三层理解 + 五模式卡片》。② 阶段二·W2–3·眼睛主线：精读第 2、3 章；实验链 kv-cache → context-compression → prompt-injection → user-memory；产出《上下文与记忆实验记录》（六种压缩策略对比表 + 记忆系统生命周期图）。③ 阶段三·W4·手脚主线：精读第 4、5 章；实验 execution-tools（MCP Server 全安全链）+ coding-agent；产出《工具安全链路记录》+ 自定义工具 diff。页眉右侧六段进度条：01-03 段 accent 高亮（构建期），04-06 灰（提升期）。Speaker notes: 强调每阶段只做验收标准内的事、避免贪多；notes_must_include：所有产出按协作规则写入 docs/（docs: 前缀提交、禁止 force push）；GPU 加餐 local_llm_serving 用 Ollama 跑 Qwen3-0.6B。"
+    },
+    {
+      "title": "六阶段实践计划：提升与创造期 W5–W10 + 自查清单",
+      "layout": "compact stage cards + checklist grid",
+      "output_path": "/home/z/my-project/download/slides/slide_12.html",
+      "task_brief": "页首 kicker：实践路线 · 下半场。大标题：提升与创造期：第 5–10 周。上半三张紧凑阶段卡（ghost-num 04-06 + east 箭头衔接）：④ 证据·W5：精读 ch7，跑 tau2-bench-eval；核心任务=为 mini agent 预建评估集（10–20 条端到端任务 + 轨迹前缀边界任务，定义边界集与保留集）；产出《mini agent 评估集 v1》。⑤ 创造·W6–8：借 coding agent 参照第 1–5 章从头实现 mini coding agent（文件系统+终端+编辑+ReAct）；GPU 主场：ch8 cot-distillation、curly-quote-sft（--extra vllm/unsloth）；产出《mini agent 设计文档与迭代日志》。⑥ 进化·W9–10：精读 ch9/10，跑 trajectory-verifier、parallel-web-research；为 mini agent 挂上『经验→知识/指令/程序』受控更新回路（提案→审核→灰度→回滚演练）；产出《持续进化闭环设计》。下半 card-accent『主线自查清单』3×2 六问网格（每问一行，num 编号）：① 改动的是公式哪个部件？② 属于哪条更新路径？可回滚与风险匹配吗？③ 五个设计模式出现了哪几个？④ 边界集 + 保留集都测了吗？⑤ 结论有数据支撑吗？⑥ 安全三层是否被波及？Speaker notes: 说明六问清单是每次实验/迭代记录的模板；notes_must_include：阶段五验收=评估集上 Pass^k 可复现提升；阶段六验收=真实失败案例经闭环转化为改进且不伤保留集。"
+    },
+    {
+      "title": "结语：从一个实验开始",
+      "layout": "closing",
+      "output_path": "/home/z/my-project/download/slides/slide_13.html",
+      "task_brief": "收尾行动页，纯排版无图片，左侧大标题构图 + 右侧行动卡。左侧：kicker：开始行动。大标题（display 级，可两行）：从一个实验开始，而不是从第十章开始。下方金句卡（card-accent）：『没有评估，就没有进步。』再下方两行仓库 meta（num 字体，muted）：上游书仓 github.com/bojieli/ai-agent-book ｜ 学习仓库 github.com/dongf9527/ai-agent-book；凭据提醒：GitHub Token 有效期至 2026-11-23，到期前更换（.env 与凭据文件不入库）。右侧竖排『本周行动』card-accent 三条（num 01-03 + glow-dot）：01 精读第 1 章与引言，写下公式三层理解；02 跑通 chapter1/context，标出 Harness 五要素对应的代码行；03 以 docs: 前缀提交首篇精读笔记到 docs/ 目录。底部一条 rule-accent 收边。Speaker notes: 收尾动员——第一个实验最重要，完成比完美优先；notes_must_include：协作规则约束进度（小步提交、docs: 前缀、禁止 force push）；长期节奏=每周固定迭代：看失败案例→归因→最小 diff→评估集验证→提交。"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>方法论主线：从炼金术到科学工程</title>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  .s7-step{display:flex;align-items:center;gap:10px;padding:15px 16px;}
+  .s7-loop{position:relative;height:36px;margin:8px 11% 0;border:2px dashed var(--accent-line);border-top:none;border-radius:0 0 14px 14px;}
+  .s7-loop-tag{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);background:#0B1220;padding:0 16px;font-size:var(--fs-small);color:var(--secondary);white-space:nowrap;}
+  .s7-dot{width:9px;height:9px;border-radius:999px;border:1px solid var(--line);flex:none;}
+  .s7-dot.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px rgba(34,211,238,0.5);}
+  .s7-sec-label{font-size:var(--fs-h3);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="h-full flex flex-col" style="padding:50px 64px 42px;">
+
+    <!-- header -->
+    <header>
+      <div class="kicker" style="font-size:var(--fs-small);"><span data-decor style="display:inline-block;width:26px;height:2px;background:var(--accent);"></span>主线三 · 方法论主线</div>
+      <h1 style="font-family:var(--font-heading);font-size:var(--fs-h1);font-weight:900;line-height:1.3;margin-top:12px;">把 Agent 开发从炼金术变成<span class="text-accent">科学工程</span></h1>
+    </header>
+    <div class="rule-accent" data-decor style="width:132px;margin-top:16px;"></div>
+
+    <div class="flex-1 flex flex-col justify-center" style="gap:26px;">
+
+      <!-- science loop -->
+      <section>
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">science</i>
+            <span class="s7-sec-label">科学循环</span>
+          </div>
+          <span class="text-faint" style="font-size:var(--fs-micro);letter-spacing:0.12em;">每轮验证产出新认识</span>
+        </div>
+        <div class="flex items-stretch" style="gap:10px;">
+          <div class="card s7-step flex-1"><span class="num" style="font-size:var(--fs-small);color:var(--accent-strong);font-weight:700;">01</span><span style="font-size:var(--fs-h3);font-weight:700;">观察</span></div>
+          <div class="flex items-center" aria-hidden="true" data-decor><i class="material-icons" style="font-size:20px;color:var(--accent);">east</i></div>
+          <div class="card s7-step flex-1"><span class="num" style="font-size:var(--fs-small);color:var(--accent-strong);font-weight:700;">02</span><span style="font-size:var(--fs-h3);font-weight:700;">假设</span></div>
+          <div class="flex items-center" aria-hidden="true" data-decor><i class="material-icons" style="font-size:20px;color:var(--accent);">east</i></div>
+          <div class="card s7-step flex-1"><span class="num" style="font-size:var(--fs-small);color:var(--accent-strong);font-weight:700;">03</span><span style="font-size:var(--fs-h3);font-weight:700;">实验</span></div>
+          <div class="flex items-center" aria-hidden="true" data-decor><i class="material-icons" style="font-size:20px;color:var(--accent);">east</i></div>
+          <div class="card s7-step flex-1"><span class="num" style="font-size:var(--fs-small);color:var(--accent-strong);font-weight:700;">04</span><span style="font-size:var(--fs-h3);font-weight:700;">验证</span></div>
+        </div>
+        <div class="s7-loop" data-decor>
+          <i class="material-icons" aria-hidden="true" style="position:absolute;left:-10px;top:7px;font-size:19px;color:var(--accent);">north</i>
+          <span class="s7-loop-tag num">→ 新认识 → 新假设，回到观察</span>
+        </div>
+      </section>
+
+      <!-- three update paths -->
+      <section>
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">update</i>
+            <span class="s7-sec-label">三条更新路径</span>
+          </div>
+          <span class="text-faint" style="font-size:var(--fs-micro);letter-spacing:0.12em;">按可回滚程度从高到低</span>
+        </div>
+        <div class="grid grid-cols-3" style="gap:18px;">
+          <div class="card flex flex-col" style="padding:18px 20px;gap:9px;">
+            <div class="flex items-center justify-between">
+              <span class="ghost-num" style="font-size:28px;">01</span>
+              <span class="chip-ghost" style="font-size:var(--fs-micro);">任务内 · 周级</span>
+            </div>
+            <div style="font-size:17px;font-weight:700;">上下文内适应</div>
+            <p class="text-secondary" style="font-size:var(--fs-small);line-height:1.7;">改提示与上下文，即时生效即时撤销。</p>
+            <div class="flex items-center" style="gap:8px;margin-top:auto;">
+              <span class="text-faint" style="font-size:var(--fs-micro);letter-spacing:0.14em;">可回滚</span>
+              <span class="s7-dot on"></span><span class="s7-dot on"></span><span class="s7-dot on"></span>
+            </div>
+          </div>
+          <div class="card flex flex-col" style="padding:18px 20px;gap:9px;">
+            <div class="flex items-center justify-between">
+              <span class="ghost-num" style="font-size:28px;">02</span>
+              <span class="chip-ghost" style="font-size:var(--fs-micro);">跨任务 · 月级</span>
+            </div>
+            <div style="font-size:17px;font-weight:700;">外部产物更新</div>
+            <p class="text-secondary" style="font-size:var(--fs-small);line-height:1.7;">记忆 / 知识 / 技能沉淀，最小 <span class="num">diff</span> + 提案审核。</p>
+            <div class="flex items-center" style="gap:8px;margin-top:auto;">
+              <span class="text-faint" style="font-size:var(--fs-micro);letter-spacing:0.14em;">可回滚</span>
+              <span class="s7-dot on"></span><span class="s7-dot on"></span><span class="s7-dot"></span>
+            </div>
+          </div>
+          <div class="card flex flex-col" style="padding:18px 20px;gap:9px;">
+            <div class="flex items-center justify-between">
+              <span class="ghost-num" style="font-size:28px;">03</span>
+              <span class="chip-ghost" style="font-size:var(--fs-micro);">训练周期 · 季度级</span>
+            </div>
+            <div style="font-size:17px;font-weight:700;">参数更新</div>
+            <p class="text-secondary" style="font-size:var(--fs-small);line-height:1.7;">SFT 记忆、RL 泛化，需 GPU（<span class="num">ch8</span>）。</p>
+            <div class="flex items-center" style="gap:8px;margin-top:auto;">
+              <span class="text-faint" style="font-size:var(--fs-micro);letter-spacing:0.14em;">可回滚</span>
+              <span class="s7-dot on"></span><span class="s7-dot"></span><span class="s7-dot"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- bottom ledger line -->
+      <div>
+        <div class="rule"></div>
+        <div class="flex items-center" style="gap:11px;margin-top:14px;">
+          <i class="material-icons text-accent" style="font-size:18px;">menu_book</i>
+          <p class="text-secondary" style="font-size:var(--fs-body);"><span class="num text-accent" style="font-weight:700;">109</span> 个实验与 <span class="num" style="color:var(--primary);font-weight:500;">EXPERIMENT_LEDGER</span> 台账文化——<span class="text-accent" style="font-weight:700;">『没有评估，就没有进步』</span></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<aside data-notes class="hidden">方法论主线的目标，是把 Agent 开发从炼金术变成科学工程。科学循环四步：观察、假设、实验、验证；验证产出新认识、新假设，回到观察——上面的虚线回环就是迭代本身。提升经验有三条更新路径，按可回滚程度从高到低排序：上下文内适应是周级，改提示即时生效、即时撤销；外部产物更新是月级，靠最小 diff 与提案审核保证可回滚；参数更新是季度级，风险最高，对应 ch8 的 SFT 记忆与 RL 泛化。风险与回滚能力必须匹配。全书分工：ch3 承担提案段，ch7 承担证据段，ch9 合成完整闭环——这正是 109 个实验与台账文化的意义：没有评估，就没有进步。</aside>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>结语：从一个实验开始</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--bg); }
+</style>
+</head>
+<body>
+<div class="slide" style="padding:72px 80px 56px; display:flex; flex-direction:column;">
+
+  <div class="flex-1 grid items-center" style="grid-template-columns:1.55fr 1fr; gap:70px;">
+
+    <!-- 左：大标题构图 -->
+    <div>
+      <div class="kicker" style="font-size:var(--fs-small);"><span class="glow-dot"></span>开始行动</div>
+      <h1 style="font-family:var(--font-heading); font-size:var(--fs-display); font-weight:900; line-height:1.32; margin-top:22px;">从<span class="text-accent">一个实验</span>开始，<br>而不是从第十章开始。</h1>
+      <div class="rule-accent" style="width:132px; margin-top:24px;"></div>
+
+      <div class="card-accent flex items-center" style="margin-top:30px; padding:18px 26px; gap:14px; width:fit-content;">
+        <i class="material-icons" aria-hidden="true" style="font-size:26px; color:var(--accent);">format_quote</i>
+        <span style="font-family:var(--font-heading); font-size:var(--fs-h2); font-weight:700;">『没有评估，就没有进步。』</span>
+      </div>
+
+      <div class="num" style="margin-top:28px; font-size:var(--fs-small); color:var(--secondary); line-height:2.0;">
+        <p>上游书仓 github.com/bojieli/ai-agent-book ｜ 学习仓库 github.com/dongf9527/ai-agent-book</p>
+        <p>凭据提醒：GitHub Token 有效期至 <span class="text-accent">2026-11-23</span>，到期前更换（.env 与凭据文件不入库）</p>
+      </div>
+    </div>
+
+    <!-- 右：本周行动 -->
+    <section class="card-accent" style="padding:28px 30px 24px;">
+      <div class="flex items-center" style="gap:10px;">
+        <i class="material-icons" aria-hidden="true" style="font-size:22px; color:var(--accent);">rocket_launch</i>
+        <div style="font-family:var(--font-heading); font-size:var(--fs-h2); font-weight:900;">本周行动</div>
+      </div>
+      <div class="rule" style="margin-top:16px;"></div>
+
+      <div class="flex items-start" style="gap:14px; padding:18px 0;">
+        <span class="glow-dot" style="flex:none; margin-top:8px;"></span>
+        <span class="num" style="font-size:var(--fs-h2); font-weight:700; color:var(--accent-strong); line-height:1.2;">01</span>
+        <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7;">精读第 <span class="num">1</span> 章与引言，写下公式三层理解</p>
+      </div>
+      <div class="flex items-start" style="gap:14px; padding:18px 0; border-top:1px solid var(--line);">
+        <span class="glow-dot" style="flex:none; margin-top:8px;"></span>
+        <span class="num" style="font-size:var(--fs-h2); font-weight:700; color:var(--accent-strong); line-height:1.2;">02</span>
+        <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7;">跑通 <span class="num">chapter1/context</span>，标出 Harness 五要素对应的代码行</p>
+      </div>
+      <div class="flex items-start" style="gap:14px; padding:18px 0 6px; border-top:1px solid var(--line);">
+        <span class="glow-dot" style="flex:none; margin-top:8px;"></span>
+        <span class="num" style="font-size:var(--fs-h2); font-weight:700; color:var(--accent-strong); line-height:1.2;">03</span>
+        <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7;">以 <span class="num">docs:</span> 前缀提交首篇精读笔记到 <span class="num">docs/</span> 目录</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- 底部收边 -->
+  <div class="rule-accent" data-decor aria-hidden="true" style="position:absolute; left:0; right:0; bottom:0;"></div>
+</div>
+
+<aside data-notes class="hidden">收尾只讲一件事：从一个实验开始，而不是从第十章开始。第一个实验最重要，完成比完美优先——本周就做三步：精读第 1 章与引言，写下公式三层理解；跑通 chapter1/context，标出 Harness 五要素对应的代码行；再以 docs: 前缀把首篇精读笔记提交到 docs/ 目录。协作规则会反过来约束进度：小步提交、docs: 前缀、禁止 force push，让节奏可持续。同时提醒：GitHub Token 有效期至 2026-11-23，到期前记得更换，.env 与凭据文件一律不入库。上游书仓是 bojieli/ai-agent-book，学习仓库是 dongf9527/ai-agent-book。长期节奏是每周固定迭代：看失败案例、归因、最小 diff、评估集验证、提交。没有评估，就没有进步——我们从一个实验开始。</aside>
+</body>
+</html>

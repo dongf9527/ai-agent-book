@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>01 · 封面 — 深入理解 AI Agent</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:var(--bg); }
+  body { width:1280px; height:720px; overflow:hidden; }
+  .cv-glow {
+    position:absolute; top:-300px; right:-220px; width:940px; height:940px; border-radius:50%;
+    background: radial-gradient(circle, rgba(34,211,238,0.20) 0%, rgba(34,211,238,0.07) 40%, transparent 68%);
+  }
+  .cv-ring {
+    position:absolute; top:70px; right:-64px; width:390px; height:390px; border-radius:50%;
+    border:1px solid rgba(34,211,238,0.20);
+  }
+  .cv-ring::after {
+    content:''; position:absolute; inset:46px; border-radius:50%;
+    border:1px solid rgba(34,211,238,0.10);
+  }
+  .cv-ghost {
+    position:absolute; right:-26px; bottom:-56px;
+    font-family:var(--font-num); font-weight:700; font-size:188px; line-height:1;
+    letter-spacing:0.05em; color:transparent; -webkit-text-stroke:1px rgba(34,211,238,0.10);
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="cv-glow" data-decor aria-hidden="true"></div>
+    <div class="cv-ring" data-decor aria-hidden="true"></div>
+    <div class="cv-ghost" data-decor aria-hidden="true">AGENT</div>
+
+    <main class="relative h-full flex flex-col justify-center" style="padding:0 150px 36px 96px;">
+      <div class="kicker" style="font-size:var(--fs-small);">基于开源书的系统学习路线</div>
+      <div class="rule-accent" style="width:238px; margin:24px 0 34px;"></div>
+      <h1 style="margin:0; font-family:var(--font-heading); font-size:var(--fs-display); font-weight:900; line-height:1.18; letter-spacing:0.01em; color:var(--primary);">
+        深入理解&nbsp;<span class="text-accent" style="text-shadow:0 0 28px rgba(34,211,238,0.45);">AI&nbsp;Agent</span>
+      </h1>
+      <p style="margin:20px 0 0; font-family:var(--font-heading); font-size:var(--fs-h2); font-weight:500; letter-spacing:0.10em; color:var(--secondary);">全书总览与实践路线</p>
+      <div class="flex items-center flex-wrap" style="gap:12px; margin-top:48px;">
+        <span class="chip" style="font-size:var(--fs-small); padding:5px 14px;">李博杰《深入理解 AI Agent》开源书</span>
+        <span class="chip-ghost num" style="font-size:var(--fs-small); padding:5px 14px;">Apache-2.0</span>
+        <span class="chip-ghost" style="font-size:var(--fs-small); padding:5px 14px;"><span class="num">55.7k</span>&nbsp;stars</span>
+      </div>
+    </main>
+
+    <footer class="absolute flex items-end justify-between" style="left:96px; right:72px; bottom:50px; gap:48px;">
+      <div class="num" style="font-size:var(--fs-small); color:var(--secondary); letter-spacing:0.02em; white-space:nowrap;">10 章正文 · 7300 行 Markdown · 109 个可运行实验 · 3 层学习资产</div>
+      <div class="num" style="font-size:var(--fs-micro); color:var(--secondary); white-space:nowrap;">学习仓库 github.com/dongf9527/ai-agent-book ｜ 2026-10-24</div>
+    </footer>
+  </div>
+
+  <aside data-notes class="hidden">各位好，欢迎来到《深入理解 AI Agent》的导读分享。这套幻灯片讲两件事：第一，一本书的全貌——它的核心公式、章节结构，以及贯穿全书的五条主线；第二，一份可以直接照着执行的十周实践路线。需要先说明：这是一份写给开发者和系统学习者的导读，帮大家快速建立全局地图，而不是书内容的复刻，细节请回到原书精读。这本书是李博杰老师的开源书，采用 Apache-2.0 协议，可以自由二次开发；书中共有 109 个可运行实验，每一个都配有 EXPERIMENT_LEDGER 证据链，假设、数据、结论全程可追溯。接下来我们先看全局，再进入实践路线。</aside>
+</body>
+</html>

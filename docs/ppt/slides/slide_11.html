@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>六阶段实践计划：构建期 W1–W4</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--bg); }
+  .sec-label { font-size: var(--fs-micro); letter-spacing: .3em; color: var(--accent); font-weight: 500; }
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 2px 9px; border-radius: 6px;
+    border: 1px solid var(--accent-line); background: var(--accent-soft);
+    color: var(--accent-strong); font-family: var(--font-num);
+    font-size: var(--fs-micro); white-space: nowrap;
+  }
+  .seg { height: 6px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<div class="slide" style="padding:56px 64px 50px; display:flex; flex-direction:column;">
+
+  <!-- 页眉：标题 + 六段进度条 -->
+  <header class="flex items-start justify-between">
+    <div>
+      <div class="kicker" style="font-size:var(--fs-small);"><span class="glow-dot"></span>实践路线 · 上半场</div>
+      <h1 style="font-family:var(--font-heading); font-size:var(--fs-h1); font-weight:900; line-height:1.2; margin-top:14px;">构建期：第 <span class="num text-accent">1–4</span> 周</h1>
+      <div class="rule-accent" style="width:112px; margin-top:16px;"></div>
+    </div>
+    <div style="padding-top:8px;">
+      <div class="flex" style="gap:6px;">
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--accent); box-shadow:0 0 10px rgba(34,211,238,.45);"></div>
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--accent); box-shadow:0 0 10px rgba(34,211,238,.45);"></div>
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--accent); box-shadow:0 0 10px rgba(34,211,238,.45);"></div>
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--line);"></div>
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--line);"></div>
+        <div class="seg" data-decor aria-hidden="true" style="width:46px; background:var(--line);"></div>
+      </div>
+      <div class="flex num" style="gap:6px; margin-top:8px; font-size:var(--fs-micro);">
+        <span style="width:46px; text-align:center; color:var(--accent-strong);">01</span>
+        <span style="width:46px; text-align:center; color:var(--accent-strong);">02</span>
+        <span style="width:46px; text-align:center; color:var(--accent-strong);">03</span>
+        <span style="width:46px; text-align:center; color:var(--secondary);">04</span>
+        <span style="width:46px; text-align:center; color:var(--secondary);">05</span>
+        <span style="width:46px; text-align:center; color:var(--secondary);">06</span>
+      </div>
+      <div class="flex justify-between" style="width:306px; margin-top:6px; font-size:var(--fs-micro); letter-spacing:.22em;">
+        <span class="text-accent">构建期</span><span class="text-secondary">提升期</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 三阶段横向时间线 -->
+  <section style="margin-top:36px; flex:1; display:flex; flex-direction:column;">
+    <div style="position:relative;">
+      <div data-decor aria-hidden="true" style="position:absolute; left:6px; right:0; top:26px; height:2px; background:linear-gradient(90deg, var(--accent-line), rgba(148,163,184,0.14));"></div>
+      <div class="grid grid-cols-3" style="gap:28px; position:relative;">
+
+        <div class="flex items-center" style="gap:14px; height:54px;">
+          <span class="glow-dot" style="flex:none;"></span>
+          <span class="ghost-num" data-decor aria-hidden="true" style="font-size:46px;">01</span>
+          <div>
+            <div class="flex items-center" style="gap:8px;">
+              <span class="chip num" style="font-size:var(--fs-micro); font-weight:700;">W1</span>
+              <span style="font-size:var(--fs-micro); letter-spacing:.24em; color:var(--secondary);">阶段一</span>
+            </div>
+            <div style="font-size:var(--fs-h3); font-weight:700; margin-top:4px;">立框架</div>
+          </div>
+        </div>
+
+        <div class="flex items-center" style="gap:14px; height:54px;">
+          <span class="glow-dot" style="flex:none;"></span>
+          <span class="ghost-num" data-decor aria-hidden="true" style="font-size:46px;">02</span>
+          <div>
+            <div class="flex items-center" style="gap:8px;">
+              <span class="chip num" style="font-size:var(--fs-micro); font-weight:700;">W2–3</span>
+              <span style="font-size:var(--fs-micro); letter-spacing:.24em; color:var(--secondary);">阶段二</span>
+            </div>
+            <div style="font-size:var(--fs-h3); font-weight:700; margin-top:4px;">眼睛主线</div>
+          </div>
+        </div>
+
+        <div class="flex items-center" style="gap:14px; height:54px;">
+          <span class="glow-dot" style="flex:none;"></span>
+          <span class="ghost-num" data-decor aria-hidden="true" style="font-size:46px;">03</span>
+          <div>
+            <div class="flex items-center" style="gap:8px;">
+              <span class="chip num" style="font-size:var(--fs-micro); font-weight:700;">W4</span>
+              <span style="font-size:var(--fs-micro); letter-spacing:.24em; color:var(--secondary);">阶段三</span>
+            </div>
+            <div style="font-size:var(--fs-h3); font-weight:700; margin-top:4px;">手脚主线</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 阶段卡片：内容 / 实验 / 产出 -->
+    <div class="grid grid-cols-3" style="gap:28px; margin-top:20px; flex:1;">
+
+      <article class="card" style="padding:22px 24px; display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <div class="sec-label">内容</div>
+          <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7; margin-top:8px;">精读第 <span class="num">1</span> 章与引言</p>
+        </div>
+        <div>
+          <div class="sec-label">实验</div>
+          <div class="flex items-center flex-wrap" style="gap:6px; margin-top:9px;">
+            <span class="pill">chapter1/context</span>
+          </div>
+          <p style="font-size:var(--fs-small); color:var(--secondary); line-height:1.65; margin-top:9px;">用代码指出 Harness 五要素对应哪些行</p>
+        </div>
+        <div style="margin-top:auto; padding-top:14px; border-top:1px solid var(--line);">
+          <div class="sec-label">产出</div>
+          <p style="font-size:var(--fs-small); color:var(--primary); line-height:1.7; margin-top:8px;">《第 <span class="num">1</span> 章精读笔记：公式三层理解 + 五模式卡片》</p>
+        </div>
+      </article>
+
+      <article class="card" style="padding:22px 24px; display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <div class="sec-label">内容</div>
+          <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7; margin-top:8px;">精读第 <span class="num">2</span>、<span class="num">3</span> 章</p>
+        </div>
+        <div>
+          <div class="sec-label">实验</div>
+          <div class="flex items-center flex-wrap" style="gap:6px; margin-top:9px;">
+            <span class="pill">kv-cache</span>
+            <i class="material-icons" aria-hidden="true" style="font-size:13px; color:var(--secondary);">east</i>
+            <span class="pill">context-compression</span>
+            <i class="material-icons" aria-hidden="true" style="font-size:13px; color:var(--secondary);">east</i>
+            <span class="pill">prompt-injection</span>
+            <i class="material-icons" aria-hidden="true" style="font-size:13px; color:var(--secondary);">east</i>
+            <span class="pill">user-memory</span>
+          </div>
+        </div>
+        <div style="margin-top:auto; padding-top:14px; border-top:1px solid var(--line);">
+          <div class="sec-label">产出</div>
+          <p style="font-size:var(--fs-small); color:var(--primary); line-height:1.7; margin-top:8px;">《上下文与记忆实验记录》</p>
+          <p style="font-size:var(--fs-small); color:var(--secondary); line-height:1.65; margin-top:4px;">六种压缩策略对比表 + 记忆系统生命周期图</p>
+        </div>
+      </article>
+
+      <article class="card" style="padding:22px 24px; display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <div class="sec-label">内容</div>
+          <p style="font-size:var(--fs-body); color:var(--primary); line-height:1.7; margin-top:8px;">精读第 <span class="num">4</span>、<span class="num">5</span> 章</p>
+        </div>
+        <div>
+          <div class="sec-label">实验</div>
+          <div class="flex items-center flex-wrap" style="gap:6px; margin-top:9px;">
+            <span class="pill">execution-tools</span>
+            <span class="num" style="font-size:var(--fs-micro); color:var(--secondary);">+</span>
+            <span class="pill">coding-agent</span>
+          </div>
+          <p style="font-size:var(--fs-small); color:var(--secondary); line-height:1.65; margin-top:9px;">MCP Server 全安全链</p>
+        </div>
+        <div style="margin-top:auto; padding-top:14px; border-top:1px solid var(--line);">
+          <div class="sec-label">产出</div>
+          <p style="font-size:var(--fs-small); color:var(--primary); line-height:1.7; margin-top:8px;">《工具安全链路记录》+ 自定义工具 <span class="num">diff</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+
+<aside data-notes class="hidden">现在进入实践路线的上半场——构建期四周。阶段一在第一周立框架：精读第 1 章与引言，跑 chapter1/context 实验，用代码指出 Harness 五要素对应哪些行，产出第一章精读笔记。阶段二在第二到三周走眼睛主线：精读第 2、3 章，沿 kv-cache、context-compression、prompt-injection 到 user-memory 的实验链依次做下去，形成上下文与记忆实验记录，包括六种压缩策略对比表和记忆系统生命周期图。阶段三在第四周走手脚主线：精读第 4、5 章，跑 execution-tools 和 coding-agent，留下工具安全链路记录与自定义工具 diff。请特别记住两点：每个阶段只做验收标准内的事，避免贪多；所有产出按协作规则写入 docs/ 目录——docs: 前缀提交、禁止 force push。有余力可以做 GPU 加餐 local_llm_serving，用 Ollama 跑 Qwen3-0.6B。</aside>
+</body>
+</html>

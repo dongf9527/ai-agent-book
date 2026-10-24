@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>结构主线：两大问题，三个提升层面</title>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  .s6-dashv{width:0;height:30px;border-left:2px dashed var(--accent-line);}
+  .s6-node{display:inline-flex;align-items:center;gap:9px;padding:12px 17px;border-radius:12px;border:1px solid var(--line);background:rgba(245,241,232,0.03);white-space:nowrap;}
+  .s6-node-b{display:inline-flex;align-items:center;gap:9px;padding:14px 18px;border-radius:12px;border:1px solid var(--accent-line);background:var(--accent-soft);white-space:nowrap;}
+  .s6-ch{font-family:var(--font-num);font-size:var(--fs-small);color:var(--accent-strong);font-weight:700;}
+  .s6-name{font-size:var(--fs-h3);font-weight:600;color:var(--primary);}
+  .s6-sep{font-size:18px;color:var(--faint);}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="h-full flex flex-col" style="padding:52px 64px 46px;">
+
+    <!-- header -->
+    <header class="flex items-end justify-between">
+      <div>
+        <div class="kicker" style="font-size:var(--fs-small);"><span data-decor style="display:inline-block;width:26px;height:2px;background:var(--accent);"></span>主线二 · 结构主线</div>
+        <h1 style="font-family:var(--font-heading);font-size:var(--fs-h1);font-weight:900;line-height:1.3;margin-top:12px;">先能用，再好用；<span class="text-accent">先闭环，再放大</span></h1>
+      </div>
+      <div class="num text-muted" style="font-size:var(--fs-small);padding-bottom:8px;letter-spacing:0.08em;">两大问题 · 三个提升层面</div>
+    </header>
+    <div class="rule-accent" data-decor style="width:132px;margin-top:16px;"></div>
+
+    <!-- two stacked flows -->
+    <div class="flex-1 flex flex-col justify-center">
+
+      <!-- Block A : build -->
+      <section>
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">construction</i>
+            <span style="font-size:var(--fs-h3);font-weight:700;">如何构建 Agent</span>
+          </div>
+          <span class="num text-faint" style="font-size:var(--fs-micro);letter-spacing:0.14em;">构建篇 · ch1–6</span>
+        </div>
+        <div class="card flex items-center justify-between" style="padding:24px 26px;">
+          <span class="s6-node"><span class="s6-ch">ch1</span><span class="s6-name">概念</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node"><span class="s6-ch">ch2</span><span class="s6-name">上下文</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node"><span class="s6-ch">ch3</span><span class="s6-name">记忆</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node"><span class="s6-ch">ch4</span><span class="s6-name">工具</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node"><span class="s6-ch">ch5</span><span class="s6-name">代码元能力</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node"><span class="s6-ch">ch6</span><span class="s6-name">交互扩展</span></span>
+        </div>
+      </section>
+
+      <!-- connector -->
+      <div class="flex items-center justify-center" style="gap:18px;margin:24px 0;">
+        <div class="s6-dashv" aria-hidden="true" data-decor></div>
+        <p class="text-secondary" style="font-size:var(--fs-body);line-height:1.75;max-width:780px;text-align:center;">各章不是书架式并列，而是<span class="text-accent" style="font-weight:700;">管道式衔接</span>——评估产生的环境与数据成为后训练的输入与更新提案的依据。</p>
+        <div class="s6-dashv" aria-hidden="true" data-decor></div>
+      </div>
+
+      <!-- Block B : improve -->
+      <section>
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <div class="flex items-center" style="gap:9px;">
+            <i class="material-icons text-accent" style="font-size:20px;">trending_up</i>
+            <span style="font-size:var(--fs-h3);font-weight:700;">如何提升 Agent 能力</span>
+          </div>
+          <span class="num text-faint" style="font-size:var(--fs-micro);letter-spacing:0.14em;">提升篇 · ch7–10</span>
+        </div>
+        <div class="card-accent flex items-center justify-between" style="padding:26px 30px;">
+          <span class="s6-node-b"><span class="s6-ch">ch7</span><span class="s6-name">评估</span><span class="chip" style="font-size:var(--fs-micro);padding:2px 10px;font-weight:700;">地基</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node-b"><span class="s6-ch">ch8</span><span class="s6-name">模型参数</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node-b"><span class="s6-ch">ch9</span><span class="s6-name">单体系统</span></span>
+          <i class="material-icons s6-sep" aria-hidden="true" data-decor>east</i>
+          <span class="s6-node-b"><span class="s6-ch">ch10</span><span class="s6-name">群体系统</span></span>
+        </div>
+        <div class="flex items-center" style="gap:9px;margin-top:11px;">
+          <span class="glow-dot" aria-hidden="true" style="width:6px;height:6px;"></span>
+          <span class="text-muted" style="font-size:var(--fs-small);"><span class="num">ch7</span> 评估 —— 三层面的共同前提</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+<aside data-notes class="hidden">本页讲全书的结构主线：先能用，再好用；先闭环，再放大。上半回答“如何构建 Agent”——ch1 建立概念，ch2 管任务内上下文，ch3 延伸到跨会话记忆，ch4 接上工具，ch5 沉淀代码元能力，ch6 扩展观察与动作空间。下半回答“如何提升 Agent 能力”——ch7 评估、ch8 模型参数、ch9 单体系统、ch10 群体系统。请强调“管道式衔接”：ch2 管任务内上下文，ch3 延伸到跨会话，ch7 的评估环境与数据会喂给 ch8 的后训练，并成为 ch9 更新提案的依据。评估是提升篇的共同前提——先有可信信号，才谈得上提升。</aside>
+</body>
+</html>

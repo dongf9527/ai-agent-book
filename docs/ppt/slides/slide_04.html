@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>04 · 三层学习资产 — 怎么用这本书</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:var(--bg); }
+  body { width:1280px; height:720px; overflow:hidden; }
+  .as-icon {
+    width:44px; height:44px; border-radius:12px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--accent-soft); border:1px solid var(--accent-line);
+  }
+  .as-ghost3 {
+    position:absolute; top:-38px; right:26px;
+    font-family:var(--font-num); font-weight:700; font-size:240px; line-height:1;
+    color:transparent; -webkit-text-stroke:1.5px rgba(34,211,238,0.08);
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="as-ghost3" data-decor aria-hidden="true">3</div>
+
+    <div class="relative h-full flex flex-col" style="padding:48px 64px 44px;">
+      <!-- header -->
+      <header>
+        <div class="flex items-center" style="gap:10px;">
+          <span class="glow-dot"></span>
+          <span class="kicker" style="font-size:var(--fs-small);">项目结构</span>
+        </div>
+        <div class="flex items-center" style="gap:26px; margin-top:12px;">
+          <h1 style="margin:0; font-family:var(--font-heading); font-size:var(--fs-h1); font-weight:900; color:var(--primary); white-space:nowrap;">三层资产，三种用法</h1>
+          <div class="rule" style="flex:1;"></div>
+        </div>
+      </header>
+
+      <!-- three asset rows -->
+      <section class="flex flex-col flex-1" style="gap:14px; margin:18px 0; min-height:0;">
+        <article class="card flex-1 flex items-center" style="padding:0 26px; gap:20px; min-height:0;">
+          <span class="ghost-num" style="font-size:46px; font-weight:700; flex:none; width:58px;">01</span>
+          <div class="as-icon"><i class="material-icons" style="font-size:22px; color:var(--accent);">auto_stories</i></div>
+          <div class="flex-1" style="min-width:0;">
+            <h3 style="margin:0; font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">正文&nbsp;<span class="num text-accent" style="font-size:16px;">book/</span></h3>
+            <p style="margin:5px 0 0; font-size:var(--fs-small); line-height:1.6; color:var(--secondary);"><span class="num">10</span> 章 <span class="num">7300</span> 行 Markdown，pandoc/xelatex 可编译 PDF</p>
+          </div>
+          <div style="flex:none; width:200px; border-left:1px solid var(--line); padding-left:20px;">
+            <div style="font-size:var(--fs-micro); letter-spacing:0.24em; color:var(--secondary);">用法</div>
+            <p style="margin:4px 0 0; font-family:var(--font-heading); font-size:var(--fs-body); font-weight:700; color:var(--accent-strong);">通读建立框架</p>
+          </div>
+        </article>
+
+        <article class="card flex-1 flex items-center" style="padding:0 26px; gap:20px; min-height:0;">
+          <span class="ghost-num" style="font-size:46px; font-weight:700; flex:none; width:58px;">02</span>
+          <div class="as-icon"><i class="material-icons" style="font-size:22px; color:var(--accent);">science</i></div>
+          <div class="flex-1" style="min-width:0;">
+            <h3 style="margin:0; font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">实验&nbsp;<span class="num text-accent" style="font-size:16px;">chapter1-10/</span></h3>
+            <p style="margin:5px 0 0; font-size:var(--fs-small); line-height:1.6; color:var(--secondary);"><span class="num">109</span> 个可运行实验，uv 依赖管理（extras：<span class="num">ch1~ch10 / all / vllm / unsloth</span>）</p>
+          </div>
+          <div style="flex:none; width:200px; border-left:1px solid var(--line); padding-left:20px;">
+            <div style="font-size:var(--fs-micro); letter-spacing:0.24em; color:var(--secondary);">用法</div>
+            <p style="margin:4px 0 0; font-family:var(--font-heading); font-size:var(--fs-body); font-weight:700; color:var(--accent-strong);">动手验证概念</p>
+          </div>
+        </article>
+
+        <article class="card flex-1 flex items-center" style="padding:0 26px; gap:20px; min-height:0;">
+          <span class="ghost-num" style="font-size:46px; font-weight:700; flex:none; width:58px;">03</span>
+          <div class="as-icon"><i class="material-icons" style="font-size:22px; color:var(--accent);">fact_check</i></div>
+          <div class="flex-1" style="min-width:0;">
+            <h3 style="margin:0; font-family:var(--font-heading); font-size:var(--fs-h3); font-weight:700; color:var(--primary);">台账&nbsp;<span class="num text-accent" style="font-size:16px;">EXPERIMENT_LEDGER.md</span></h3>
+            <p style="margin:5px 0 0; font-size:var(--fs-small); line-height:1.6; color:var(--secondary);">每个实验留下证据链（假设、数据、结论）</p>
+          </div>
+          <div style="flex:none; width:200px; border-left:1px solid var(--line); padding-left:20px;">
+            <div style="font-size:var(--fs-micro); letter-spacing:0.24em; color:var(--secondary);">用法</div>
+            <p style="margin:4px 0 0; font-family:var(--font-heading); font-size:var(--fs-body); font-weight:700; color:var(--accent-strong); line-height:1.5;">学习科研式做实验的范式</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- stats bar -->
+      <footer class="card flex items-center justify-between" style="padding:16px 34px;">
+        <div class="flex items-baseline" style="gap:10px;">
+          <span class="num" style="font-size:28px; font-weight:700; color:var(--primary);">55.7k</span>
+          <span style="font-size:var(--fs-small); color:var(--secondary);">stars</span>
+        </div>
+        <div style="width:1px; height:34px; background:var(--line);"></div>
+        <div class="flex items-baseline" style="gap:10px;">
+          <span class="num" style="font-size:28px; font-weight:700; color:var(--primary);">10</span>
+          <span style="font-size:var(--fs-small); color:var(--secondary);">章</span>
+        </div>
+        <div style="width:1px; height:34px; background:var(--line);"></div>
+        <div class="flex items-baseline" style="gap:10px;">
+          <span class="num" style="font-size:28px; font-weight:700; color:var(--primary);">109</span>
+          <span style="font-size:var(--fs-small); color:var(--secondary);">实验</span>
+        </div>
+        <div style="width:1px; height:34px; background:var(--line);"></div>
+        <div class="flex items-baseline" style="gap:10px;">
+          <span class="num" style="font-size:28px; font-weight:700; color:var(--primary);">Apache-2.0</span>
+          <span style="font-size:var(--fs-small); color:var(--secondary);">开源协议</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <aside data-notes class="hidden">怎么用这本书？仓库里是三层资产。第一层是正文 book 目录，10 章共 7300 行 Markdown，可以用 pandoc 加 xelatex 编译成 PDF，用法是通读建立框架；第二层是 chapter1 到 chapter10 的实验目录，109 个可运行实验，用 uv 做依赖管理，extras 提供 ch1~ch10、all、vllm、unsloth 等选项，用法是动手验证概念；第三层是 EXPERIMENT_LEDGER 台账，每个实验都要留下假设、数据、结论构成的证据链，这是学习科研式做实验的范式。三层的配合方式是：读一章正文，跑对应章节的 Starter 实验，再把结果记进自己的台账。我们的学习仓库 fork 自 dongf9527/ai-agent-book，已同步上游全历史，学习笔记统一提交到 docs 目录，方便追溯与复盘。</aside>
+</body>
+</html>
