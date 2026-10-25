@@ -535,7 +535,7 @@ Important: When you have gathered all necessary information and computed the fin
     def _prepare_assistant_message(self, message) -> Dict[str, Any]:
         """
         Prepare assistant message for adding to messages list, 
-        filtering out reasoning_content if in NO_REASONING mode
+        filtering out reasoning content if in NO_REASONING mode
         
         Args:
             message: The assistant message object
@@ -545,9 +545,16 @@ Important: When you have gathered all necessary information and computed the fin
         """
         msg_dict = message.dict() if hasattr(message, 'dict') else message.model_dump()
         
-        # Remove reasoning_content if in NO_REASONING mode
-        if self.context_mode == ContextMode.NO_REASONING and 'reasoning_content' in msg_dict:
-            msg_dict.pop('reasoning_content')
+        # Remove reasoning from history in NO_REASONING mode, whatever field
+        # name the provider used for it: DeepSeek-style `reasoning_content`,
+        # Ollama/OpenRouter-style `reasoning`. Stripping only one name would
+        # leave the other on the wire and silently turn this ablation into a
+        # full-context rerun (observed on Ollama 2026-10-25: the round-2
+        # request still carried `reasoning` while the check looked for
+        # `reasoning_content`, so the contract fail-closed).
+        if self.context_mode == ContextMode.NO_REASONING:
+            msg_dict.pop('reasoning_content', None)
+            msg_dict.pop('reasoning', None)
             
         return msg_dict
 

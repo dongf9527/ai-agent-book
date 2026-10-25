@@ -240,6 +240,40 @@ def run_integration_test():
         return False
 
 
+class TestReasoningFieldCompatibility(unittest.TestCase):
+    """Providers name the reasoning field differently: DeepSeek-style
+    `reasoning_content`, Ollama/OpenRouter-style `reasoning`. The NO_REASONING
+    ablation must strip both -- otherwise the ablation silently keeps the
+    reasoning on the wire and becomes a full-context rerun."""
+
+    class _FakeMessage:
+        """Minimal stand-in for an SDK message: only model_dump()."""
+
+        def __init__(self, payload):
+            self._payload = payload
+
+        def model_dump(self):
+            return dict(self._payload)
+
+    def _prepared(self, mode, field):
+        agent = ContextAwareAgent("test_key", mode)
+        message = self._FakeMessage(
+            {"role": "assistant", "content": "hi", field: "step-by-step thoughts"}
+        )
+        return agent._prepare_assistant_message(message)
+
+    def test_no_reasoning_strips_both_field_names(self):
+        for field in ("reasoning_content", "reasoning"):
+            prepared = self._prepared(ContextMode.NO_REASONING, field)
+            self.assertNotIn("reasoning_content", prepared, field)
+            self.assertNotIn("reasoning", prepared, field)
+
+    def test_other_modes_keep_reasoning(self):
+        for field in ("reasoning_content", "reasoning"):
+            prepared = self._prepared(ContextMode.FULL, field)
+            self.assertEqual(prepared.get(field), "step-by-step thoughts", field)
+
+
 def main():
     """Main test runner"""
     print("\n" + "="*60)

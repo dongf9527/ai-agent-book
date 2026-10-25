@@ -148,6 +148,17 @@ def response_message(turn: Dict[str, Any]) -> Dict[str, Any]:
     return (choices[0].get("message") or {}) if choices else {}
 
 
+def reasoning_of(message: Dict[str, Any]) -> Any:
+    """Reasoning text regardless of provider field name.
+
+    DeepSeek/Doubao-style providers return ``reasoning_content``; Ollama's
+    OpenAI-compatible endpoint (and OpenRouter) returns ``reasoning``.
+    Contract checks must accept both, or a run that ablated correctly gets
+    flagged as if it had not.
+    """
+    return message.get("reasoning_content") or message.get("reasoning")
+
+
 def request_roles(turn: Dict[str, Any]) -> List[str]:
     return [message.get("role") for message in turn.get("request", {}).get("messages", [])]
 
@@ -192,7 +203,7 @@ def evaluate_context_contract(
                 ),
                 "reasoning_retained_after_first_turn": len(requests) > 1
                 and any(
-                    bool(m.get("reasoning_content"))
+                    bool(reasoning_of(m))
                     for m in requests[1].get("messages", [])
                     if m.get("role") == "assistant"
                 ),
@@ -246,13 +257,13 @@ def evaluate_context_contract(
             if m.get("role") == "assistant"
         ]
         provider_reasoning = [
-            response_message(turn).get("reasoning_content") for turn in turns
+            reasoning_of(response_message(turn)) for turn in turns
         ]
         details.update(
             {
                 "provider_generated_reasoning": any(provider_reasoning),
                 "reasoning_removed_from_history": bool(assistant_history)
-                and all(not m.get("reasoning_content") for m in assistant_history),
+                and all(not reasoning_of(m) for m in assistant_history),
                 "tool_and_result_history_retained": any(
                     "tool" in request_roles(turn) for turn in turns[1:]
                 ),
