@@ -90,6 +90,8 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 ./docs/local-setup/verify_all.sh --quick  # 只查端口与模型列表，不做推理
 ```
 
+其中「② .env 受管块与 provider 解析」一行复刻实验的真实模型解析链：`.env` 的 `MODEL_NAME` 经 `Config.get_default_model()` 作为 `model` 参数传给 `resolve_backend()`（`resolve_backend` 本身不读 `MODEL_NAME`，不传参时返回工具包内置默认 `qwen3:8b`）。因此该行显示 `model=<你的模型> (来自 .env MODEL_NAME)` 即配置生效；若显示「工具包默认」，说明受管块缺 `MODEL_NAME` 行，用 `select_backend.sh <后端> <模型>` 重写即可。
+
 手工逐层验证（第 ① 层在 Windows 侧，脚本覆盖不了）：
 
 ```powershell

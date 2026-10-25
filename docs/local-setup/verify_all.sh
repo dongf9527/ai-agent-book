@@ -135,18 +135,32 @@ if [[ ! -f "$ENV_FILE" ]] || ! grep -q "local-llm-backend" "$ENV_FILE"; then
   warn "尚未生成受管块 → 运行 docs/local-setup/select_backend.sh"
 else
   ok ".env 受管块存在:"
-  grep -A5 "local-llm-backend (managed" "$ENV_FILE" | tail -4 | sed 's/^/      /'
-  # 按 load_dotenv 同样语义导出受管块,验证最终解析结果
+  sed -n '/local-llm-backend (managed/,/local-llm-backend <<</p' "$ENV_FILE" | grep '=' | sed 's/^/      /'
+  # 按 load_dotenv 同样语义导出受管块,再复刻实验的真实解析链:
+  # main.py 用 Config.get_default_model() 把 .env 的 MODEL_NAME 作为 model 参数
+  # 传给 resolve_backend —— resolve_backend 本身不读 MODEL_NAME,缺省时返回
+  # 工具包内置默认模型(ollama→qwen3:8b),因此这里必须显式传入。
   while IFS='=' read -r k v; do
     [[ "$k" =~ ^(LLM_PROVIDER|OLLAMA_BASE_URL|OLLAMA_API_KEY|MODEL_NAME)$ ]] && export "$k=$v"
   done < <(sed -n '/local-llm-backend (managed/,/local-llm-backend <<</p' "$ENV_FILE" | grep '=')
-  if ( cd "$REPO_ROOT" && python3 -c "
-import sys; sys.path.insert(0, '.')
+  if py_out="$( cd "$REPO_ROOT" && python3 -c "
+import os, sys; sys.path.insert(0, '.')
 from agentbook.providers import resolve_backend
-b = resolve_backend('ollama')
-print('  ✅ provider 解析: base_url=%s | model=%s' % (b.base_url, b.model))
+declared = os.getenv('MODEL_NAME', '').strip()
+provider = os.getenv('LLM_PROVIDER', '').strip() or 'ollama'
+b = resolve_backend(provider, model=declared or None)
+if declared:
+    print('  ✅ provider 解析: base_url=%s | model=%s (来自 .env MODEL_NAME)' % (b.base_url, b.model))
+    assert b.model == declared, '解析模型 %s 与 .env 声明 %s 不一致' % (b.model, declared)
+else:
+    print('  ✅ provider 解析: base_url=%s | model=%s (工具包默认, .env 未声明 MODEL_NAME)' % (b.base_url, b.model))
 assert b.base_url.startswith('http'), 'base_url 异常'
-" 2>/dev/null ); then PASS=$((PASS+1)); else bad "resolve_backend 解析失败(agentbook 不可达或 env 异常)"; fi
+" 2>&1 )"; then
+    echo "$py_out"
+    PASS=$((PASS+1))
+  else
+    bad "resolve_backend 解析失败: $(printf '%s' "$py_out" | tail -2 | tr '\n' ' ')"
+  fi
 fi
 
 echo
