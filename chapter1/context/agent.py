@@ -7,6 +7,7 @@ Designed to demonstrate the importance of context through ablation studies.
 import json
 import logging
 import os
+import re
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
@@ -26,11 +27,12 @@ logger = logging.getLogger(__name__)
 
 
 def _reasoning_safe_temperature(model, requested=1.0):
-    """Reasoning models (Kimi K3, GPT-5, ...) only accept temperature=1.
-    Return 1 for those; otherwise the requested value so non-reasoning
-    providers (Doubao, DeepSeek, older Moonshot) are unchanged."""
+    """Reasoning models (Kimi K2.5+/K3, GPT-5, ...) only accept temperature=1.
+    Moonshot's fixed-temperature generation is any kimi-kN.M model id
+    (e.g. kimi-k2.6, kimi-k2.7-code) besides kimi-k3; older kimi-k2-*-preview
+    ids keep the requested temperature. GPT-5 series behaves the same."""
     m = str(model or "").lower().replace("/", "-")
-    return 1 if ("kimi-k3" in m or "gpt-5" in m) else requested
+    return 1 if (re.search(r"kimi-k\d+\.\d+", m) or "kimi-k3" in m or "gpt-5" in m) else requested
 
 
 # Two ways to take the tool results away, which are not the same experiment.

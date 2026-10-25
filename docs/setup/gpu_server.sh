@@ -491,7 +491,7 @@ run_experiment() {  # $1=kind: keycheck|five
       say "✅ 单臂完成(exit 0)。判读 evidence.json 三件事: ①每轮 tools 在位 ②reasoning* 非空 ③tool_calls 与观测配对"
       say "   下一步: $0 five"
     else
-      say "❌ 单臂未通过(exit $rc)。常见: 401=key/平台不互通(见 kimi 子命令) | 429=余额不足 | 404/连接=端点或 --served-model-name 不对"
+      say "❌ 单臂未通过(exit $rc)。常见: 401=key/平台不互通(见 kimi 子命令) | 429=余额不足 | 404/连接=端点或 --served-model-name 不对 | 400 invalid temperature=仓库过旧(kimi-k2.x 仅允许 temperature=1),git pull 后重跑"
       say "   证据已落盘 $outdir/evidence.json,api_turns[].error 有原始报错"
     fi
   else

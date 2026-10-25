@@ -66,6 +66,9 @@ def test_format_trace_step_truncates_long_content():
 def test_reasoning_models_force_supported_temperature():
     assert _reasoning_safe_temperature("kimi-k3", 0.2) == 1
     assert _reasoning_safe_temperature("openai/gpt-5.6-luna", 0.2) == 1
+    assert _reasoning_safe_temperature("kimi-k2.6", 0.2) == 1
+    assert _reasoning_safe_temperature("kimi-k2.7-code", 0.2) == 1
+    assert _reasoning_safe_temperature("kimi-k2-0711-preview", 0.2) == 0.2
     assert _reasoning_safe_temperature("deepseek-chat", 0.2) == 0.2
 
 
