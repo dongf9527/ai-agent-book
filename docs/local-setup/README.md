@@ -129,6 +129,11 @@ cd chapter1/context && python main.py --mode single --provider ollama \
 > `accepted=False` 均可能是预期行为，逐项判读见
 > [实验 1-1 单臂快测判读](../2026-10-25-实验1-1单臂快测判读.md)。
 
+> 全五臂跑完若五臂齐全却仍未晋升（`accepted=False` 且 `exact_five_arms_present=true`），
+> 通常是本地模型未回传推理内容、`full` 与 `no_reasoning` 两臂上下文合同 fail-closed
+> 所致——消融空转比行为不符更常见。挂点定位、三步探针与修复路径分档见
+> [实验 1-1 全五臂真跑判读](../2026-10-25-实验1-1全五臂真跑判读.md)。
+
 > 探测与验证输出会附带各端点的 `server vX.Y.Z`（Ollama 走 `/api/version`，vLLM 走 `/version`），
 > Windows 与 WSL 两侧版本错位（CLI 新、常驻服务旧）一眼可比。
 
