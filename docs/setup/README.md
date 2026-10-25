@@ -80,7 +80,8 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 | 工具调用返回纯文本、实验结果失真 | vLLM 启动漏了 `--enable-auto-tool-choice --tool-call-parser hermes`（Qwen 系列必需） |
 | `MODEL_NAME` 不匹配报错 | 必须等于 vLLM 的 `--served-model-name` / Ollama 的 tag（`select_backend.sh` 自动取 `/v1/models` 列表，一般不会错） |
 | Moonshot 报 401 Invalid Authentication | key 与端点平台不匹配：国内站 key 走 `api.moonshot.cn`、国际站走 `api.moonshot.ai`，**两站账号不互通**（裸配默认 .cn，国际站 key 必 401）。`gpu_server.sh kimi` 自动探测平台并写入 `KIMI_BASE_URL`；手工配置则 `export KIMI_BASE_URL=https://api.moonshot.ai/v1` |
-| Moonshot 报 429 账户暂停（insufficient balance） | key 有效但账户余额不足 → 去对应平台（.cn/.ai）充值后重跑；harness 会 fail-closed 并落盘证据，不会污染 canonical |
+| Moonshot 报 429 账户暂停（`exceeded_current_quota_error`） | key 有效但账户余额不足 → 去对应平台（.cn/.ai）充值后重跑；harness 会 fail-closed 并落盘证据，不会污染 canonical |
+| Moonshot 报 429 限流（`rate_limit_reached_error` / `organization max RPM: 3`） | 免费档组织级限速（每分钟最多 3 个请求），**非余额问题**。harness 已内置客户端节流：`moonshot` 端点自动 `≤3 req/min`（安全余量后实际约 2.8/min）+ 漏网 429 的 25s 耐心退避；本地 Ollama/vLLM 不受影响。可用 `LLM_RPM` 调节（0=关闭）；组织配额被其它客户端共享占用时用 `LLM_RPM=2` 更保守。五臂预计 8–15 分钟，日志中 `rate pacing` 等待属预期 |
 | 账号模型列表里没有 kimi-k3 | 可用模型由平台/账号决定（国际站部分账号仅 kimi-k2.6 / kimi-k2.7-code）。`gpu_server.sh kimi` 按账号列表自动选模型并拦截不存在的模型名（FORCE=1 可强制但实验会 400） |
 | vLLM 启动 OOM | 7B bf16 需 16–18GB 显存；用 AWQ/GPTQ 量化版，或 `GPU_UTIL=0.7 MAXLEN=4096 ./serve_vllm_wsl.sh` |
 | 想临时走云端 API | 删除 `.env` 受管块，恢复 env.example 里的厂商配置即可（两套配置互不干扰） |
@@ -186,6 +187,8 @@ sudo tar -xzf ollama-linux-amd64.tgz -C /usr/local
 | `probe [URL] [MODEL]` | 阶段 0 | 三探针：①模型在位 ②思考上线（reasoning_content / reasoning 双字段）③结构化 tool_calls，失败即输出对应修复旗标 |
 | `keycheck [PROVIDER] [MODEL]` | 阶段 1 | full 单臂快测（`--task guarded --hidden-result empty --max-iterations 5`），证据落 `validation/probes_gpu_*`；harness 的 exit 0 只对五臂有意义（单臂 probe 恒 exit 1），本脚本按 evidence 归一为 exit 0/1（full 臂 correct + 合同绿 + 无编造） |
 | `five [PROVIDER] [MODEL]` | 阶段 2 | canonical 五臂，exit 0 ⇔ accepted 且自动晋升 `latest.json` |
+
+云端限速语义：Moonshot 免费档组织级 `max RPM: 3`，harness 在调用层自动节流（`≤3 req/min` + 429 退避，`LLM_RPM` 可调、0=关闭；本地后端不节流），五臂全程无需人工干预，只需耐心等它慢速跑完。
 
 快速开始：
 

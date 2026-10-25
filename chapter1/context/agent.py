@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import threading
 import time
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
@@ -19,6 +20,7 @@ import pypdf
 from io import BytesIO
 import math
 from datetime import datetime
+from urllib.parse import urlparse
 
 from calc_sandbox import safe_eval
 
@@ -36,32 +38,152 @@ def _reasoning_safe_temperature(model, requested=1.0):
     return 1 if (re.search(r"kimi-k\d+\.\d+", m) or "kimi-k3" in m or "gpt-5" in m) else requested
 
 
-def _create_with_backoff(client, **create_kwargs):
-    """chat.completions.create with patient 429 backoff.
+class _RpmLimiter:
+    """Client-side pacing ceiling: at most ``rpm`` requests per ``window`` seconds.
 
-    Low-tier cloud accounts throttle a fast five-arm run with
-    rate_limit_reached_error (e.g. Moonshot: organization max RPM = 3).
-    The SDK's built-in retries wait ~1s, which stays inside the throttle
-    window and never recovers, so whole arms used to die as
-    no_terminal_response even though the account was healthy. Retry here
-    with a wait that outlasts the window. Only 429 is retried; 400/401/
-    etc. fail fast as before. Backoff/limits are env-tunable so local
-    backends (Ollama/vLLM) are unaffected -- they simply never 429.
+    Proactive counterpart to _create_with_backoff (which only reacts once a
+    429 has already happened). Moonshot's free tier rejects with
+    "organization max RPM: 3", so a five-arm run must never place more than
+    3 requests in any rolling minute. A fixed minimum gap of window/rpm
+    (20s at rpm=3) already guarantees that -- four requests would need a
+    >=60s span -- and the rolling-window count is kept as an explicit
+    second guard. Thread-safe; arms run sequentially today but nothing
+    here relies on it.
+    """
+
+    def __init__(self, rpm, window=60.0):
+        self.rpm = max(0, int(rpm))
+        self.window = float(window)
+        # The margin keeps any rpm+1 grants strictly OUTSIDE one window even
+        # when grant->wire delays (logging, connection setup, scheduler) push
+        # a request's wire time past its grant time: with gap == window/rpm
+        # exactly, grants at 0/20/40/60 span exactly 60s and sub-second skew
+        # can pack all four wire hits into one server-side minute.
+        self.min_gap = (
+            self.window / self.rpm + max(1.0, self.window * 0.02)
+            if self.rpm > 0 else 0.0
+        )  # 21.2s at rpm=3/window=60s -> ~2.8 req/min, safely under 3
+        self._lock = threading.Lock()
+        self._stamps = []           # monotonic times of requests inside the window
+        self._last = float("-inf")  # last acquire ever, for the spacing guard
+
+    def acquire(self):
+        """Block until one more request fits the ceiling. rpm<=0 disables pacing."""
+        if self.rpm <= 0:
+            return
+        while True:
+            with self._lock:
+                now = time.monotonic()
+                self._stamps = [t for t in self._stamps if now - t < self.window]
+                gap_ok = (now - self._last) >= self.min_gap
+                if len(self._stamps) < self.rpm and gap_ok:
+                    self._stamps.append(now)
+                    self._last = now
+                    return
+                waits = []
+                if len(self._stamps) >= self.rpm and self._stamps:
+                    waits.append(self.window - (now - self._stamps[0]))
+                if not gap_ok:
+                    waits.append(self._last + self.min_gap - now)
+            sleep_for = max(waits) if waits else 0.05
+            if sleep_for > 2.0:
+                logger.info(
+                    f"rate pacing: next request in {sleep_for:.1f}s to stay "
+                    f"under {self.rpm} requests/{self.window:.0f}s"
+                )
+            time.sleep(sleep_for)
+
+
+def _rpm_for(base_url):
+    """Requests-per-minute pacing ceiling for a backend (0 = no pacing).
+
+    LLM_RPM env wins outright (integer; 0 disables). Without it, pacing
+    turns on only where this book's exercise account actually needs it:
+    the Moonshot free tier enforces organization max RPM = 3 on both
+    api.moonshot.cn and api.moonshot.ai. Everything else -- local
+    Ollama/vLLM, other vendors, unit tests -- stays unthrottled so
+    behaviour and test latency are unchanged; set LLM_RPM to pace those.
+    """
+    raw = os.environ.get("LLM_RPM", "").strip()
+    if raw:
+        try:
+            return max(0, int(float(raw)))
+        except ValueError:
+            logger.warning(f"LLM_RPM={raw!r} is not a number; auto-detecting instead")
+    host = (urlparse(str(base_url or "")).hostname or "").lower()
+    return 3 if "moonshot" in host else 0
+
+
+_SHARED_LIMITER = None
+
+
+def _shared_limiter(base_url):
+    """One process-wide limiter, reconfigured only when the policy changes.
+
+    Agents are constructed per arm; resetting the limiter on every
+    construction would hand each arm a fresh budget and re-create the
+    very burst that gets low-RPM accounts throttled. The singleton
+    survives arm boundaries so spacing holds across the whole five-arm
+    run.
+    """
+    global _SHARED_LIMITER
+    rpm = _rpm_for(base_url)
+    if _SHARED_LIMITER is None or _SHARED_LIMITER.rpm != rpm:
+        _SHARED_LIMITER = _RpmLimiter(rpm)
+        if rpm > 0:
+            logger.info(
+                f"client-side pacing on: <= {rpm} requests/min for {base_url} "
+                f"(LLM_RPM env overrides; 0 disables)"
+            )
+    return _SHARED_LIMITER
+
+
+def _create_with_backoff(client, limiter=None, **create_kwargs):
+    """chat.completions.create with client-side pacing + patient 429 backoff.
+
+    Two call-level layers, because the SDK's built-in retries wait ~1s,
+    stay inside a low-RPM throttle window and never recover (whole arms
+    used to die as no_terminal_response even though the account was
+    healthy):
+      1. pacing -- ``limiter`` spaces requests out (Moonshot free tier:
+         organization max RPM = 3) so the throttle is not entered at all;
+      2. backoff -- a 429 that still slips through (shared org quota,
+         other clients on the same account, window edges) waits 25s and
+         retries, outlasting the window. 400/401/etc. still fail fast.
+    Transient connection errors get a separate short retry budget so one
+    network blip does not kill an arm. Knobs are env-tunable
+    (LLM_429_BACKOFF_SECONDS / LLM_429_MAX_RETRIES / LLM_CONN_RETRIES)
+    and local backends (Ollama/vLLM) are unaffected: never paced, never 429.
     """
     wait = float(os.environ.get("LLM_429_BACKOFF_SECONDS", "25"))
     max_retries = int(os.environ.get("LLM_429_MAX_RETRIES", "5"))
-    for attempt in range(max_retries + 1):
+    conn_budget = int(os.environ.get("LLM_CONN_RETRIES", "2"))
+    conn_used = 0
+    attempt = 0
+    while True:
+        if limiter is not None:
+            limiter.acquire()
         try:
             return client.chat.completions.create(**create_kwargs)
         except openai.RateLimitError as exc:
             if attempt >= max_retries:
                 raise
+            attempt += 1
             logger.warning(
                 f"429 rate-limited; waiting {wait:.0f}s then retry "
-                f"({attempt + 1}/{max_retries}) -- expected on low-RPM tiers: "
+                f"({attempt}/{max_retries}) -- expected on low-RPM tiers: "
                 f"{str(exc)[:120]}"
             )
             time.sleep(wait)
+        except openai.APIConnectionError as exc:
+            if conn_used >= conn_budget:
+                raise
+            conn_used += 1
+            logger.warning(
+                f"connection error; retry {conn_used}/{conn_budget} in 3s: "
+                f"{str(exc)[:120]}"
+            )
+            time.sleep(3)
 
 
 # Two ways to take the tool results away, which are not the same experiment.
@@ -454,11 +576,22 @@ class ContextAwareAgent:
                 f"{self.provider} API key not set; routing via OpenRouter "
                 f"(model: {self.model})"
             )
+        # max_retries=0: the SDK's built-in retries (~1s apart) bypass our
+        # pacing limiter and would burn a low-RPM budget invisibly. All
+        # retry policy lives in _create_with_backoff (pacing + 429 backoff
+        # + short connection-error retries).
         self.client = OpenAI(
             api_key=resolved_key,
-            base_url=resolved_base_url
+            base_url=resolved_base_url,
+            max_retries=0,
         )
         self.base_url = resolved_base_url
+        # Process-wide request pacing (<= N req/min); a no-op for local
+        # backends and vendors without a known low-RPM tier. Deliberately
+        # NOT reset per agent: arms are constructed one by one, and a
+        # fresh budget per arm would re-create the burst that 429s the
+        # account.
+        self._limiter = _shared_limiter(resolved_base_url)
         
         self.context_mode = context_mode
         self.trajectory = AgentTrajectory(context_mode=context_mode)
@@ -836,9 +969,12 @@ Important: When you have gathered all necessary information and computed the fin
 
                 logger.info(f"Sending request to {self.provider} API")
 
-                # Call the model with tools (patient 429 backoff at the call
-                # level: the SDK's ~1s retries cannot survive a low-RPM tier)
-                response = _create_with_backoff(self.client, **create_kwargs)
+                # Call the model with tools (client-side RPM pacing + patient
+                # 429 backoff at the call level: the SDK's ~1s retries cannot
+                # survive a low-RPM tier)
+                response = _create_with_backoff(
+                    self.client, limiter=getattr(self, "_limiter", None), **create_kwargs
+                )
 
                 response_dict = (
                     response.model_dump() if hasattr(response, "model_dump")

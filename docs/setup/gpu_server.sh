@@ -533,7 +533,7 @@ run_experiment() {  # $1=kind: keycheck|five
     else
       say "❌ 单臂未通过: $verdict"
       say "   证据已落盘 $outdir/evidence.json,api_turns[].error 有原始报错"
-      say "   常见: 401=key/平台不互通(见 kimi 子命令) | 429=余额不足 | 400 invalid temperature=仓库过旧,git pull 后重跑"
+      say "   常见: 401=key/平台不互通(见 kimi 子命令) | 429 exceeded_current_quota=余额不足 | 429 rate_limit/max RPM=限流,harness 已自动节流+退避,直接重跑 | 400 invalid temperature=仓库过旧,git pull 后重跑"
     fi
   else
     if [[ "$rc" == "0" ]]; then
@@ -542,6 +542,10 @@ run_experiment() {  # $1=kind: keycheck|five
       say "   对照: 与 Ollama canonical(real_20261025T070721Z) 填计划文档阶段 2 的对照表"
     else
       say "❌ 五臂未晋升(exit $rc)。exact_five_arms_present=true 但 accepted=False 多为合同 fail-closed,判读见 docs/experiments/2026-10-25-实验1-1全五臂真跑判读.md"
+      if grep -q "rate_limit_reached_error\|max RPM" "$CTX_DIR/$outdir/evidence.json" 2>/dev/null; then
+        say "   ⚠ 检出 429 限流(rate_limit/max RPM): 免费档组织级 RPM=3。harness 已带主动节流(≤3 req/min,LLM_RPM 可调)+429 退避,直接重跑即可(预计 8-15 分钟)"
+        say "     若仍触发: LLM_RPM=2 $0 five 更保守;或平台充值提档;注意 exceeded_current_quota 才是余额不足"
+      fi
     fi
   fi
   return "$rc"
