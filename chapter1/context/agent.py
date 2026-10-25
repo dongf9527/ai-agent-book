@@ -6,6 +6,7 @@ Designed to demonstrate the importance of context through ablation studies.
 
 import json
 import logging
+import os
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
@@ -782,6 +783,17 @@ Important: When you have gathered all necessary information and computed the fin
                 if self.provider == "deepseek" and not getattr(self, "using_openrouter", False):
                     create_kwargs["extra_body"] = {"thinking": {"type": "enabled"}}
                     request_data["thinking"] = {"type": "enabled"}
+                elif self.provider == "ollama" and not getattr(self, "using_openrouter", False):
+                    # Local servers only put reasoning on the wire when thinking
+                    # is requested; without this hint the no_reasoning arm has
+                    # nothing to strip and the reasoning contracts fail closed
+                    # (see docs/experiments five-arm interpretation, section 5-7).
+                    # `reasoning_effort` is the OpenAI-compatible hint that the
+                    # /v1 probe in that doc tests. OLLAMA_THINK=0 opts out for
+                    # backends that reject the hint.
+                    if os.environ.get("OLLAMA_THINK", "1").strip().lower() not in ("0", "off", "false"):
+                        create_kwargs["extra_body"] = {"reasoning_effort": "high"}
+                        request_data["reasoning_effort"] = "high"
 
                 logger.info(f"Sending request to {self.provider} API")
 
