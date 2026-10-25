@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import time
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
@@ -33,6 +34,34 @@ def _reasoning_safe_temperature(model, requested=1.0):
     ids keep the requested temperature. GPT-5 series behaves the same."""
     m = str(model or "").lower().replace("/", "-")
     return 1 if (re.search(r"kimi-k\d+\.\d+", m) or "kimi-k3" in m or "gpt-5" in m) else requested
+
+
+def _create_with_backoff(client, **create_kwargs):
+    """chat.completions.create with patient 429 backoff.
+
+    Low-tier cloud accounts throttle a fast five-arm run with
+    rate_limit_reached_error (e.g. Moonshot: organization max RPM = 3).
+    The SDK's built-in retries wait ~1s, which stays inside the throttle
+    window and never recovers, so whole arms used to die as
+    no_terminal_response even though the account was healthy. Retry here
+    with a wait that outlasts the window. Only 429 is retried; 400/401/
+    etc. fail fast as before. Backoff/limits are env-tunable so local
+    backends (Ollama/vLLM) are unaffected -- they simply never 429.
+    """
+    wait = float(os.environ.get("LLM_429_BACKOFF_SECONDS", "25"))
+    max_retries = int(os.environ.get("LLM_429_MAX_RETRIES", "5"))
+    for attempt in range(max_retries + 1):
+        try:
+            return client.chat.completions.create(**create_kwargs)
+        except openai.RateLimitError as exc:
+            if attempt >= max_retries:
+                raise
+            logger.warning(
+                f"429 rate-limited; waiting {wait:.0f}s then retry "
+                f"({attempt + 1}/{max_retries}) -- expected on low-RPM tiers: "
+                f"{str(exc)[:120]}"
+            )
+            time.sleep(wait)
 
 
 # Two ways to take the tool results away, which are not the same experiment.
@@ -807,8 +836,9 @@ Important: When you have gathered all necessary information and computed the fin
 
                 logger.info(f"Sending request to {self.provider} API")
 
-                # Call the model with tools
-                response = self.client.chat.completions.create(**create_kwargs)
+                # Call the model with tools (patient 429 backoff at the call
+                # level: the SDK's ~1s retries cannot survive a low-RPM tier)
+                response = _create_with_backoff(self.client, **create_kwargs)
 
                 response_dict = (
                     response.model_dump() if hasattr(response, "model_dump")
