@@ -14,7 +14,7 @@ on:
       - "web-astro/**"
       - "book*/**"
       - "README*.md"
-      - "docs/*/README.md"
+      - "docs/**"
   workflow_dispatch:
 
 permissions:

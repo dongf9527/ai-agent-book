@@ -2,7 +2,7 @@
 
 > A „modell mint ágens” paradigmából kiindulva felépíti az **Ágens = LLM + Kontextus + Eszközök** alapképletet, és bemutatja a modellen túli versenyelőnyt jelentő harness-mérnökséget.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter1.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter1.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

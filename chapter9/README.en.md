@@ -2,7 +2,7 @@
 
 > Growth without changing weights. Three learning paradigms, learning from experience, and the journey from "tool user" to "tool creator," allowing Agents to progress from "smart" to "skilled."
 
-← [Back to main README](../docs/en/README.md) · 📖 [Read chapter text](../book-en/chapter9.md)
+← [Back to main README](../docs/i18n/en/README.md) · 📖 [Read chapter text](../book-en/chapter9.md)
 
 ## How to Read the Experiments
 

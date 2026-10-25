@@ -2,7 +2,7 @@
 
 > **Agente = LLM + Contexto + Herramientas**; La ingeniería del Harness es la verdadera ventaja competitiva
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter1.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter1.es.md)
 
 ## Cómo leer los experimentos
 

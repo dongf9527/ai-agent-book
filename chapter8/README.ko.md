@@ -2,7 +2,7 @@
 
 > 사전 학습, Mid-training, SFT, RL의 네 단계: 긴 문맥 커리큘럼과 데이터 구성, SFT 프로토콜 고정, RL 환경과 보상, 단일 턴에서 다중 턴까지의 샘플 효율을 다룹니다.
 
-← [한국어 메인 README로 돌아가기](../docs/ko/README.md) · 📖 [제8장 본문 읽기](../book-ko/chapter8.ko.md)
+← [한국어 메인 README로 돌아가기](../docs/i18n/ko/README.md) · 📖 [제8장 본문 읽기](../book-ko/chapter8.ko.md)
 
 ## 실험 읽는 방법
 

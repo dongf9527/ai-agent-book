@@ -2,7 +2,7 @@
 
 > 컨텍스트는 에이전트 역량의 상한을 결정합니다. LLM API의 컨텍스트 구조, KV Cache에 유리한 설계, 프롬프트 엔지니어링, 동적 프롬프트와 Agent Skills, 상태 표시줄 메타 정보, 컨텍스트 압축 전략을 깊이 살펴봅니다.
 
-← [한국어 메인 README로 돌아가기](../docs/ko/README.md) · 📖 [제2장 본문 읽기](../book-ko/chapter2.ko.md)
+← [한국어 메인 README로 돌아가기](../docs/i18n/ko/README.md) · 📖 [제2장 본문 읽기](../book-ko/chapter2.ko.md)
 
 ## 실험 읽는 방법
 

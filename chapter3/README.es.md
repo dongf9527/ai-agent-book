@@ -2,7 +2,7 @@
 
 > Memoria de usuario entre sesiones y conocimiento externo: memoria de usuario, RAG, índices estructurados, grafos de conocimiento
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter3.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter3.es.md)
 
 ## Cómo leer los experimentos
 

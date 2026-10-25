@@ -58,7 +58,7 @@ def read(relative_path: str) -> str:
 
 def test_public_chapter_indexes_use_the_2_0_structure():
     root_readme = read("README.md")
-    zh_readme = read("docs/zh-CN/README.md")
+    zh_readme = read("docs/i18n/zh-CN/README.md")
 
     for document in (root_readme, zh_readme):
         assert "书稿版本已由 1.4 升级为 2.0" in document

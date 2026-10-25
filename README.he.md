@@ -2,7 +2,7 @@
 
 [![PDF](https://img.shields.io/badge/PDF-הורדה-success.svg)](#ספר-אלקטרוני) [![קריאה מקוונת](https://img.shields.io/badge/🌐_קריאה_מקוונת-bojieli.github.io-success?style=flat-square)](https://bojieli.github.io/ai-agent-book/astro/he/) [![Stars](https://img.shields.io/github/stars/bojieli/ai-agent-book?style=social)](https://github.com/bojieli/ai-agent-book) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) [![Languages](https://img.shields.io/badge/תרגומים-15%20שפות-informational.svg)](#ספר-אלקטרוני)
 
-[中文](README.md) · [English](docs/en/README.md) · [Español](docs/es/README.md) · [Bahasa Indonesia](docs/id/README.md) · [العربية](docs/ar/README.md) · [繁體中文（台灣）](docs/zh-TW/README.md) · [Русский](docs/ru/README.md) · [Tiếng Việt](docs/vi/README.md) · [தமிழ்](docs/ta/README.md) · [日本語](docs/ja/README.md) · [Türkçe](docs/tr/README.md) · [한국어](docs/ko/README.md) · [Magyar](docs/hu/README.md) · **עברית** ← נוכחי · [Português (Brasil)](README.ptbr.md)
+[中文](README.md) · [English](docs/i18n/en/README.md) · [Español](docs/i18n/es/README.md) · [Bahasa Indonesia](docs/i18n/id/README.md) · [العربية](docs/i18n/ar/README.md) · [繁體中文（台灣）](docs/i18n/zh-TW/README.md) · [Русский](docs/i18n/ru/README.md) · [Tiếng Việt](docs/i18n/vi/README.md) · [தமிழ்](docs/i18n/ta/README.md) · [日本語](docs/i18n/ja/README.md) · [Türkçe](docs/i18n/tr/README.md) · [한국어](docs/i18n/ko/README.md) · [Magyar](docs/i18n/hu/README.md) · **עברית** ← נוכחי · [Português (Brasil)](README.ptbr.md)
 
 > 📥 **[הורדת PDF / EPUB](#ספר-אלקטרוני)** (מומלץ) — מהדורות ה־PDF וה־EPUB מספקות את חוויית הקריאה הטובה ביותר. ניתן גם [לקרוא באתר](https://bojieli.github.io/ai-agent-book/astro/he/) עם ניווט מלא מימין לשמאל, מעבר בין שפות והדגשות והערות.
 
@@ -62,13 +62,13 @@ bash build_pdf.sh
 ## ❓ שאלות נפוצות
 
 **ש: יש PDF / EPUB? צריך לבנות אותם לבד?**
-לא. הסעיף [ספר אלקטרוני](#ספר-אלקטרוני) מציג קישורי הורדה של PDF / EPUB (המהדורות בכל 15 השפות מופיעות ב־[README באנגלית](docs/en/README.md)), והם מצביעים תמיד על הבנייה העדכנית ביותר של ענף main; אפשר גם [לקרוא באתר](https://bojieli.github.io/ai-agent-book/). בנייה עצמית נדרשת רק אם רוצים לערוך את הטקסט ולעמד אותו מחדש.
+לא. הסעיף [ספר אלקטרוני](#ספר-אלקטרוני) מציג קישורי הורדה של PDF / EPUB (המהדורות בכל 15 השפות מופיעות ב־[README באנגלית](docs/i18n/en/README.md)), והם מצביעים תמיד על הבנייה העדכנית ביותר של ענף main; אפשר גם [לקרוא באתר](https://bojieli.github.io/ai-agent-book/). בנייה עצמית נדרשת רק אם רוצים לערוך את הטקסט ולעמד אותו מחדש.
 
 **ש: איזה ידע מוקדם נדרש לקריאת הספר?**
 הסעיף „ידע מוקדם נדרש” בהקדמה מפרט זאת במלואו: יכולת לקרוא ולשנות קוד Python במורכבות בינונית; ניסיון בשימוש במוצרי LLM כמו ChatGPT ו־Claude; היכרות עם לפחות כלי אחד לתכנות בסיוע AI (Claude Code,‏ Codex,‏ Cursor וכדומה); ידע בסיסי בהנדסת תוכנה — שורת פקודה, Git,‏ JSON,‏ REST API. מלבד האימון־על שבפרק 8, דרישות הספר במתמטיקה ובלמידת מכונה נמוכות מאוד.
 
 **ש: יש הרבה חומר ואני שוכח אותו מיד אחרי הקריאה — איך לעכל אותו?**
-אל תסתפקו בקריאת הטקסט. הדרך המומלצת היא לעבוד בעצמכם על הניסויים של כל פרק — לא לקרוא את הקוד הנלווה, אלא להבין את עקרונות העיצוב שבספר ואז לממש אותם מחדש מאפס בעזרת coding agent, להתבונן בפלט ולאתר את המקומות שאינם תואמים את הציפיות. גם שאלות למחשבה שבסוף כל פרק הן מבחן עצמי טוב. מסלול שיטתי יותר מופיע ב[מדריך הלמידה](docs/en/LEARNING.md) (באנגלית). אחד הקוראים סיכם זאת יפה: קודם קוראים את הספר עד שהוא נעשה דק, אחר כך עד שהוא נעשה עבה, ואז שוב עד שהוא נעשה דק.
+אל תסתפקו בקריאת הטקסט. הדרך המומלצת היא לעבוד בעצמכם על הניסויים של כל פרק — לא לקרוא את הקוד הנלווה, אלא להבין את עקרונות העיצוב שבספר ואז לממש אותם מחדש מאפס בעזרת coding agent, להתבונן בפלט ולאתר את המקומות שאינם תואמים את הציפיות. גם שאלות למחשבה שבסוף כל פרק הן מבחן עצמי טוב. מסלול שיטתי יותר מופיע ב[מדריך הלמידה](docs/i18n/en/LEARNING.md) (באנגלית). אחד הקוראים סיכם זאת יפה: קודם קוראים את הספר עד שהוא נעשה דק, אחר כך עד שהוא נעשה עבה, ואז שוב עד שהוא נעשה דק.
 
 **ש: צריך להבין את קוד הניסויים שורה אחר שורה?**
 לא. כל הקוד הנלווה לספר נוצר על ידי coding agent על בסיס טקסט הספר, וגם המחבר אינו קורא אותו שורה אחר שורה. העיקר הוא לחשוב היטב על הארכיטקטורה, על הרכיבים המרכזיים ועל עקרונות העיצוב, ואז לתת ל־AI לכתוב את הקוד, להריץ בדיקות ולתקן באגים; האדם אחראי לעיצוב הראשוני ולקבלה הסופית.

@@ -2,7 +2,7 @@
 
 > Inteligencia colectiva > individual: marcos de colaboración, compartición/aislamiento de contexto, "Sociedad de Agentes" emergente
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter10.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter10.es.md)
 
 ## Cómo leer los experimentos
 

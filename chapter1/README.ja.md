@@ -2,7 +2,7 @@
 
 > 「モデルこそが Agent」という新しいパラダイムから出発し、中核となる公式 **Agent = LLM + コンテキスト + ツール** を確立し、Harness エンジニアリングを紹介する。モデルを超えたすべてのエンジニアリング能力こそが、真の競争優位性である。
 
-← [メイン README に戻る](../docs/ja/README.md) · 📖 [章の本文を読む](../book-ja/chapter1.ja.md)
+← [メイン README に戻る](../docs/i18n/ja/README.md) · 📖 [章の本文を読む](../book-ja/chapter1.ja.md)
 
 ## 実験の読み方
 

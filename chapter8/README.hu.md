@@ -2,7 +2,7 @@
 
 > Négy rész—pre-tréning, Mid-training, SFT és RL: hosszúkontextus-tanterv és adatépítés, SFT-protokoll, RL-környezet és jutalom, mintahatékonyság egy- és többmenetes ágenseknél.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter8.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter8.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

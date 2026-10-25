@@ -2,7 +2,7 @@
 
 > 工具是 Agent 的雙手：MCP 協議、感知/執行/協作三類工具、事件驅動非同步 Agent、主動工具發現
 
-← [返回主目錄](../docs/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter4.md)
+← [返回主目錄](../docs/i18n/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter4.md)
 
 ## 如何閱讀實驗
 

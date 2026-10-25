@@ -2,7 +2,7 @@
 
 > 群體智慧高於個體：協作框架、上下文共享/隔離、湧現的「Agent 社會」
 
-← [返回主目錄](../docs/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter10.md)
+← [返回主目錄](../docs/i18n/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter10.md)
 
 ## 如何閱讀實驗
 

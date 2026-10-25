@@ -2,7 +2,7 @@
 
 > Az eszközök az ágens kezei: eszközosztályozás és -tervezés, MCP-protokoll, érzékelési, végrehajtási és együttműködési eszközök, valamint eseményvezérelt aszinkron ágensek.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter4.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter4.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

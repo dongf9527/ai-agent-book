@@ -2,7 +2,7 @@
 
 > A szövegtől a beszéd, a grafikus felületek és a fizikai világ felé bővíti az érzékelést és a cselekvést: streamelt beszéd, Computer Use és robotika.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter6.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter6.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

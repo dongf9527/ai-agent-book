@@ -2,7 +2,7 @@
 
 > Memulai dari paradigma “Model sebagai Agent”, membangun rumus inti **Agent = LLM + Context + Tool**, dan memperkenalkan rekayasa Harness sebagai keunggulan di luar model.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter1.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter1.md)
 
 ## Cara Membaca Eksperimen
 

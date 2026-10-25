@@ -2,7 +2,7 @@
 
 > Kode adalah “tool yang dapat menciptakan tool baru” dan menjadi meta-kemampuan Agent serbaguna.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter5.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter5.md)
 
 ## Cara Membaca Eksperimen
 

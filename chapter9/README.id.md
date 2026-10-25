@@ -2,7 +2,7 @@
 
 > Membantu Agent berkembang dari pengalaman: memverifikasi trajectory, menyuling pengetahuan, memperbaiki prompt, membuat workflow, dan memodifikasi diri secara terkendali.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter9.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter9.md)
 
 ## Cara Membaca Eksperimen
 

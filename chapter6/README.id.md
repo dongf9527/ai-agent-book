@@ -2,7 +2,7 @@
 
 > Memperluas persepsi dan tindakan dari teks ke suara, GUI, dan dunia fisik: streaming speech, Computer Use, serta robotika.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter6.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter6.md)
 
 ## Cara Membaca Eksperimen
 

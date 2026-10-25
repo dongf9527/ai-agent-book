@@ -2,7 +2,7 @@
 
 > Memungkinkan Agent mengingat pengguna lintas sesi dan mengakses pengetahuan eksternal melalui memori, RAG, indeks terstruktur, dan knowledge graph.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter3.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter3.md)
 
 ## Cara Membaca Eksperimen
 

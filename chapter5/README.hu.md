@@ -2,7 +2,7 @@
 
 > A kód „olyan eszköz, amely új eszközöket hozhat létre”, ezért az általános célú ágensek egyik legfontosabb metaképessége.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter5.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter5.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

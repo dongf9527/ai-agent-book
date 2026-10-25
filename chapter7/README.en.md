@@ -2,7 +2,7 @@
 
 > Turns Agent performance into comparable signals. Covers evaluation environments, dataset design, metric systems, statistical significance, observability, evaluation-driven selection, and production-grade internal evaluation and simulation environments.
 
-← [Back to main README](../docs/en/README.md) · 📖 [Read chapter text](../book-en/chapter7.md)
+← [Back to main README](../docs/i18n/en/README.md) · 📖 [Read chapter text](../book-en/chapter7.md)
 
 ## How to Read the Experiments
 

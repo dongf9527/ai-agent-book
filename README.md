@@ -3,7 +3,7 @@
 [![PDF](https://img.shields.io/badge/PDF-%E4%B8%8B%E8%BD%BD-success.svg)](#-电子书) [![在线阅读](https://img.shields.io/badge/🌐_在线阅读-bojieli.github.io-success?style=flat-square)](https://bojieli.github.io/ai-agent-book/astro/) [![Stars](https://img.shields.io/github/stars/bojieli/ai-agent-book?style=social)](https://github.com/bojieli/ai-agent-book) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) [![Languages](https://img.shields.io/badge/翻译-15%20种%20语言-informational.svg)](#-电子书)
 [![Trending GitHub Project of the Day](https://img.shields.io/badge/GitHub%20Trending-Project%20of%20the%20Day-orange?logo=github)](https://github.com/trending)
 
-**中文** ← 当前 · [English](docs/en/README.md) · [Español](docs/es/README.md) · [Bahasa Indonesia](docs/id/README.md) · [العربية](docs/ar/README.md) · [繁體中文（台灣）](docs/zh-TW/README.md) · [Русский](docs/ru/README.md) · [Tiếng Việt](docs/vi/README.md) · [தமிழ்](docs/ta/README.md) · [日本語](docs/ja/README.md) · [Türkçe](docs/tr/README.md) · [한국어](docs/ko/README.md) · [Magyar](docs/hu/README.md) · [עברית](README.he.md) · [Português (Brasil)](README.ptbr.md)
+**中文** ← 当前 · [English](docs/i18n/en/README.md) · [Español](docs/i18n/es/README.md) · [Bahasa Indonesia](docs/i18n/id/README.md) · [العربية](docs/i18n/ar/README.md) · [繁體中文（台灣）](docs/i18n/zh-TW/README.md) · [Русский](docs/i18n/ru/README.md) · [Tiếng Việt](docs/i18n/vi/README.md) · [தமிழ்](docs/i18n/ta/README.md) · [日本語](docs/i18n/ja/README.md) · [Türkçe](docs/i18n/tr/README.md) · [한국어](docs/i18n/ko/README.md) · [Magyar](docs/i18n/hu/README.md) · [עברית](README.he.md) · [Português (Brasil)](README.ptbr.md)
 
 > 📥 **[下载 PDF / EPUB](#-电子书)**（推荐）— 推荐使用 PDF / EPUB 离线阅读，排版最佳；也可[在线阅读](https://bojieli.github.io/ai-agent-book/astro/)（支持多语言切换、章节折叠、高亮与笔记，每次推送自动更新）。
 
@@ -77,7 +77,7 @@
 
 > 💡 **读** = 在 GitHub 网页直接读章节正文（markdown）；**N** = 该章正文实验数，点击查看实现与复现说明。项目类型说明（✅ 可运行 / 📖 复现 / 🚧 设计）见各章 README。
 >
-> 📚 如何高效阅读本书？详见 **[学习建议](docs/zh-CN/LEARNING.md)**（核心理念、学习路径、难度分级、实践建议）。
+> 📚 如何高效阅读本书？详见 **[学习建议](docs/i18n/zh-CN/LEARNING.md)**（核心理念、学习路径、难度分级、实践建议）。
 
 ## 💻 运行配套实验
 
@@ -128,7 +128,7 @@ uv run python chapter1/context/main.py
 引言的“前置知识”一节有完整说明：能读懂并修改中等复杂度的 Python 代码；用过 ChatGPT、Claude 等 LLM 产品；熟悉至少一款 AI 辅助编程工具（Claude Code、Codex、Cursor 等）；了解命令行、Git、JSON、REST API 等软件工程常识。除第八章后训练外，全书对数学和机器学习的要求很低。
 
 **Q：知识点多、读完就忘，怎么消化？**
-不要只读正文。推荐的方式是结合每章实验自己动手——不是看配套代码，而是读懂书中的设计原则后，借助 coding agent 从头实现一遍，观察输出、排查不符合预期的地方；每章末尾的思考题也是很好的自测。更系统的路径见[学习建议](docs/zh-CN/LEARNING.md)。一位读者的总结很贴切：先把书看薄，再把书看厚，再把书看薄。
+不要只读正文。推荐的方式是结合每章实验自己动手——不是看配套代码，而是读懂书中的设计原则后，借助 coding agent 从头实现一遍，观察输出、排查不符合预期的地方；每章末尾的思考题也是很好的自测。更系统的路径见[学习建议](docs/i18n/zh-CN/LEARNING.md)。一位读者的总结很贴切：先把书看薄，再把书看厚，再把书看薄。
 
 **Q：实验代码需要逐行弄明白吗？**
 不需要。本书的配套代码全部由 coding agent 根据书稿生成，作者也不会逐行阅读。关键是把架构、核心组件和设计原则想清楚，然后让 AI 去写代码、跑测试、修 bug，人负责最初的设计和最终的验收。
@@ -152,7 +152,7 @@ uv run python chapter1/context/main.py
 
 Krill 为本书读者提供特别优惠：使用[此链接](https://www.krill-code.com/register?invite=Q8D3L35725)注册并在充值时填写优惠码「ai-agent-book」，首次购买 Codex 套餐可享 77 折优惠！
 
-> 🧪 配套实验的执行状态、证据与未完成门禁单独记录在 [`docs/EXPERIMENT_STATUS.md`](docs/EXPERIMENT_STATUS.md)；克隆或安装源码不代表实验完成。
+> 🧪 配套实验的执行状态、证据与未完成门禁单独记录在 [`docs/experiments/EXPERIMENT_STATUS.md`](docs/experiments/EXPERIMENT_STATUS.md)；克隆或安装源码不代表实验完成。
 
 ## 📦 附录 · 外部仓库获取
 

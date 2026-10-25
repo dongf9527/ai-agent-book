@@ -2,7 +2,7 @@
 
 > Bốn phần—tiền huấn luyện, Mid-training, SFT và RL: curriculum và dữ liệu ngữ cảnh dài, định hình giao thức bằng SFT, môi trường và phần thưởng RL, cùng hiệu quả mẫu từ một vòng đến nhiều vòng.
 
-← [Về README chính](../docs/vi/README.md) · 📖 [Đọc nội dung chương](../book-vi/chapter8.vi.md)
+← [Về README chính](../docs/i18n/vi/README.md) · 📖 [Đọc nội dung chương](../book-vi/chapter8.vi.md)
 
 ## Cách đọc các thí nghiệm
 

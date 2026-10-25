@@ -2,7 +2,7 @@
 
 > Las herramientas son las manos del Agente: protocolo MCP, herramientas de percepción/ejecución/colaboración, Agentes asíncronos orientados a eventos
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter4.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter4.es.md)
 
 ## Cómo leer los experimentos
 

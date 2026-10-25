@@ -2,7 +2,7 @@
 
 > Membahas kapan kecerdasan kolektif mengungguli satu Agent, pola koordinasi, berbagi atau mengisolasi context, mode kegagalan, dan masyarakat Agent.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter10.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter10.md)
 
 ## Cara Membaca Eksperimen
 

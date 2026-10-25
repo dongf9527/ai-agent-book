@@ -2,7 +2,7 @@
 
 > El código es una "herramienta para crear nuevas herramientas"; panorama completo de un Coding Agent de grado de producción
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter5.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter5.es.md)
 
 ## Cómo leer los experimentos
 

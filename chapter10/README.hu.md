@@ -2,7 +2,7 @@
 
 > Azt vizsgálja, mikor múlja felül a kollektív intelligencia az egyetlen ágenst: koordinációs minták, kontextusmegosztás és -elszigetelés, hibamódok és ágenstársadalmak.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter10.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter10.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

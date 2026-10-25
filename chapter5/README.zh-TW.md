@@ -2,7 +2,7 @@
 
 > 程式碼是「能創造新工具的工具」，生產級 Coding Agent 全景
 
-← [返回主目錄](../docs/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter5.md)
+← [返回主目錄](../docs/i18n/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter5.md)
 
 ## 如何閱讀實驗
 

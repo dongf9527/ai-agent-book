@@ -2,7 +2,7 @@
 
 > 預訓練／Mid-training／SFT／RL 四階段：長上下文課程與資料構造、SFT 協定固化、RL 環境與獎勵，以及從單輪到多輪的樣本效率。
 
-← [返回主目錄](../docs/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter8.md)
+← [返回主目錄](../docs/i18n/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter8.md)
 
 ## 如何閱讀實驗
 

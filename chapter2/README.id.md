@@ -2,7 +2,7 @@
 
 > Context menentukan batas atas kemampuan Agent: struktur API, desain ramah KV Cache, prompt engineering, Agent Skills, status bar, dan kompresi context.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter2.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter2.md)
 
 ## Cara Membaca Eksperimen
 

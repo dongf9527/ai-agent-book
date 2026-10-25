@@ -2,7 +2,7 @@
 
 > Cuatro partes—pre-entrenamiento, Mid-training, SFT y RL: currículo y datos de contexto largo, protocolos con SFT, entornos y recompensas de RL, y eficiencia de muestra de una a varias rondas.
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter8.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter8.es.md)
 
 Los límites de implementación, código externo y evidencia directa de cada experimento se detallan en el [registro de aceptación](EXPERIMENT_LEDGER.md).
 

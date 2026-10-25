@@ -1,4 +1,4 @@
-"""Regression tests for docs/EXPERIMENT_STATUS.md ledger links.
+"""Regression tests for docs/experiments/EXPERIMENT_STATUS.md ledger links.
 
 Closes the class where ledger bullet-list entries used literal ``+- `` prefixes
 that render as text instead of Markdown list items, and where linked ledger
@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-STATUS_FILE = REPO_ROOT / "docs" / "EXPERIMENT_STATUS.md"
+STATUS_FILE = REPO_ROOT / "docs" / "experiments" / "EXPERIMENT_STATUS.md"
 
 _BULLET_RE = re.compile(r"^\+- \[", re.MULTILINE)
 _LEDGER_LINK_RE = re.compile(r"^- \[.+?\]\((\.\./.+?\.md)\)$", re.MULTILINE)

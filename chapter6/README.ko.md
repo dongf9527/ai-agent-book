@@ -2,7 +2,7 @@
 
 > 인식과 행동의 범위를 텍스트에서 음성, GUI, 물리 세계로 넓힙니다. 세 가지 음성 패러다임(캐스케이드, 종단 간 옴니모달, 전이중/상호작용형), 스트리밍 음성 인식·합성, Computer Use, 로봇 조작을 다룹니다.
 
-← [한국어 메인 README로 돌아가기](../docs/ko/README.md) · 📖 [제6장 본문 읽기](../book-ko/chapter6.ko.md)
+← [한국어 메인 README로 돌아가기](../docs/i18n/ko/README.md) · 📖 [제6장 본문 읽기](../book-ko/chapter6.ko.md)
 
 ## 실험 읽는 방법
 

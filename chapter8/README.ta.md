@@ -2,7 +2,7 @@
 
 > முன்-பயிற்சி, Mid-training, SFT, RL என்ற நான்கு பகுதிகள்: நீண்ட சூழல் curriculum மற்றும் தரவு அமைப்பு, SFT protocol, RL சூழல் மற்றும் reward, ஒற்றைச் சுற்றிலிருந்து பல சுற்று வரை sample efficiency.
 
-← [முக்கிய README க்குத் திரும்பு](../docs/ta/README.md) · 📖 [அத்தியாய உரையைப் படி](../book-ta/chapter8.ta.md)
+← [முக்கிய README க்குத் திரும்பு](../docs/i18n/ta/README.md) · 📖 [அத்தியாய உரையைப் படி](../book-ta/chapter8.ta.md)
 
 ## சோதனைகளை எப்படிப் படிப்பது
 

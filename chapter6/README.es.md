@@ -2,7 +2,7 @@
 
 > Extensión del texto a la voz, GUI y mundo físico: tres paradigmas de voz, Computer Use, robótica
 
-← [Volver al README principal](../docs/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter6.es.md)
+← [Volver al README principal](../docs/i18n/es/README.md) · 📖 [Leer texto del capítulo](../book-es/chapter6.es.md)
 
 ## Cómo leer los experimentos
 

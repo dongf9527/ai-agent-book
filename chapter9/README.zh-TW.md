@@ -2,7 +2,7 @@
 
 > 不改權重也能成長：經驗學習、從工具使用者到創造者
 
-← [返回主目錄](../docs/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter9.md)
+← [返回主目錄](../docs/i18n/zh-TW/README.md) · 📖 [讀本章正文](../book/chapter9.md)
 
 ## 如何閱讀實驗
 

@@ -2,7 +2,7 @@
 
 > Lehetővé teszi, hogy az ágens munkameneteken át emlékezzen a felhasználóra, és memórián, RAG-on, strukturált indexeken és tudásgráfokon keresztül külső tudáshoz férjen hozzá.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter3.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter3.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

@@ -2,7 +2,7 @@
 
 > A teljesítményt összehasonlítható jellé alakítja értékelési környezetekkel, adathalmazokkal, mérőszámokkal, megfigyelhetőséggel és értékelésvezérelt kiválasztással.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter7.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter7.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

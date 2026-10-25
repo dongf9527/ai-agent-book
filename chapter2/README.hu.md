@@ -2,7 +2,7 @@
 
 > A kontextus határozza meg az ágens képességeinek felső korlátját: API-struktúra, KV Cache-barát tervezés, prompttervezés, Agent Skills, állapotsáv és kontextustömörítés.
 
-← [Vissza a magyar főoldalhoz](../docs/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter2.md)
+← [Vissza a magyar főoldalhoz](../docs/i18n/hu/README.md) · 📖 [A fejezet olvasása](../book-hu/chapter2.md)
 
 ## Hogyan olvassuk a kísérleteket?
 

@@ -2,7 +2,7 @@
 
 > Tool adalah tangan Agent: klasifikasi dan desain tool, protokol MCP, tool persepsi/eksekusi/kolaborasi, serta Agent asinkron berbasis event.
 
-← [Kembali ke README utama](../docs/id/README.md) · 📖 [Baca bab](../book-id/chapter4.md)
+← [Kembali ke README utama](../docs/i18n/id/README.md) · 📖 [Baca bab](../book-id/chapter4.md)
 
 ## Cara Membaca Eksperimen
 

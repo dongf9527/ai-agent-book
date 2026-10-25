@@ -2,7 +2,7 @@
 
 > 事前学習、Mid-training、SFT、RL の 4 段階：長文脈カリキュラムとデータ設計、SFT によるプロトコル形成、RL の環境と報酬、シングルターンからマルチターンまでのサンプル効率。
 
-← [メイン README に戻る](../docs/ja/README.md) · 📖 [章の本文を読む](../book-ja/chapter8.ja.md)
+← [メイン README に戻る](../docs/i18n/ja/README.md) · 📖 [章の本文を読む](../book-ja/chapter8.ja.md)
 
 ## 実験の読み方
 

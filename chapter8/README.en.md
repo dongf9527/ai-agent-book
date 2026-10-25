@@ -2,7 +2,7 @@
 
 > Four parts—pre-training, Mid-training, SFT, and RL: long-context curricula and data construction, SFT protocol shaping, RL environments and rewards, and sample efficiency from single-turn to multi-turn Agents.
 
-← [Back to main README](../docs/en/README.md) · 📖 [Read chapter text](../book-en/chapter8.md)
+← [Back to main README](../docs/i18n/en/README.md) · 📖 [Read chapter text](../book-en/chapter8.md)
 
 ## How to Read the Experiments
 

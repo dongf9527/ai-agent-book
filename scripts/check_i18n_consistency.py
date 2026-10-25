@@ -9,8 +9,8 @@ CI 自动适配，无需改脚本。
 
 目录约定（中文为主语言）：
   - 中文主 README：仓库根目录 README.md（不放进 docs/）
-  - 其它语言主 README：docs/<locale>/README.md（如 docs/en/README.md）
-  - 学习建议：docs/<locale>/LEARNING.md（含中文 docs/zh-CN/LEARNING.md）
+  - 其它语言主 README：docs/i18n/<locale>/README.md（如 docs/i18n/en/README.md）
+  - 学习建议：docs/i18n/<locale>/LEARNING.md（含中文 docs/i18n/zh-CN/LEARNING.md）
   - 章节 README：中文默认 chapterN/README.md；其它语言 chapterN/README.<locale>.md
     （ISO 639-1 + ISO 3166-1，如 README.en.md、README.zh-TW.md）
 
@@ -45,11 +45,11 @@ def chapter_suffix(locale: str) -> str:
 def main_readme_path(locale: str) -> Path:
     if locale == "zh-CN":
         return ROOT / "README.md"
-    return ROOT / "docs" / locale / "README.md"
+    return ROOT / "docs" / "i18n" / locale / "README.md"
 
 
 def learning_path(locale: str) -> Path:
-    return ROOT / "docs" / locale / "LEARNING.md"
+    return ROOT / "docs" / "i18n" / locale / "LEARNING.md"
 
 
 def project_count_in_table(path: Path) -> int:
@@ -85,7 +85,7 @@ def discover_locales() -> list[str]:
     - 其余：docs/<locale>/README.md 存在即纳入
     """
     locales = ["zh-CN"]
-    docs = ROOT / "docs"
+    docs = ROOT / "docs" / "i18n"
     if docs.is_dir():
         for path in sorted(docs.iterdir()):
             if path.is_dir() and path.name != "zh-CN" and (path / "README.md").exists():
@@ -137,7 +137,7 @@ def main() -> int:
     print()
 
     # ===== 检查 3：每个主语言必须有 docs/<locale>/LEARNING.md =====
-    print("== 检查 3：docs/<locale>/LEARNING.md 齐全 ==")
+    print("== 检查 3：docs/i18n/<locale>/LEARNING.md 齐全 ==")
     for locale in locales:
         path = learning_path(locale)
         if not path.exists():
