@@ -77,3 +77,44 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 | `MODEL_NAME` 不匹配报错 | 必须等于 vLLM 的 `--served-model-name` / Ollama 的 tag（`select_backend.sh` 自动取 `/v1/models` 列表，一般不会错） |
 | vLLM 启动 OOM | 7B bf16 需 16–18GB 显存；用 AWQ/GPTQ 量化版，或 `GPU_UTIL=0.7 MAXLEN=4096 ./serve_vllm_wsl.sh` |
 | 想临时走云端 API | 删除 `.env` 受管块，恢复 env.example 里的厂商配置即可（两套配置互不干扰） |
+
+## 七、分层验证
+
+一键（WSL，自动完成②～④全部检查，两级验收：问答级 + 工具调用级）：
+
+```bash
+./docs/local-setup/verify_all.sh          # 完整验证；exit 0 = 有后端达到实验级就绪
+./docs/local-setup/verify_all.sh --quick  # 只查端口与模型列表，不做推理
+```
+
+手工逐层验证（第 ① 层在 Windows 侧，脚本覆盖不了）：
+
+```powershell
+# ① Windows 宿主机（管理员 PowerShell）—— 服务本身是否健康
+ollama -v                                        # 版本
+netstat -ano | findstr :11434                    # 必须看到 0.0.0.0:11434 LISTENING（127.0.0.1 则 WSL 连不进）
+ollama list                                      # 已拉取的模型
+Get-NetFirewallRule -DisplayName "Ollama for WSL" | Format-List DisplayName,Enabled,Action
+```
+
+```bash
+# ② WSL → Windows 连通（NAT/镜像两种模式）
+wslinfo --networking-mode                        # nat 或 mirrored
+ip route show default                            # NAT 模式：第三列即宿主机 IP
+curl http://<宿主机IP>:11434/v1/models           # 镜像模式用 http://localhost:11434/v1/models
+
+# ③ 后端推理能力（问答 → 工具调用，后者是消融实验硬前提）
+curl -s http://localhost:8000/v1/chat/completions -H "Content-Type: application/json" \
+  -d '{"model":"<served-name>","messages":[{"role":"user","content":"1+1=?只回答数字"}],"max_tokens":16}'
+curl -s http://localhost:8000/v1/chat/completions -H "Content-Type: application/json" \
+  -d '{"model":"<served-name>","messages":[{"role":"user","content":"计算3+4，调用工具"}], \
+       "tools":[{"type":"function","function":{"name":"calculator","description":"计算", \
+        "parameters":{"type":"object","properties":{"expr":{"type":"string"}},"required":["expr"]}}}], \
+       "tool_choice":"auto","max_tokens":200}'
+# 期望响应含 "tool_calls"；只有 content 文本 = 工具解析未生效（vLLM 缺 --tool-call-parser hermes）
+
+# ④ 实验配置链最终验收（.env 受管块 → provider 解析 → 最小实验）
+./docs/local-setup/select_backend.sh             # 写入受管块
+cd chapter1/context && python main.py --mode single --provider ollama \
+  --task "用计算器算 12*8 然后告诉我结果"          # 最小实验冒烟（约 1 分钟）
+```
