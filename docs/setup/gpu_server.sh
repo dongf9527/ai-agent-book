@@ -10,7 +10,9 @@
 #   ./gpu_server.sh kimi [KEY]                   # Kimi 云端: 自动探测国内站/国际站 → 写 .env → 模型核对
 #   ./gpu_server.sh serve [MODEL] [vLLM参数…]     # 起 vLLM(幂等; 内置工具+思考解析必需参数)
 #   ./gpu_server.sh probe [BASE_URL] [MODEL]     # 三探针: ①模型在位 ②思考上线 ③结构化工具调用
-#   ./gpu_server.sh keycheck [PROVIDER] [MODEL]  # 单臂快测(full 臂, 阶段1, 最小成本验证链路)
+#   ./gpu_server.sh keycheck [PROVIDER] [MODEL]  # 单臂快测(full 臂, 阶段1, 最小成本验证链路;
+#                                                #   probe 恒 exit 1 是 harness 五臂合同语义,
+#                                                #   本脚本按 evidence 归一为 exit 0/1)
 #   ./gpu_server.sh five [PROVIDER] [MODEL]      # canonical 五臂(阶段2, exit 0 ⇔ accepted 且晋升)
 #
 # 环境变量:
@@ -442,6 +444,39 @@ cmd_probe() {
 
 # ---------- 子命令: keycheck / five ----------
 
+# keycheck 单臂判读: run_experiment_1_1.py 的 exit 0 只对五臂 canonical 有意义(accepted)，
+# 单臂 probe 恒 exit 1——这不是失败。此处按 evidence.json 归一单臂成败：
+#   full 臂 outcome=correct + 真实 API 证据 + 所跑臂合同全绿 + 无编造数字。
+# 注意: 本脚本的 keycheck 固定跑 full 臂，判据随之；若改跑消融臂，预期 outcome 不再是
+# correct(见 单臂快测判读文档: no_terminal_response 可以是消融臂的正常归宿)，不得复用。
+probe_verdict() {  # $1=evidence.json → 第一行 PASS|FAIL + 原因摘要
+  python3 - "$1" <<'PYEOF'
+import json, sys
+try:
+    ev = json.load(open(sys.argv[1], encoding="utf-8"))
+except Exception as exc:
+    print(f"FAIL evidence 不可读: {exc}")
+    raise SystemExit
+an = ev.get("analysis", {})
+full = an.get("arm_outcomes", {}).get("full")
+arms = ev.get("arms", [])
+contracts = sum(1 for a in arms if a.get("context_contract", {}).get("passed"))
+reasons = []
+if full != "correct":
+    reasons.append(f"arm_outcomes.full={full!r}(期望 correct)")
+if an.get("direct_real_api_evidence") is not True:
+    reasons.append("direct_real_api_evidence!=true")
+if contracts != len(arms):
+    reasons.append(f"合同仅 {contracts}/{len(arms)} 绿")
+if an.get("arms_stating_unsupported_numbers"):
+    reasons.append("存在编造数字的臂")
+if reasons:
+    print("FAIL " + "; ".join(reasons))
+else:
+    print(f"PASS full 臂 correct, 合同 {contracts}/{len(arms)} 绿, 真实 API 证据, 无编造")
+PYEOF
+}
+
 resolve_target() {  # $1=provider(可空) $2=model(可空) → 设置 PROVIDER/MODEL
   PROVIDER="${1:-}"
   MODEL="${2:-}"
@@ -487,12 +522,18 @@ run_experiment() {  # $1=kind: keycheck|five
   ( cd "$CTX_DIR" && "${cmd[@]}" ) || rc=$?
   say ""
   if [[ "$kind" == "keycheck" ]]; then
-    if [[ "$rc" == "0" ]]; then
-      say "✅ 单臂完成(exit 0)。判读 evidence.json 三件事: ①每轮 tools 在位 ②reasoning* 非空 ③tool_calls 与观测配对"
+    # probe 的 exit code 不判生死(单臂恒 exit 1),按 evidence 归一:
+    local verdict
+    verdict="$(probe_verdict "$CTX_DIR/$outdir/evidence.json")"
+    if [[ "$verdict" == PASS* ]]; then
+      say "✅ 单臂通过: $verdict"
+      say "   (probe 恒 exit 1 是 harness 五臂合同语义,非失败;probe 保留独立目录,不晋升 latest.json)"
       say "   下一步: $0 five"
+      rc=0
     else
-      say "❌ 单臂未通过(exit $rc)。常见: 401=key/平台不互通(见 kimi 子命令) | 429=余额不足 | 404/连接=端点或 --served-model-name 不对 | 400 invalid temperature=仓库过旧(kimi-k2.x 仅允许 temperature=1),git pull 后重跑"
+      say "❌ 单臂未通过: $verdict"
       say "   证据已落盘 $outdir/evidence.json,api_turns[].error 有原始报错"
+      say "   常见: 401=key/平台不互通(见 kimi 子命令) | 429=余额不足 | 400 invalid temperature=仓库过旧,git pull 后重跑"
     fi
   else
     if [[ "$rc" == "0" ]]; then

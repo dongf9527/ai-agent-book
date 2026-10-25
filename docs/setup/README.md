@@ -184,7 +184,7 @@ sudo tar -xzf ollama-linux-amd64.tgz -C /usr/local
 | `kimi [KEY]` | 云端对照 | 自动探测 key 属国内站(.cn)还是国际站(.ai) → 写 `KIMI_BASE_URL` 覆盖 → 账号模型列表核对并自动选模型（kimi-k3 不在账号时拦截） |
 | `serve [MODEL]` | 阶段 0 | 起 vLLM：内置 `--enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3`（缺一消融即失真），幂等防重启，透传附加参数给 vLLM |
 | `probe [URL] [MODEL]` | 阶段 0 | 三探针：①模型在位 ②思考上线（reasoning_content / reasoning 双字段）③结构化 tool_calls，失败即输出对应修复旗标 |
-| `keycheck [PROVIDER] [MODEL]` | 阶段 1 | full 单臂快测（`--task guarded --hidden-result empty --max-iterations 5`），证据落 `validation/probes_gpu_*` |
+| `keycheck [PROVIDER] [MODEL]` | 阶段 1 | full 单臂快测（`--task guarded --hidden-result empty --max-iterations 5`），证据落 `validation/probes_gpu_*`；harness 的 exit 0 只对五臂有意义（单臂 probe 恒 exit 1），本脚本按 evidence 归一为 exit 0/1（full 臂 correct + 合同绿 + 无编造） |
 | `five [PROVIDER] [MODEL]` | 阶段 2 | canonical 五臂，exit 0 ⇔ accepted 且自动晋升 `latest.json` |
 
 快速开始：
