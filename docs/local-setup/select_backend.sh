@@ -46,6 +46,23 @@ try: print(json.load(sys.stdin).get("version", ""))
 except Exception: pass'
 }
 
+net_mode() {  # WSL 网络模式: nat | mirrored | unknown(非 WSL 或探测失败)
+  if command -v wslinfo >/dev/null 2>&1; then
+    local m; m="$(wslinfo --networking-mode 2>/dev/null)"
+    [[ "$m" == "mirrored" || "$m" == "nat" ]] && { echo "$m"; return; }
+  fi
+  echo "unknown"
+}
+
+ollama_identity() {  # 11434 有响应时判定服务由谁提供: wsl | win | unknown
+  if ! command -v pgrep >/dev/null 2>&1; then echo "unknown"; return; fi
+  if pgrep -x ollama >/dev/null 2>&1 || pgrep -f 'ollama serve' >/dev/null 2>&1; then
+    echo "wsl"    # WSL 内有 ollama 进程
+  else
+    echo "win"    # WSL 内无进程而端口有响应 → 宿主机实例(镜像回环/NAT 均成立)
+  fi
+}
+
 win_host_ip() {  # WSL → Windows 宿主机可达 IP(空串=不可达)
   # 镜像网络模式(Win11 22H2+): localhost 即宿主机
   if command -v wslinfo >/dev/null 2>&1 \
@@ -73,6 +90,7 @@ URLS[vllm]="http://localhost:8000/v1"
 URLS[ollama-wsl]="http://localhost:11434/v1"
 WIN_IP="$(win_host_ip)"
 URLS[ollama-win]="http://${WIN_IP:-unreachable}:11434/v1"
+NET_MODE="$(net_mode)"
 
 probe_all() {
   local k
@@ -87,7 +105,7 @@ probe_all() {
 
 show_table() {
   local k v
-  echo "=============== 本地 LLM 后端探测结果 ==============="
+  echo "=============== 本地 LLM 后端探测结果 (网络模式: $NET_MODE) ==============="
   for k in vllm ollama-wsl ollama-win; do
     v="${VERSIONS[$k]:-}"
     if [[ "${MODELS[$k]}" != "" ]]; then
@@ -97,6 +115,14 @@ show_table() {
       echo "[$k] 不可达  ${URLS[$k]}"
     fi
   done
+  # 镜像模式下两个 ollama 地址共享回环,必然同生同死;用 pgrep 判定真实提供方
+  if [[ "$NET_MODE" == "mirrored" && ( -n "${MODELS[ollama-wsl]}" || -n "${MODELS[ollama-win]}" ) ]]; then
+    case "$(ollama_identity)" in
+      wsl) echo "⚑ 镜像网络: [ollama-wsl]/[ollama-win] 共指同一实例 —— WSL 内有 ollama 进程,服务由 WSL 提供" ;;
+      win) echo "⚑ 镜像网络: [ollama-wsl]/[ollama-win] 共指同一实例 —— WSL 内无 ollama 进程,服务由 Windows 宿主机提供" ;;
+      *)   echo "⚑ 镜像网络: [ollama-wsl]/[ollama-win] 共指同一实例 —— 无法判定提供方(缺 pgrep)" ;;
+    esac
+  fi
   echo "======================================================"
 }
 

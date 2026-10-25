@@ -66,7 +66,8 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 | NAT（默认） | `wslinfo --networking-mode` = nat，或不输出 | `http://<默认网关IP>:11434/v1`（`ip route show default` 的第三列；脚本自动探测） |
 | 镜像 mirrored（Win11 22H2+，`.wslconfig` 开启） | `wslinfo --networking-mode` = mirrored | `http://localhost:11434/v1`（与宿主机共享回环） |
 
-宿主机侧无论如何都需要 `OLLAMA_HOST=0.0.0.0:11434` + 防火墙放行（PowerShell 脚本的步骤②③已处理）。
+- **NAT 模式**下宿主机侧需要 `OLLAMA_HOST=0.0.0.0:11434` + 防火墙放行（PowerShell 脚本的步骤②③已处理）；**镜像模式不需要**——Ollama 默认回环绑定即可被 WSL 访问。
+- **镜像模式下两个 ollama 端点是同一台服务**：Windows 与 WSL 共享回环命名空间，`localhost:11434` 与 `127.0.0.1:11434` 必然同生同死，两个"存活"不代表两份算力。脚本用 `pgrep` 判定服务实际由哪侧提供——WSL 内有 `ollama` 进程 → 判为 WSL 实例；无进程但端口有响应 → 判为 Windows 宿主机实例经镜像映射——并在输出中以 `⚑ 镜像网络` 注记标明。NAT 模式下两端点是两台独立服务器，标注天然准确。
 
 ## 六、故障排查
 

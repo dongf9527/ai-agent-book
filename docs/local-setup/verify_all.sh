@@ -54,6 +54,23 @@ try: print(json.load(sys.stdin).get("version", ""))
 except Exception: pass'
 }
 
+net_mode() {  # WSL 网络模式: nat | mirrored | unknown(非 WSL 或探测失败)
+  if command -v wslinfo >/dev/null 2>&1; then
+    local m; m="$(wslinfo --networking-mode 2>/dev/null)"
+    [[ "$m" == "mirrored" || "$m" == "nat" ]] && { echo "$m"; return; }
+  fi
+  echo "unknown"
+}
+
+ollama_identity() {  # 11434 有响应时判定服务由谁提供: wsl | win | unknown
+  if ! command -v pgrep >/dev/null 2>&1; then echo "unknown"; return; fi
+  if pgrep -x ollama >/dev/null 2>&1 || pgrep -f 'ollama serve' >/dev/null 2>&1; then
+    echo "wsl"    # WSL 内有 ollama 进程
+  else
+    echo "win"    # WSL 内无进程而端口有响应 → 宿主机实例(镜像回环/NAT 均成立)
+  fi
+}
+
 chat_test() {  # $1=base  $2=model  $3=期望带工具(1/0) → 0=通过
   local base="$1" model="$2" want_tools="$3" body tools_json
   tools_json='{"type":"function","function":{"name":"calculator","description":"计算算术表达式","parameters":{"type":"object","properties":{"expr":{"type":"string","description":"如 3+4"}},"required":["expr"]}}}'
@@ -95,6 +112,18 @@ verify_backend() {  # $1=名称  $2=base_url
 
 echo "======== ① 三个候选端点探测 ========"
 WIN_IP="$(win_host_ip)"
+NET_MODE="$(net_mode)"
+if [[ "$NET_MODE" == "mirrored" ]]; then
+  # 镜像模式: 两个 ollama 地址共享回环命名空间,存活即同一实例;先探一次再标注提供方
+  ANY11434="$(json_models "http://localhost:11434/v1")$(json_models "http://${WIN_IP:-unreachable}:11434/v1")"
+  if [[ -n "$ANY11434" ]]; then
+    case "$(ollama_identity)" in
+      wsl) echo "⚑ 镜像网络: 两个 ollama 端点为同一实例 —— WSL 内有 ollama 进程,服务由 WSL 提供" ;;
+      win) echo "⚑ 镜像网络: 两个 ollama 端点为同一实例 —— WSL 内无 ollama 进程,服务由 Windows 宿主机提供" ;;
+      *)   echo "⚑ 镜像网络: 两个 ollama 端点为同一实例 —— 无法判定提供方(缺 pgrep)" ;;
+    esac
+  fi
+fi
 verify_backend "vLLM(WSL)"       "http://localhost:8000/v1"    || true
 verify_backend "Ollama(WSL)"     "http://localhost:11434/v1"   || true
 verify_backend "Ollama(Windows)" "http://${WIN_IP:-unreachable}:11434/v1" || true
