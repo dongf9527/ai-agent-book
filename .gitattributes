@@ -1,0 +1,21 @@
+# 行尾统一策略（解决: Windows 侧 autocrlf 检出后 .sh 带 CRLF,
+# WSL 执行报 "env: 'bash\r': No such file or directory"）
+# 仓库内容一律 LF 存储,工作区文本文件检出为 LF;PowerShell 脚本例外用 CRLF。
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.ps1 text eol=crlf
+
+# 二进制文件显式声明,防止 auto 检测误判
+*.pdf binary
+*.epub binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp3 binary
+*.mp4 binary
+*.wav binary
+*.zip binary
+*.gz binary
