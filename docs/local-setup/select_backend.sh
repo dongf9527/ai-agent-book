@@ -35,6 +35,17 @@ except Exception:
     pass'
 }
 
+server_version() {  # $1=base_url(含/v1) → 后端服务版本号(空=未知)
+  local body
+  body="$(curl -fsS --max-time 2 "${1%/v1}/api/version" 2>/dev/null || true)"          # Ollama
+  [[ -z "$body" ]] && body="$(curl -fsS --max-time 2 "${1%/v1}/version" 2>/dev/null || true)"  # vLLM
+  [[ -z "$body" ]] && return 0
+  printf '%s' "$body" | python3 -c '
+import sys, json
+try: print(json.load(sys.stdin).get("version", ""))
+except Exception: pass'
+}
+
 win_host_ip() {  # WSL → Windows 宿主机可达 IP(空串=不可达)
   # 镜像网络模式(Win11 22H2+): localhost 即宿主机
   if command -v wslinfo >/dev/null 2>&1 \
@@ -57,7 +68,7 @@ win_host_ip() {  # WSL → Windows 宿主机可达 IP(空串=不可达)
 
 # ---------- 探测 ----------
 
-declare -A URLS MODELS
+declare -A URLS MODELS VERSIONS
 URLS[vllm]="http://localhost:8000/v1"
 URLS[ollama-wsl]="http://localhost:11434/v1"
 WIN_IP="$(win_host_ip)"
@@ -67,15 +78,20 @@ probe_all() {
   local k
   for k in vllm ollama-wsl ollama-win; do
     MODELS[$k]="$(json_models "${URLS[$k]}")"
+    VERSIONS[$k]=""
+    if [[ -n "${MODELS[$k]}" ]]; then    # if 形式: 不可达端点不能让 set -e 中断
+      VERSIONS[$k]="$(server_version "${URLS[$k]}")"
+    fi
   done
 }
 
 show_table() {
-  local k
+  local k v
   echo "=============== 本地 LLM 后端探测结果 ==============="
   for k in vllm ollama-wsl ollama-win; do
+    v="${VERSIONS[$k]:-}"
     if [[ "${MODELS[$k]}" != "" ]]; then
-      echo "[$k] 存活    ${URLS[$k]}"
+      echo "[$k] 存活    ${URLS[$k]}${v:+  server v$v}"
       echo "${MODELS[$k]}" | sed 's/^/    - /'
     else
       echo "[$k] 不可达  ${URLS[$k]}"

@@ -12,6 +12,7 @@
 | `select_backend.sh` | WSL（仓库内） | **核心**：探测三个候选端点 → 列出各后端模型 → 自动选第一个存活者或手工指定 → 幂等写入 `chapter1/context/.env` 受管块 |
 | `serve_vllm_wsl.sh` | WSL | 启动 vLLM（自动发现 HF 缓存模型、内置 `--tool-call-parser hermes` 等实验必需参数、幂等防重复启动） |
 | `setup_ollama_windows.ps1` | Windows（管理员 PowerShell） | 安装/重启 Ollama、改绑 `0.0.0.0`、防火墙放行 WSL 子网、拉取 qwen3:8b、自检并打印 WSL 侧地址 |
+| `verify_all.sh` | WSL（仓库内） | **分层验证**：三端点探测（附服务版本号）→ 问答级 → 工具调用级 → `.env` 受管块与 provider 解析校验；`--quick` 只查端口与模型列表 |
 
 ## 二、拓扑
 
@@ -118,3 +119,39 @@ curl -s http://localhost:8000/v1/chat/completions -H "Content-Type: application/
 cd chapter1/context && python main.py --mode single --provider ollama \
   --task "用计算器算 12*8 然后告诉我结果"          # 最小实验冒烟（约 1 分钟）
 ```
+
+> 探测与验证输出会附带各端点的 `server vX.Y.Z`（Ollama 走 `/api/version`，vLLM 走 `/version`），
+> Windows 与 WSL 两侧版本错位（CLI 新、常驻服务旧）一眼可比。
+
+## 八、WSL 内 Ollama 的检测与升级
+
+WSL 内也可以装一份 Ollama（候选端点② `ollama-wsl`）。它与 Windows 宿主机那份是**两个独立实例**：
+模型需单独 `ollama pull`，版本可能不同；装上后 auto 模式将优先于 `ollama-win`（PRIORITY 顺序），
+跑实验前先确认它拉好了模型。
+
+```bash
+# ── 检测（WSL 内逐项执行）──
+command -v ollama                            # 装没装（有输出=已装，路径通常 /usr/local/bin/ollama）
+ollama --version                             # 客户端版本；服务未运行会带 Warning
+curl -s http://localhost:11434/api/version   # 服务端版本 JSON（最权威，不管 CLI 什么版本）
+pgrep -af ollama                             # 服务进程；systemd 环境可用 systemctl is-active ollama
+ollama list && ollama ps                     # 已拉取的模型 / 已加载进显存的模型
+
+# ── 升级（官方安装器，重复执行即原地升级，模型与配置保留）──
+curl -fsSL https://ollama.com/install.sh | sh
+
+# 重启服务（WSL 已启用 systemd 时，2026 年新装的 WSL2 默认启用）
+sudo systemctl restart ollama
+
+# 未启用 systemd 的 WSL：手动重启进程
+pkill -x ollama; nohup ollama serve >/dev/null 2>&1 &
+
+# ── ollama.com / GitHub 网络慢时的手动升级（amd64）──
+curl -LO https://github.com/ollama/ollama/releases/latest/download/ollama-linux-amd64.tgz
+sudo tar -xzf ollama-linux-amd64.tgz -C /usr/local
+# 覆盖后同样需要重启服务（systemctl restart 或 pkill + nohup）
+```
+
+版本错位自检（Windows 侧已踩过的坑，WSL 同样适用）：`ollama --version` 若出现
+`Warning: client version is ...`，说明 CLI 与常驻服务版本不一致——安装器升级后**务必重启服务**，
+新版本二进制才会真正生效；以 `/api/version` 的返回为准判定服务版本。

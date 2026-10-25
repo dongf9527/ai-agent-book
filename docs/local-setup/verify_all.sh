@@ -43,6 +43,17 @@ win_host_ip() {
   echo ""
 }
 
+server_version() {  # $1=base_url(含/v1) → 后端服务版本号(空=未知)
+  local body
+  body="$(curl -fsS --max-time 2 "${1%/v1}/api/version" 2>/dev/null || true)"          # Ollama
+  [[ -z "$body" ]] && body="$(curl -fsS --max-time 2 "${1%/v1}/version" 2>/dev/null || true)"  # vLLM
+  [[ -z "$body" ]] && return 0
+  printf '%s' "$body" | python3 -c '
+import sys, json
+try: print(json.load(sys.stdin).get("version", ""))
+except Exception: pass'
+}
+
 chat_test() {  # $1=base  $2=model  $3=期望带工具(1/0) → 0=通过
   local base="$1" model="$2" want_tools="$3" body tools_json
   tools_json='{"type":"function","function":{"name":"calculator","description":"计算算术表达式","parameters":{"type":"object","properties":{"expr":{"type":"string","description":"如 3+4"}},"required":["expr"]}}}'
@@ -67,7 +78,8 @@ verify_backend() {  # $1=名称  $2=base_url
   local name="$1" base="$2" models model
   echo "―― [$name] $base"
   models="$(json_models "$base" 2>/dev/null)" || { off "$name 不可达(未部署或网络不通,若非目标后端可忽略)"; return 1; }
-  ok "服务存活,模型: $(echo "$models" | head -3 | tr '\n' ' ')"
+  local ver; ver="$(server_version "$base")"
+  ok "服务存活${ver:+,server v$ver},模型: $(echo "$models" | head -3 | tr '\n' ' ')"
   [[ "$models" == "" ]] && { warn "$name 无模型,请 pull/serve 后重试"; return 1; }
   model="$(echo "$models" | head -1)"
   if [[ "$QUICK" == "--quick" ]]; then warn "--quick 模式跳过推理测试"; return 0; fi
