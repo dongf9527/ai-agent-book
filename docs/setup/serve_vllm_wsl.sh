@@ -18,6 +18,7 @@ PARSER="${PARSER:-hermes}"
 GPU_UTIL="${GPU_UTIL:-0.85}"
 MAXLEN="${MAXLEN:-8192}"
 MODEL="${1:-}"
+if [[ $# -gt 0 ]]; then shift; fi   # 修复: 原实现把 "$@"(含 $1 模型 id)整体透传,vLLM 收到两个位置参数会启动失败
 
 # 0) 已在运行则直接退出(幂等)
 if curl -fsS --max-time 2 "http://localhost:$PORT/v1/models" >/dev/null 2>&1; then
