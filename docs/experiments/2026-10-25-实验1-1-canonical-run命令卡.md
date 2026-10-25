@@ -5,6 +5,10 @@
 > 前置状态：判读文档第七节的 **A 档修复已落地**——`agent.py` 的 ollama 分支现在默认
 > 发送 `reasoning_effort=high`（与 deepseek 分支的 thinking 开关对齐），`OLLAMA_THINK=0`
 > 可显式关闭。变更只增 12 行，`tests/` 25 项回归全过。
+> **状态（2026-10-25 收官）**：canonical 已达成——`real_20261025T070721Z` accepted=true
+> 并已晋升 `latest.json`，完整判定见
+> [canonical 晋升判定](2026-10-25-实验1-1-canonical晋升判定.md)；本卡保留作复现/再跑指南，
+> 每次跑前记得 `git pull`（一笔未 pull 的误跑已存档为反例）。
 > 关联：[全五臂真跑判读](2026-10-25-实验1-1全五臂真跑判读.md)（根因与分档依据）、
 > [实验状态总账](EXPERIMENT_STATUS.md)。
 
