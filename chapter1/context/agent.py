@@ -11,6 +11,7 @@ from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 import requests
+import openai
 from openai import OpenAI
 import pypdf
 from io import BytesIO
