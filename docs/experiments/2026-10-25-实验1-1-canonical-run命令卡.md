@@ -56,6 +56,7 @@ echo "exit=$?"
 | ① 含 `thinking` 且 ② `reasoning_on_wire = True` | A 档生效条件齐备 | 直接跑第②段 canonical 命令 |
 | ② HTTP 200 但 `False` | `/v1` 忽略了该字段 | 跑判读文档第六节③的 native `/api/chat think:true` 探针：native 为 True → 端点透传问题，升级 Ollama 后复探；native 也 False → 走 B/C 档 |
 | ② HTTP 400（`unexpected response`） | 后端拒绝该字段 | 后端不兼容此提示时用 `OLLAMA_THINK=0` 降级跑（仅当模型默认吐推理，如经 provider=ollama 路由的 vLLM+reasoning parser）；否则走 C 档 |
+| ①② 均通过，canonical 仍被合同拦 | 合同/剥除层的推理字段名兼容问题（`reasoning` vs `reasoning_content`），2026-10-25 已修复 | `git pull` 后直接重跑；根因链见[第二次 canonical 判读](2026-10-25-实验1-1-第二次canonical跑判读.md) |
 
 ## 四、canonical 判定与晋升机制（脚本自动完成，无需手工干预）
 
