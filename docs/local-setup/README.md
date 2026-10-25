@@ -124,6 +124,11 @@ cd chapter1/context && python main.py --mode single --provider ollama \
   --task "用计算器算 12*8 然后告诉我结果"          # 最小实验冒烟（约 1 分钟）
 ```
 
+> 冒烟通过后进入消融实验：先单臂快测（如 `--modes no_tool_results`），再全五臂 canonical
+> run。单臂输出中的 `ERROR - Error executing code`、`no_terminal_response`、
+> `accepted=False` 均可能是预期行为，逐项判读见
+> [实验 1-1 单臂快测判读](../2026-10-25-实验1-1单臂快测判读.md)。
+
 > 探测与验证输出会附带各端点的 `server vX.Y.Z`（Ollama 走 `/api/version`，vLLM 走 `/version`），
 > Windows 与 WSL 两侧版本错位（CLI 新、常驻服务旧）一眼可比。
 
