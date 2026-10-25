@@ -13,6 +13,7 @@
 | `serve_vllm_wsl.sh` | WSL | 启动 vLLM（自动发现 HF 缓存模型、内置 `--tool-call-parser hermes` 等实验必需参数、幂等防重复启动） |
 | `setup_ollama_windows.ps1` | Windows（管理员 PowerShell） | 安装/重启 Ollama、改绑 `0.0.0.0`、防火墙放行 WSL 子网、拉取 qwen3:8b、自检并打印 WSL 侧地址 |
 | `verify_all.sh` | WSL（仓库内） | **分层验证**：三端点探测（附服务版本号）→ 问答级 → 工具调用级 → `.env` 受管块与 provider 解析校验；`--quick` 只查端口与模型列表 |
+| `gpu_server.sh` | GPU 服务器（仓库内） | **一键脚本**：Kimi 云端路径（自动探测国际站/国内站 + 账号模型校验）与 vLLM 本地路径（serve/probe/keycheck/five）全覆盖，对应练习计划阶段 0→2；详见第九节 |
 
 ## 二、拓扑
 
@@ -38,7 +39,7 @@
 ```bash
 # ① Windows 管理员 PowerShell —— 配好宿主机 Ollama 并打印连接地址
 Set-ExecutionPolicy -Scope Process Bypass -Force
-.\docs\local-setup\setup_ollama_windows.ps1
+.\docs\setup\setup_ollama_windows.ps1
 
 # ② WSL —— 启动 vLLM(不装 vLLM 可跳过,直接用 Ollama)
 ./docs/setup/serve_vllm_wsl.sh            # 自动发现 HF 缓存中的 Qwen 模型
@@ -78,6 +79,9 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 | 实验报 404 / connection refused | `OLLAMA_BASE_URL` 漏了 `/v1` 后缀 |
 | 工具调用返回纯文本、实验结果失真 | vLLM 启动漏了 `--enable-auto-tool-choice --tool-call-parser hermes`（Qwen 系列必需） |
 | `MODEL_NAME` 不匹配报错 | 必须等于 vLLM 的 `--served-model-name` / Ollama 的 tag（`select_backend.sh` 自动取 `/v1/models` 列表，一般不会错） |
+| Moonshot 报 401 Invalid Authentication | key 与端点平台不匹配：国内站 key 走 `api.moonshot.cn`、国际站走 `api.moonshot.ai`，**两站账号不互通**（裸配默认 .cn，国际站 key 必 401）。`gpu_server.sh kimi` 自动探测平台并写入 `KIMI_BASE_URL`；手工配置则 `export KIMI_BASE_URL=https://api.moonshot.ai/v1` |
+| Moonshot 报 429 账户暂停（insufficient balance） | key 有效但账户余额不足 → 去对应平台（.cn/.ai）充值后重跑；harness 会 fail-closed 并落盘证据，不会污染 canonical |
+| 账号模型列表里没有 kimi-k3 | 可用模型由平台/账号决定（国际站部分账号仅 kimi-k2.6 / kimi-k2.7-code）。`gpu_server.sh kimi` 按账号列表自动选模型并拦截不存在的模型名（FORCE=1 可强制但实验会 400） |
 | vLLM 启动 OOM | 7B bf16 需 16–18GB 显存；用 AWQ/GPTQ 量化版，或 `GPU_UTIL=0.7 MAXLEN=4096 ./serve_vllm_wsl.sh` |
 | 想临时走云端 API | 删除 `.env` 受管块，恢复 env.example 里的厂商配置即可（两套配置互不干扰） |
 
@@ -169,3 +173,40 @@ sudo tar -xzf ollama-linux-amd64.tgz -C /usr/local
 版本错位自检（Windows 侧已踩过的坑，WSL 同样适用）：`ollama --version` 若出现
 `Warning: client version is ...`，说明 CLI 与常驻服务版本不一致——安装器升级后**务必重启服务**，
 新版本二进制才会真正生效；以 `/api/version` 的返回为准判定服务版本。
+
+## 九、GPU 服务器一键脚本（gpu_server.sh）
+
+远程 GPU 服务器上直跑练习计划各阶段，Kimi 云端对照与 vLLM 本地路径全覆盖（无 GPU 也能跑云端对照）：
+
+| 子命令 | 对应计划阶段 | 作用 |
+|---|---|---|
+| `check` | — | 预检：Python 依赖 / GPU / vLLM / git 对齐 / Kimi key（报告性，不阻断） |
+| `kimi [KEY]` | 云端对照 | 自动探测 key 属国内站(.cn)还是国际站(.ai) → 写 `KIMI_BASE_URL` 覆盖 → 账号模型列表核对并自动选模型（kimi-k3 不在账号时拦截） |
+| `serve [MODEL]` | 阶段 0 | 起 vLLM：内置 `--enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3`（缺一消融即失真），幂等防重启，透传附加参数给 vLLM |
+| `probe [URL] [MODEL]` | 阶段 0 | 三探针：①模型在位 ②思考上线（reasoning_content / reasoning 双字段）③结构化 tool_calls，失败即输出对应修复旗标 |
+| `keycheck [PROVIDER] [MODEL]` | 阶段 1 | full 单臂快测（`--task guarded --hidden-result empty --max-iterations 5`），证据落 `validation/probes_gpu_*` |
+| `five [PROVIDER] [MODEL]` | 阶段 2 | canonical 五臂，exit 0 ⇔ accepted 且自动晋升 `latest.json` |
+
+快速开始：
+
+```bash
+# ── Kimi 云端对照(两站 key 不互通,脚本自动识别;模型名按账号列表自动校验) ──
+./docs/setup/gpu_server.sh check               # 预检
+./docs/setup/gpu_server.sh kimi sk-xxx         # key 自动入 .env 受管块(打码/600 权限)
+./docs/setup/gpu_server.sh keycheck            # 读受管块解析 provider/model
+./docs/setup/gpu_server.sh five
+
+# ── vLLM 本地路径(阶段 0→1→2) ──
+./docs/setup/gpu_server.sh serve Qwen/Qwen3.5-9B   # 缺省自动发现 HF 缓存(识别 HF_HOME/HF_HUB_CACHE)
+./docs/setup/gpu_server.sh probe                   # 或 probe <served-name>;非 http 参数按模型名理解
+docs/setup/select_backend.sh vllm <served-name>    # 切 .env 到本地后端
+./docs/setup/gpu_server.sh keycheck ollama <served-name>
+./docs/setup/gpu_server.sh five ollama <served-name>
+```
+
+要点：
+
+- **DRY_RUN=1** 全子命令支持：只打印将执行的命令与配置，不实际执行/不写文件——上服务器前先过一遍。
+- **受管块**与 `select_backend.sh` 同一标记，互写幂等覆盖（谁后写谁生效）；受管块之外手工配置的其它厂商 key 不受影响。
+- **key 安全**：只写入 `chapter1/context/.env`（gitignore 覆盖，600 权限），输出一律打码；轮换 key 直接 `kimi <新key>` 重跑即可（旧 key 散行会被清掉）；stdin 非交互且无 key 时拒绝而非挂起。
+- **模型守卫**：kimi 路径会拉取账号 `/v1/models` 实际列表，模型名不存在即拦截并给出列表（避免 registry 默认 kimi-k3 在部分账号不存在导致的 400）。
