@@ -22,7 +22,10 @@ PRIORITY="${PRIORITY:-vllm,ollama-wsl,ollama-win}"
 # ---------- 工具函数 ----------
 
 json_models() {  # $1=base_url(含/v1) → 每行一个模型 id
-  curl -fsS --max-time 3 "$1/models" 2>/dev/null | python3 -c '
+  local body
+  body="$(curl -fsS --max-time 3 "$1/models" 2>/dev/null || true)"
+  [[ -z "$body" ]] && return 0
+  printf '%s' "$body" | python3 -c '
 import sys, json
 try:
     for m in json.load(sys.stdin).get("data", []):
@@ -90,7 +93,7 @@ write_env() {  # $1=backend key  $2=model id
     echo "警告: 未能从后端获取模型列表,MODEL_NAME 暂用 $model(请核对 --served-model-name)" >&2
   fi
   mkdir -p "$(dirname "$ENV_FILE")"
-  [[ -f "$ENV_FILE" ]] || cp "$ENV_FILE.example" "$ENV_FILE" 2>/dev/null || touch "$ENV_FILE"
+  [[ -f "$ENV_FILE" ]] || cp "$(dirname "$ENV_FILE")/env.example" "$ENV_FILE" 2>/dev/null || touch "$ENV_FILE"
   # 删除旧受管块(若有),再追加新块 —— 幂等
   awk -v b="$MARK_BEGIN" -v e="$MARK_END" \
       'index($0,b)>0 {inblk=1} !inblk {print} inblk && index($0,e)>0 {inblk=0}' \
