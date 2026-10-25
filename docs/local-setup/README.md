@@ -72,6 +72,7 @@ cd chapter1/context && python run_experiment_1_1.py   # 消融实验跑起来
 
 | 症状 | 原因与解法 |
 |---|---|
+| `env: 'bash\r': No such file or directory`（执行 .sh 报错） | Windows 侧克隆被 `core.autocrlf` 转成 CRLF，shebang 变 `bash\r` → `sed -i 's/\r$//' docs/local-setup/*.sh` 后重跑；根治见根目录 `.gitattributes`（2026-10-25 起新克隆自动 LF），完整分析见 `docs/2026-10-25-CRLF行尾问题分析与修复.md` |
 | `[ollama-win] 不可达` 但本机 `curl localhost:11434` 正常 | Ollama 仍绑 127.0.0.1 → 重跑 ps1 步骤②；或防火墙拦截 → 重跑步骤③ |
 | 实验报 404 / connection refused | `OLLAMA_BASE_URL` 漏了 `/v1` 后缀 |
 | 工具调用返回纯文本、实验结果失真 | vLLM 启动漏了 `--enable-auto-tool-choice --tool-call-parser hermes`（Qwen 系列必需） |
