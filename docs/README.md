@@ -7,7 +7,7 @@
 
 | 分区 | 用途（一句话） | 内容 |
 |---|---|---|
-| [`guide/`](guide/) | **怎么学**：学习路线、精读计划、项目评估 | 全书主线与学习实践计划、项目结构与十章详解、阶段一精读执行步骤、评估与实践指南 |
+| [`guide/`](guide/) | **怎么学**：学习路线、精读计划、项目评估 | 全书评估与学习路径（大纲/章间逻辑/路径/实验总表四合一）、全书主线与学习实践计划、项目结构与十章详解、阶段一精读执行步骤、评估与实践指南 |
 | [`chapters/`](chapters/) | **按章打卡**：十章讲义的按章拆分版 | `ch01`–`ch10` + 章节索引 `README.md` |
 | [`experiments/`](experiments/) | **怎么跑实验、怎么读结果**：证据规范与判读 | `EXPERIMENT_STATUS.md`（各章实验状态总账，第一章四实验已全部入账）、`EXPERIMENT_CONVENTIONS.md`（目录与证据约定）、实验 1-1 判读四篇（单臂快测 / 全五臂 / 第二次 canonical / 晋升判定）、实验 1-1 canonical-run 命令卡、实验 1-1 GPU 服务器练习计划（vLLM 五阶段演练）、第一章实验验证指南（三层验证方法 + `verify_chapter1_experiments.py` 一键 28 项机器复核） |
 | [`setup/`](setup/) | **怎么跑起来**：本地后端搭建与接入 | `gpu_server.sh`（GPU 服务器/Kimi 云端一键）、`select_backend.sh` / `verify_all.sh` / `serve_vllm_wsl.sh` / `setup_ollama_windows.ps1`、分层验证 README、本地 vLLM-Qwen 接入指南 |
