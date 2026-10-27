@@ -44,6 +44,19 @@ say()  { echo "$*"; }
 warn() { echo "⚠️  $*" >&2; }
 die()  { echo "❌ $*" >&2; exit 1; }
 
+# ---------- CRLF 防护 ----------
+# .env 在 Windows 挂载盘(/mnt/...)被 Windows 编辑器保存后会带 \r\n,bash 侧
+# grep/cut 提取的值尾部带 \r,下游 argparse 报 invalid choice: 'kimi\r'。
+# 启动时一次性归一为 LF;DRY_RUN 下只提示不落盘,维持"不写文件"契约。
+if [[ -f "$ENV_FILE" ]] && grep -q $'\r' "$ENV_FILE" 2>/dev/null; then
+  if [[ "$DRY_RUN" == "1" ]]; then
+    warn ".env 含 CRLF 换行(dry-run 不改写): 实跑前可执行 sed -i 's/\\r\$//' $ENV_FILE"
+  else
+    sed -i 's/\r$//' "$ENV_FILE"
+    say "ℹ️  .env 含 CRLF 换行,已归一为 LF(Windows 挂载盘常见)"
+  fi
+fi
+
 # ---------- 通用工具 ----------
 
 ts() { date -u +%Y%m%dT%H%M%SZ; }
@@ -268,6 +281,7 @@ cmd_kimi() {
       die "未提供 key 且 stdin 非交互。用法: $0 kimi <key>(或先 export MOONSHOT_API_KEY)"
     fi
   fi
+  key="${key//$'\r'/}"   # 参数/剪贴板可能带 \r(Windows 侧复制粘贴)
   [[ -n "$key" ]] || die "未提供 key。用法: $0 kimi <key>"
 
   say "探测 Kimi 平台(国内站 .cn → 国际站 .ai)…"
