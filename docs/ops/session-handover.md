@@ -128,7 +128,8 @@ cd /home/z/my-project/repo-ai-agent-book && git push fork main
 | 五臂第 1 轮全灭（429） | 免费档 RPM=3，SDK 内置重试仅等 1s | 被动退避 + 主动节流双保险 | `299fa44`/`a8fad8c8` |
 | 推送 401 / 无凭据 | 沙箱重置清空凭据文件 | 三处备份恢复；不行则请用户换新 PAT | — |
 | `.sh` 报 `env: 'bash\r'` | Windows 检出 CRLF（autocrlf） | `.gitattributes` 已根治；存量 `sed -i 's/\r$//'` | `ab4d180` |
-| argparse 报 `invalid choice: 'kimi\r'`，check 里 MODEL_NAME 误报不在账号列表 | **.env**（gitignored，不受 .gitattributes 管辖）被 Windows 编辑器存成 CRLF，bash 提取值带尾 `\r` | gpu_server.sh 启动自动归一（DRY_RUN 只提示不落盘）；kimi 子命令对粘贴 key 剥 `\r`；手动 `sed -i 's/\r$//' chapter1/context/.env` | （worklog Task 45） |
+| argparse 报 `invalid choice: 'kimi\r'`，check 里 MODEL_NAME 误报不在账号列表 | **.env**（gitignored，不受 .gitattributes 管辖）被 Windows 编辑器存成 CRLF，bash 提取值带尾 `\r` | gpu_server.sh 启动自动归一（DRY_RUN 只提示不落盘）；kimi 子命令对粘贴 key 剥 `\r`；手动 `sed -i 's/\r$//' chapter1/context/.env` | `ab6c51b` |
+| 工作区反复幽灵 modified，stash 后复发、rebase 被挡 | **旧 blob 以 CRLF 入库且 attributes 不追溯既有对象**：book-ja 17 个 SVG + chapter7 四份 t3a md | 全量克隆侧 `git add --renormalize .` 一次归一（21 文件 ±14825 行完全对称，零内容变化） | `aea13e0e`（用户侧） |
 | Ollama 连不上（WSL） | OLLAMA_HOST 未生效 / NAT 模式防火墙 | `docs/setup/README.md` 排障表（mirrored 模式无需 0.0.0.0） | — |
 | 验证显示 qwen3:8b 而非 .env 模型 | `resolve_backend` 不读 MODEL_NAME，纯显示缺陷 | verify_all ② 段已改为端到端解析校验 | `08825a3` |
 | 改 git 历史误删工作树文件 | filter-branch 收尾 `read-tree -u` 同步删除已移除文件 | 改历史前先备份工作树；从 refs/original 抢回 | （worklog Task 41） |
