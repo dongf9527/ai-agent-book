@@ -9,6 +9,7 @@
 | --- | --- |
 | `深入理解AI-Agent-全书总览与实践路线.pptx` | 成品演示文稿（13 页，含逐页讲稿备注，可直接用 PowerPoint/WPS 打开） |
 | `深入理解AI-Agent-核心内容一页通.pptx` | 单页版成品（1 页高密度一图流：公式带 + 三列 bento + 收边横带，含讲稿备注） |
+| `ch02-上下文工程-一页通.pptx` | 第二章单页版成品（2026-10-27 新增，与单页套系同源设计系统；配套 `docs/guide/` 的第二章学习路径与思维导图） |
 | `slides/slide_01.html ~ slide_13.html` | 逐页源稿（1280×720 独立 HTML，TailwindCSS + global.css） |
 | `slides/global.css` | 全套设计系统（调色板、字号 token、卡片/胶囊/幽灵数字等组件） |
 | `slides/slides_brief.json` | 结构清单（13 页的标题/版式/内容简报，单一事实源） |

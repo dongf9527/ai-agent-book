@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>深入理解 AI Agent · 第二章 上下文工程 一页通</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+  html, body { margin:0; padding:0; width:1280px; height:720px; overflow:hidden; background:var(--bg); }
+  /* formula tile（与家族页同语言） */
+  .fx-tile { display:inline-flex; align-items:center; white-space:nowrap; padding:4px 11px; gap:5px;
+    border:1px solid var(--line); border-radius:9px;
+    background:linear-gradient(180deg, var(--bg-softer), var(--bg-soft));
+    font-family:var(--font-num); color:var(--primary); }
+  .fx-op  { color:var(--accent-strong); font-weight:700; font-family:var(--font-num); }
+  .fx-cjk { font-family:var(--font-cn); }
+  .fx-sub { font-size:.7em; letter-spacing:0; }
+  /* bento 行分隔 */
+  .b-row + .b-row { border-top:1px solid var(--line); }
+  .b-dot { width:5px; height:5px; flex:none; border-radius:1.5px; background:var(--accent); opacity:.75; transform:rotate(45deg); }
+  .hd-t { font-size:13.5px; font-weight:700; letter-spacing:.05em; color:var(--primary); }
+  .hl { color:var(--primary); font-weight:700; }
+  .mono { font-family:var(--font-num); font-size:.94em; }
+  .acc { color:var(--accent-strong); font-family:var(--font-num); font-weight:700; }
+  /* 底部三格 */
+  .ft-cell { display:flex; align-items:center; gap:9px; min-width:0; padding:0 13px; }
+  .ft-cell + .ft-cell { border-left:1px solid var(--accent-line); }
+  .ft-tag { display:flex; flex-direction:column; align-items:center; gap:2px; flex:none; color:var(--accent-strong); }
+  .ft-tag .material-icons { font-size:15px; }
+  .ft-tag span { font-size:10px; font-weight:700; letter-spacing:.12em; white-space:nowrap; }
+  .ft-txt { margin:0; font-size:10.8px; line-height:1.45; color:var(--secondary); }
+  /* 实验条 chips */
+  .exp-chip { font-size:10px; padding:3px 8px; gap:3px; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- 章节水印（纯装饰） -->
+  <div class="ghost-num" data-decor aria-hidden="true" style="position:absolute; top:-18px; right:26px; font-size:172px; font-weight:700; opacity:.42; z-index:0;">02</div>
+
+  <div class="relative flex flex-col" style="width:100%; height:100%; padding:44px 48px; gap:10px;">
+
+    <!-- ═══════════ ① 头部横带 ═══════════ -->
+    <header class="shrink-0 flex items-start justify-between" style="height:66px; gap:24px;">
+      <div style="min-width:0;">
+        <div class="kicker num" style="font-size:10.5px; letter-spacing:.24em;">
+          <span class="glow-dot" data-decor aria-hidden="true" style="width:7px; height:7px;"></span>
+          <span>CHAPTER 02 · CONTEXT ENGINEERING</span>
+          <span style="color:var(--secondary); letter-spacing:.16em; font-family:var(--font-cn);">· 李博杰《深入理解 AI Agent》</span>
+        </div>
+        <h1 style="margin:6px 0 0; font-family:var(--font-heading); font-size:var(--fs-h2); line-height:1.15; font-weight:900; letter-spacing:.01em; color:var(--primary);">
+          上下文工程 —— 决定 Agent <span class="text-accent">能力上限</span>的关键
+        </h1>
+        <div style="margin-top:4px; font-size:var(--fs-micro); color:var(--muted); letter-spacing:.05em;">
+          全书最关键的一章 ｜ 主线：显式管理信息 —— 静态前缀 + 动态轨迹
+        </div>
+      </div>
+      <div class="flex items-center shrink-0" style="gap:8px; padding-top:22px;">
+        <span class="chip-ghost" style="font-size:11px; padding:4px 13px;"><span class="num" style="font-weight:700; color:var(--accent-strong);">8</span><span>板块</span></span>
+        <span class="chip-ghost" style="font-size:11px; padding:4px 13px;"><span class="num" style="font-weight:700; color:var(--accent-strong);">10</span><span>实验</span></span>
+      </div>
+    </header>
+
+    <!-- ═══════════ ② 公式横带 ═══════════ -->
+    <section class="shrink-0 flex items-center justify-center" style="height:52px; gap:8px;">
+      <div class="fx-tile" style="font-size:12px;">c<span class="fx-sub">t</span> <span class="fx-op">=</span> (o₁, a₁, …, o<span class="fx-sub">t</span>)</div>
+      <span class="fx-op" data-decor aria-hidden="true" style="font-size:16px;font-family:'JetBrains Mono',monospace;">→</span>
+      <div class="fx-tile" style="font-size:12px;">
+        <span class="fx-cjk" style="font-weight:700;">静态前缀</span> <span class="fx-op">=</span> System Prompt + Tools
+        <span class="fx-cjk" style="font-size:11px; color:var(--secondary);">（字节级不动）</span>
+      </div>
+      <span class="fx-op" style="font-size:15px;">+</span>
+      <div class="fx-tile" style="font-size:12px;">
+        <span class="fx-cjk" style="font-weight:700;">轨迹</span> <span class="fx-op">=</span> user / assistant / tool
+        <span class="fx-cjk" style="font-size:11px; color:var(--secondary);">持续追加</span>
+      </div>
+      <span class="fx-op" data-decor aria-hidden="true" style="font-size:16px;font-family:'JetBrains Mono',monospace;">→</span>
+      <div class="fx-tile" style="font-size:12px; border-color:var(--accent-line); background:var(--accent-soft); color:var(--accent-strong);">
+        <i class="material-icons" data-decor aria-hidden="true" style="font-size:13px; color:var(--accent);">bolt</i>
+        KV Cache <span class="fx-cjk" style="font-weight:700;">命中</span> <span class="fx-op">=</span> <span class="fx-cjk">成本</span> × 1/10
+      </div>
+    </section>
+
+    <!-- ═══════════ ③ 三列 bento ═══════════ -->
+    <main class="flex min-h-0" style="flex:1 1 0; gap:12px;">
+
+      <!-- ── 列 1 · 机制层 ── -->
+      <section class="card card-line-l flex flex-col min-h-0" style="flex:1 1 0; min-width:0; padding:11px 15px 9px;">
+        <div class="flex items-center shrink-0" style="gap:7px;">
+          <i class="material-icons" style="font-size:16px; color:var(--accent);">memory</i>
+          <span class="hd-t">机制层 · <span class="num" style="font-size:12.5px;">KV Cache</span></span>
+        </div>
+        <div class="rule" style="margin:7px 0 1px;" data-decor aria-hidden="true"></div>
+        <div class="flex flex-col" style="flex:1 1 0; min-height:0;">
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">四种消息角色</span> <span class="mono">system / user / assistant / tool</span> ＋ <span class="mono">tools</span> 字段 = <span class="hl">上下文五要素</span></p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">API 无状态</span>：每轮重建完整上下文，框架只管理 <span class="mono">messages</span> 列表</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">三条铁律</span>：静态前缀不改 · 动态追加末尾 · 标准 API 格式</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl"><span class="mono">KV Cache</span> 管单次请求</span>，<span class="mono">Prompt Cache</span> 管跨请求前缀</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">缓存即架构约束</span>：缓存边界定结构 · 子 Agent 字节级对齐 · 只追加不改写</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 列 2 · 内容设计层 ── -->
+      <section class="card card-line-l flex flex-col min-h-0" style="flex:1 1 0; min-width:0; padding:11px 15px 9px;">
+        <div class="flex items-center shrink-0" style="gap:7px;">
+          <i class="material-icons" style="font-size:16px; color:var(--accent);">design_services</i>
+          <span class="hd-t">内容设计层 · 提示 / 注入 / Skills</span>
+        </div>
+        <div class="rule" style="margin:7px 0 1px;" data-decor aria-hidden="true"></div>
+        <div class="flex flex-col" style="flex:1 1 0; min-height:0;">
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">结构化提示</span>：<span class="mono">XML</span> 管语义、<span class="mono">Markdown</span> 管可读；流程驱动 &gt; 规则堆砌</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">消融排序</span>：信息组织（成功率 <span class="acc">−30%+</span>） &gt; 工具描述（错误 <span class="acc">+45%</span>） &gt; 语气（有限）</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">提示注入</span>：指令与数据分离 · 来源标记 —— Skill 与状态栏是新的注入面</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">Skills 渐进式披露三层</span>：元数据目录 <span style="color:var(--accent);">→</span> 正文 <span style="color:var(--accent);">→</span> 细则</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl"><span class="mono">description</span> 写成路由条件</span>；少量常驻、按需加载，不破坏缓存前缀</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 列 3 · 状态与减法 ── -->
+      <section class="card card-line-l flex flex-col min-h-0" style="flex:1 1 0; min-width:0; padding:11px 15px 9px;">
+        <div class="flex items-center shrink-0" style="gap:7px;">
+          <i class="material-icons" style="font-size:16px; color:var(--accent);">compress</i>
+          <span class="hd-t">状态与减法 · 状态栏 / 压缩</span>
+        </div>
+        <div class="rule" style="margin:7px 0 1px;" data-decor aria-hidden="true"></div>
+        <div class="flex flex-col" style="flex:1 1 0; min-height:0;">
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">上下文学习 = 检索而非推理</span> ——「只有一半的检索引擎」缺提炼层</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">状态栏</span>把隐式状态算成显式知识，以 <span class="mono">user</span> 消息追加在末尾</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">每轮替换 <span class="mono">vs</span> 持久追加</span>：缓存代价与陈旧累积的权衡</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">压缩三动机</span>：长度成本 · 思考质量 · 上下文焦虑；腐化 = 装得下但找不到</p>
+          </div>
+          <div class="b-row flex items-center" style="flex:1 1 0; min-height:0; gap:9px;">
+            <span class="b-dot" data-decor aria-hidden="true"></span>
+            <p style="margin:0; font-size:11.5px; line-height:1.5; color:var(--secondary);"><span class="hl">隔离优于压缩</span>：子 Agent 让海量中间结果根本不进主上下文</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════ ④ 实验横条 ═══════════ -->
+    <section class="shrink-0 flex items-center justify-between" style="height:42px; gap:5px;">
+      <span class="chip-ghost exp-chip"><span class="num">2-1</span><span style="color:var(--accent);">★</span><span>本地工具调用</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-2</span><span style="color:var(--accent);">★</span><span>注意力可视化</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-3</span><span style="color:var(--accent);">★★</span><span>错误模式</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-4</span><span style="color:var(--accent);">★★</span><span>提示消融</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-5</span><span style="color:var(--accent);">★★</span><span>注入攻防</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-6</span><span style="color:var(--accent);">★★</span><span>论文→PPT</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-7</span><span style="color:var(--accent);">★★</span><span>写作 Skill</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-8</span><span style="color:var(--accent);">★★</span><span>状态栏注意力</span></span>
+      <span class="chip-ghost exp-chip"><span class="num">2-9</span><span style="color:var(--accent);">★★</span><span>状态栏技术</span></span>
+      <span class="chip-ghost exp-chip" style="border-color:var(--accent-line);"><span class="num">2-10</span><span style="color:var(--accent);">★★★</span><span>六种压缩策略</span></span>
+    </section>
+
+    <!-- ═══════════ ⑤ 底部收边横带 ═══════════ -->
+    <footer class="card-accent shrink-0 flex items-stretch" style="height:58px;">
+      <div class="ft-cell" style="flex:1.02 1 0; padding-left:15px;">
+        <div class="ft-tag"><i class="material-icons">format_quote</i><span>核心论断</span></div>
+        <p class="ft-txt">上下文学习是<span class="hl">检索而非推理</span> —— 状态栏与压缩都是在给「只有一半的检索引擎」补上提炼层</p>
+      </div>
+      <div class="ft-cell" style="flex:1.18 1 0;">
+        <div class="ft-tag"><i class="material-icons">terminal</i><span>仓库实践</span></div>
+        <p class="ft-txt">实验 <span class="mono">1-1</span> 双 canonical 缓存命中率：Ollama <span class="acc">80.6%</span> vs Kimi <span class="acc">48.0%</span>；<span class="mono">no_reasoning</span> 臂 = R1→V4 思维链协议谱系实测</p>
+      </div>
+      <div class="ft-cell" style="flex:1 1 0;">
+        <div class="ft-tag"><i class="material-icons">map</i><span>配套资料</span></div>
+        <p class="ft-txt">学习路径 + 思维导图 <span style="color:var(--accent);">→</span> <span class="mono">docs/guide/</span>（<span class="mono">2026-10-27</span> 第二章上下文工程学习路径）</p>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<aside data-notes class="hidden">第二章是全书最关键的一章：上下文决定 Agent 的能力上限。主线是显式管理信息——上下文等于静态前缀加动态轨迹：System Prompt 与 Tools 字节级不动，user、assistant、tool 消息持续追加在末尾；守住「前缀不改、追加末尾、标准格式」三条铁律，KV Cache 命中就能把单次请求成本降到约十分之一。机制层讲五要素、无状态 API 与缓存即架构约束；内容层讲结构化提示、注入攻防与 Skills 渐进披露；状态层讲状态栏、压缩三动机与隔离优于压缩。核心论断：上下文学习是检索而非推理，状态栏与压缩都是在给它补上提炼层。收尾钩子：仓库实验 1-1 实测双 canonical 缓存命中率 Ollama 80.6%、Kimi 48.0%，欢迎对照 docs/guide 学习路径复现。</aside>
+</body>
+</html>
